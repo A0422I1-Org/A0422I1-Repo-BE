@@ -1,0 +1,55 @@
+package com.example.demo.model.ticket;
+
+import com.example.demo.model.movie.Movie;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.Set;
+
+@Getter
+@Setter
+@Entity
+public class ShowTime {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @DateTimeFormat
+    @NotNull
+    private Date date;
+    @NotNull
+    private String startTime;
+    private String endTime;
+    @NotNull
+    private String soldOut;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+
+    @OneToMany(mappedBy = "showTime")
+    @JsonBackReference
+    private Set<Ticket> ticketSet;
+
+    private Boolean isDelete;
+
+    public ShowTime() {
+    }
+
+    public ShowTime(Integer id, @NotNull Date date, @NotNull String startTime, String endTime,
+                    @NotNull String soldOut, Movie movie, Set<Ticket> ticketSet, Boolean isDelete) {
+        this.id = id;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.soldOut = soldOut;
+        this.movie = movie;
+        this.ticketSet = ticketSet;
+        this.isDelete = isDelete;
+    }
+}

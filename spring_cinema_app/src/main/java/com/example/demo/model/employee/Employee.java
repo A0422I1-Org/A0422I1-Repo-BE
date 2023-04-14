@@ -1,0 +1,78 @@
+package com.example.demo.model.employee;
+
+import com.example.demo.model.account.Account;
+import com.example.demo.model.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import sun.awt.image.ImageWatched;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.Set;
+
+@Getter
+@Setter
+@Entity
+public class Employee {
+    @Id
+    @Column(columnDefinition = ("varchar(45)"))
+    private String id;
+    @NotNull
+    private String fullName;
+    private String image;
+    @NotNull
+    private String gender;
+    @DateTimeFormat()
+    @NotNull
+    private Date birthday;
+    @NotNull
+    private String email;
+    @NotNull
+    private String is_active;
+    @NotNull
+    @Column(columnDefinition = ("varchar(15)"))
+    private Integer phoneNumber;
+    @NotNull
+    @Column(columnDefinition = ("varchar(255)"))
+    private String address;
+    @Column(columnDefinition = ("varchar(255)"))
+    private String cardId;
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    @NotNull
+    private Position position;
+    @OneToOne
+    @JoinColumn(name = "username")
+    @NotNull
+    private Account account;
+//    @OneToMany(mappedBy = "employee")
+//    @JsonBackReference
+//    private Set<Ticket> tickets;
+
+    private Boolean isDelete;
+
+    public Employee() {
+    }
+
+    public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
+                    @NotNull String email, @NotNull String is_active, @NotNull Integer phoneNumber,
+                    @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
+                    Boolean isDelete) {
+        this.id = id;
+        this.fullName = fullName;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.is_active = is_active;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
+        this.position = position;
+        this.account = account;
+        this.isDelete = isDelete;
+    }
+}
