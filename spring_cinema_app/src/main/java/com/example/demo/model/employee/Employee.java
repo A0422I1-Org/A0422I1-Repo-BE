@@ -30,8 +30,7 @@ public class Employee {
     private Date birthday;
     @NotNull
     private String email;
-    @NotNull
-    private String is_active;
+    private Boolean isActivated;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
     private Integer phoneNumber;
@@ -58,7 +57,7 @@ public class Employee {
     }
 
     public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull String is_active, @NotNull Integer phoneNumber,
+                    @NotNull String email, @NotNull Boolean isActivated, @NotNull Integer phoneNumber,
                     @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
                     Boolean isDelete) {
         this.id = id;
@@ -67,7 +66,7 @@ public class Employee {
         this.gender = gender;
         this.birthday = birthday;
         this.email = email;
-        this.is_active = is_active;
+        this.isActivated = isActivated;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.cardId = cardId;

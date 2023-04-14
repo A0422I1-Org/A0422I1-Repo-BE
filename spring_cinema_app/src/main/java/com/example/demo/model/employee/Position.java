@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 @Getter
 @Setter
@@ -15,6 +16,8 @@ public class Position {
     private Integer id;
     @Column(columnDefinition = ("varchar(255)"))
     private String name;
+    @NotNull
+    private Boolean isDelete;
     @OneToMany(mappedBy = "position")
     @JsonBackReference
     private Set<Employee> employeeSet;
@@ -22,9 +25,10 @@ public class Position {
     public Position() {
     }
 
-    public Position(Integer id, String name, Set<Employee> employeeSet) {
+    public Position(Integer id, String name, Boolean isDelete, Set<Employee> employeeSet) {
         this.id = id;
         this.name = name;
+        this.isDelete = isDelete;
         this.employeeSet = employeeSet;
     }
 }
