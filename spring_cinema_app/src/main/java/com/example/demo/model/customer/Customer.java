@@ -29,11 +29,11 @@ public class Customer {
     private String email;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
-    private Integer phoneNumber;
+    private String phoneNumber;
     @NotNull
     private String address;
     @NotNull
-    private Integer cardId;
+    private String cardId;
 
     @OneToOne
     @JoinColumn(name = "username")
@@ -54,8 +54,8 @@ public class Customer {
     }
 
     public Customer(String id, @NotNull String fullName, @NotNull String gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull Integer phoneNumber, @NotNull String address,
-                    @NotNull Integer cardId,
+                    @NotNull String email, @NotNull String phoneNumber, @NotNull String address,
+                    @NotNull String cardId,
                     @NotNull Account account, Set<Ticket> tickets, Set<Point> points, Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;

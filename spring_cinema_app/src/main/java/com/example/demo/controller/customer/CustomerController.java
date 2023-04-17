@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.customer;
 
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
@@ -13,8 +13,9 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RequestMapping("customer")
-public class CustomerManagementController {
+@RequestMapping("api/customer")
+public class CustomerController {
+
     @Autowired
     private ITicketService iTicketService;
 
@@ -27,5 +28,6 @@ public class CustomerManagementController {
         List<Ticket> ticketList = iTicketService.findAllTicketByCustomer(customer);
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
+
 
 }
