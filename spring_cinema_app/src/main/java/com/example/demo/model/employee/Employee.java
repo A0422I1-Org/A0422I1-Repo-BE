@@ -33,7 +33,7 @@ public class Employee {
     private Boolean isActivated;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
-    private Integer phoneNumber;
+    private String phoneNumber;
     @NotNull
     @Column(columnDefinition = ("varchar(255)"))
     private String address;
@@ -57,7 +57,7 @@ public class Employee {
     }
 
     public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull Boolean isActivated, @NotNull Integer phoneNumber,
+                    @NotNull String email, @NotNull Boolean isActivated, @NotNull String phoneNumber,
                     @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
                     Boolean isDelete) {
         this.id = id;
