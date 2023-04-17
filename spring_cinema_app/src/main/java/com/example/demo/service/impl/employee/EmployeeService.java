@@ -4,6 +4,8 @@ import com.example.demo.model.employee.Employee;
 import com.example.demo.repository.employee.IEmployeeRepository;
 import com.example.demo.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,17 +27,19 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public Page<Employee> findAll(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 
     @Override
-    public List<Employee> findAllByFullNameContaining(String name) {
-        return employeeRepository.findAllByFullNameContaining(name);
+    public Page<Employee> findAllByFullNameContaining(String name, Pageable pageable) {
+        return employeeRepository.findAllByFullNameContaining(name,pageable);
     }
 
     @Override
-    public List<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId) {
-        return employeeRepository.findAllByFullNameContainingAndPosition(name,positionId);
+    public Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId, Pageable pageable) {
+        return employeeRepository.findAllByFullNameContainingAndPosition(name,positionId,pageable);
     }
+
+
 }

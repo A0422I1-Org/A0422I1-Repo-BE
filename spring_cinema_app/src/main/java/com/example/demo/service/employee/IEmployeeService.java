@@ -13,9 +13,9 @@ public interface IEmployeeService {
 
     void remove(String id);
 
-    List<Employee> findAll();
+    Page<Employee> findAll(Pageable pageable);
 
-    List<Employee> findAllByFullNameContaining(String name);
+    Page<Employee> findAllByFullNameContaining(String name,Pageable pageable);
 
-    List<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId);
+    Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId,Pageable pageable);
 }
