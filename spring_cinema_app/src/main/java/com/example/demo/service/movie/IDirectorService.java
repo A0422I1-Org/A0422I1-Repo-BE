@@ -1,4 +1,6 @@
 package com.example.demo.service.movie;
 
-public interface IDirectorService {
+import com.example.demo.model.movie.Director;
+
+public interface IDirectorService extends IBaseService<Director> {
 }

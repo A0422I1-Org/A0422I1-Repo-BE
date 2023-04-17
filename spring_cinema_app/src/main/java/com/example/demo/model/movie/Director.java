@@ -17,14 +17,13 @@ public class Director {
     private String name;
     private Boolean isDelete;
 
-    @OneToMany(mappedBy = "director")
-    @JsonBackReference
-    private Set<MovieDirector> movieDirectors;
+
+    private MovieDirector movieDirectors;
 
     public Director() {
     }
 
-    public Director(Integer id, String name, Boolean isDelete, Set<MovieDirector> movieDirectors) {
+    public Director(Integer id, String name, Boolean isDelete, MovieDirector movieDirectors) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;

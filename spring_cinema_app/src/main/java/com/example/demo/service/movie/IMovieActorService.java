@@ -1,4 +1,6 @@
 package com.example.demo.service.movie;
 
-public interface IMovieActorService {
+import com.example.demo.model.movie.MovieActor;
+
+public interface IMovieActorService extends IBaseService<MovieActor> {
 }

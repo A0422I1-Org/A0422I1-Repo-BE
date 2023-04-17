@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -18,25 +19,45 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank
     @NotNull
     private String name;
+
+    @NotBlank
     @NotNull
     private String image;
+
+    @NotBlank
     @DateTimeFormat
     private Date startDay;
+
+    @NotBlank
     @NotNull
     private Integer timeAmount;
+
+    @NotBlank
     @NotNull
     @Column(columnDefinition = ("text"))
     private String description;
+
+    @NotBlank
     @NotNull
     private String status;
+
+    @NotBlank
     @NotNull
     private String trailer;
+
+    @NotBlank
     @NotNull
     private Double rating;
+
+    @NotBlank
     @NotNull
     private String language;
+
+    @NotBlank
     @NotNull
     private Boolean isDelete;
 

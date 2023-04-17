@@ -1,7 +1,10 @@
 package com.example.demo.repository.movie;
 
+import com.example.demo.model.movie.Movie;
+import com.example.demo.model.movie.MovieDirector;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IMovieDirectorRepository {
+public interface IMovieDirectorRepository extends JpaRepository<MovieDirector,Integer> {
 }
