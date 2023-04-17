@@ -17,4 +17,11 @@ public class MovieService implements IMovieService {
         return movieRepository.findStatisticMovie();
     }
 
+    public List<?> findStatisticMovieAcs() {
+        return movieRepository.findStatisticMovieAcs();
+    }
+
+    public List<?> searchStatisticMovieByName(String nameMovie) {
+        return movieRepository.searchStatisticMovieByName(nameMovie);
+    }
 }
