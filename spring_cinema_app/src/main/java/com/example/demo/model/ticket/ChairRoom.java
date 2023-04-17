@@ -25,19 +25,14 @@ public class ChairRoom {
     @JoinColumn(name = "chair_id")
     private Chair chair;
 
-    @OneToMany(mappedBy = "chairRoom")
-    @JsonBackReference
-    private Set<Ticket> tickets;
-
     public ChairRoom() {
     }
 
-    public ChairRoom(Integer id, Boolean status, Boolean isDelete, Room room, Chair chair, Set<Ticket> tickets) {
+    public ChairRoom(Integer id, Boolean status, Boolean isDelete, Room room, Chair chair) {
         this.id = id;
         this.status = status;
         this.isDelete = isDelete;
         this.room = room;
         this.chair = chair;
-        this.tickets = tickets;
     }
 }

@@ -43,13 +43,6 @@ public class Employee {
     @JoinColumn(name = "position_id")
     @NotNull
     private Position position;
-    @OneToOne
-    @JoinColumn(name = "username")
-    @NotNull
-    private Account account;
-//    @OneToMany(mappedBy = "employee")
-//    @JsonBackReference
-//    private Set<Ticket> tickets;
 
     private Boolean isDelete;
 
@@ -58,7 +51,7 @@ public class Employee {
 
     public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
                     @NotNull String email, @NotNull Boolean isActivated, @NotNull Integer phoneNumber,
-                    @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
+                    @NotNull String address, String cardId, @NotNull Position position,
                     Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;
@@ -71,7 +64,6 @@ public class Employee {
         this.address = address;
         this.cardId = cardId;
         this.position = position;
-        this.account = account;
         this.isDelete = isDelete;
     }
 }

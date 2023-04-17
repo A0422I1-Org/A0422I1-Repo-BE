@@ -44,10 +44,6 @@ public class Customer {
     @JsonBackReference
     private Set<Ticket> tickets;
 
-    @OneToMany(mappedBy = "customers")
-    @JsonBackReference
-    private Set<Point> points;
-
     private Boolean isDelete;
 
     public Customer() {
@@ -56,7 +52,7 @@ public class Customer {
     public Customer(String id, @NotNull String fullName, @NotNull String gender, @NotNull Date birthday,
                     @NotNull String email, @NotNull Integer phoneNumber, @NotNull String address,
                     @NotNull Integer cardId,
-                    @NotNull Account account, Set<Ticket> tickets, Set<Point> points, Boolean isDelete) {
+                    @NotNull Account account, Set<Ticket> tickets, Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;
         this.gender = gender;
@@ -67,7 +63,6 @@ public class Customer {
         this.cardId = cardId;
         this.account = account;
         this.tickets = tickets;
-        this.points = points;
         this.isDelete = isDelete;
     }
 }
