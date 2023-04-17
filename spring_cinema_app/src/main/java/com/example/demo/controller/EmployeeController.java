@@ -23,14 +23,6 @@ public class EmployeeController {
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Employee> findEmployeeById(@PathVariable String id){
-//        Optional<Employee>employeeOptional = employeeService.findEmployeeById(id);
-//        if (!employeeOptional.isPresent()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(employeeOptional.get(),HttpStatus.OK);
-//    }
     @PutMapping("/id")
     public ResponseEntity<Employee> updateEmployee(@PathVariable String id, @RequestBody Employee employee){
         Optional<Employee> employeeOptional = employeeService.findEmployeeById(id);
