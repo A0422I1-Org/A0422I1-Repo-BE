@@ -21,6 +21,8 @@ public class Account {
     private String password;
     @NotNull
     private Boolean isDelete;
+    @NotNull
+    private Boolean isEnable;
     @Column(columnDefinition = ("varchar(255)"))
     private String verification_code;
     @OneToMany(mappedBy = "account")
@@ -37,11 +39,11 @@ public class Account {
     public Account() {
     }
 
-    public Account(String username, String password, Boolean isDelete, String verification_code,
-                   Set<AccountRole> accountRoles, Employee employees, Customer customer) {
+    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Set<AccountRole> accountRoles, Employee employees, Customer customer) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
+        this.isEnable = isEnable;
         this.verification_code = verification_code;
         this.accountRoles = accountRoles;
         this.employees = employees;

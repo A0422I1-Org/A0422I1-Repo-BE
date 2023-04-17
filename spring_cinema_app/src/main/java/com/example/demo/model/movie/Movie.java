@@ -25,19 +25,20 @@ public class Movie {
     @DateTimeFormat
     private Date startDay;
     @NotNull
-    private String director;
+    private Integer timeAmount;
     @NotNull
-    private String actor;
-    @NotNull
-    private Integer timeAmuont;
-    @NotNull
-    private String movieStudio;
-    @NotNull
+    @Column(columnDefinition = ("text"))
     private String description;
     @NotNull
     private String status;
     @NotNull
     private String trailer;
+    @NotNull
+    private Double rating;
+    @NotNull
+    private String language;
+    @NotNull
+    private Boolean isDelete;
 
     @OneToMany(mappedBy = "movie")
     @JsonBackReference
@@ -62,22 +63,18 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(Integer id, @NotNull String name, @NotNull String image, Date startDay, @NotNull String director,
-                 @NotNull String actor, @NotNull Integer timeAmuont, @NotNull String movieStudio,
-                 @NotNull String description, @NotNull String status, @NotNull String trailer, Set<ShowTime> showTimes,
-                 Set<MovieAndType> movieAndTypes, Set<MovieActor> movieActors,
-                 Set<MovieAndStudio> movieAndStudios, Set<MovieDirector> movieDirectors) {
+    public Movie(Integer id, String name, String image, Date startDay, Integer timeAmount, String description, String status, String trailer, Double rating, String language, Boolean isDelete, Set<ShowTime> showTimes, Set<MovieAndType> movieAndTypes, Set<MovieActor> movieActors, Set<MovieAndStudio> movieAndStudios, Set<MovieDirector> movieDirectors) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.startDay = startDay;
-        this.director = director;
-        this.actor = actor;
-        this.timeAmuont = timeAmuont;
-        this.movieStudio = movieStudio;
+        this.timeAmount = timeAmount;
         this.description = description;
         this.status = status;
         this.trailer = trailer;
+        this.rating = rating;
+        this.language = language;
+        this.isDelete = isDelete;
         this.showTimes = showTimes;
         this.movieAndTypes = movieAndTypes;
         this.movieActors = movieActors;

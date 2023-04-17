@@ -21,6 +21,8 @@ public class Ticket {
     @NotNull
     private Double price;
     private Date book_datetime;
+    @NotNull
+    private Boolean status;
     private Boolean isDelete;
     @ManyToOne
     @JoinColumn(name = "customer_id",columnDefinition = ("varchar(20)"))
@@ -40,10 +42,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String id, @NotNull Double price, Boolean isDelete, Customer customer, ShowTime showTime,
-                  ChairRoom chairRoom) {
+    public Ticket(String id, Double price, Date book_datetime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
+        this.book_datetime = book_datetime;
+        this.status = status;
         this.isDelete = isDelete;
         this.customer = customer;
         this.showTime = showTime;
