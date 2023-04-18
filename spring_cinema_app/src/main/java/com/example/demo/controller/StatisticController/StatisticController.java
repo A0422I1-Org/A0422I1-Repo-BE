@@ -17,15 +17,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/statistic")
 public class StatisticController {
-    /**
-     *
-     */
+
     @Autowired
     MovieService movieService;
     @Autowired
     CustomerService customerService;
     @Autowired
     PointService pointService;
+
 
     @GetMapping("/movieList")
     public ResponseEntity<List<?>> getListMovieStatistic(){

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ICustomerRepository  extends JpaRepository<Customer,String> {
 
-    @Query("select c. from Customer c left join point p on p.customer_id = c.id ")
-    List<Customer> findAllCustomer();
+//    @Query("select c. from Customer c left join point p on p.customer_id = c.id ")
+//    List<Customer> findAllCustomer();
 }
