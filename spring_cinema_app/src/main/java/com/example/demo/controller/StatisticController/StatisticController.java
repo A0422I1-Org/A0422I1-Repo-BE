@@ -52,4 +52,9 @@ public class StatisticController {
         return new ResponseEntity<>(pointService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<List<Point>> test(){
+        return new ResponseEntity<>(pointService.findAll(), HttpStatus.OK);
+    }
+
 }
