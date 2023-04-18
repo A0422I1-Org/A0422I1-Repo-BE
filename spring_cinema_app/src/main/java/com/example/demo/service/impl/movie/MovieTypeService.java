@@ -13,7 +13,6 @@ public class MovieTypeService implements IMovieTypeService {
     @Autowired
     IMovieTypeRepository movieTypeRepository;
 
-
     @Override
     public List<?> statisticCategoryMovie() {
         return movieTypeRepository.statisticCategoryMovie();
