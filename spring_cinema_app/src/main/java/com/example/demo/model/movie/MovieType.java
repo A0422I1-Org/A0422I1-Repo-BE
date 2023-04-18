@@ -15,19 +15,15 @@ public class MovieType {
     private Integer id;
     @NotNull
     private String name;
-    @OneToMany(mappedBy = "movieType")
-    @JsonBackReference
-    private Set<MovieAndType> movieAndTypes;
     @NotNull
     private Boolean isDelete;
 
     public MovieType() {
     }
 
-    public MovieType(Integer id, @NotNull String name, Set<MovieAndType> movieAndTypes, @NotNull Boolean isDelete) {
+    public MovieType(Integer id, @NotNull String name, @NotNull Boolean isDelete) {
         this.id = id;
         this.name = name;
-        this.movieAndTypes = movieAndTypes;
         this.isDelete = isDelete;
     }
 }

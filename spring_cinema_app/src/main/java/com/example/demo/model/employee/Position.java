@@ -18,17 +18,13 @@ public class Position {
     private String name;
     @NotNull
     private Boolean isDelete;
-    @OneToMany(mappedBy = "position")
-    @JsonBackReference
-    private Set<Employee> employeeSet;
 
     public Position() {
     }
 
-    public Position(Integer id, String name, Boolean isDelete, Set<Employee> employeeSet) {
+    public Position(Integer id, String name, Boolean isDelete) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
-        this.employeeSet = employeeSet;
     }
 }
