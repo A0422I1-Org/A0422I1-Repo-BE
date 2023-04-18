@@ -16,6 +16,6 @@ public class TicketService implements ITicketService {
 
     @Override
     public List<Ticket> findAllTicketByCustomer(Customer customer) {
-        return iTicketRepository.findTicketByCustomer(customer);
+        return iTicketRepository.findTicketByCustomer(customer.getId());
     }
 }
