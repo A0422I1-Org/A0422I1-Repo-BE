@@ -21,7 +21,7 @@ public class Customer {
     @NotNull
     private String fullName;
     @NotNull
-    private String gender;
+    private boolean gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -53,7 +53,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String id, @NotNull String fullName, @NotNull String gender, @NotNull Date birthday,
+    public Customer(String id, @NotNull String fullName, @NotNull boolean gender, @NotNull Date birthday,
                     @NotNull String email, @NotNull String phoneNumber, @NotNull String address,
                     @NotNull String cardId,
                     @NotNull Account account, Set<Ticket> tickets, Set<Point> points, Boolean isDelete) {
