@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -18,14 +19,20 @@ import java.util.Date;
 @Setter
 public class MovieViewDTO implements Serializable {
     private Integer id;
+    private String name;
     private Integer timeAmount;
     private Date startDay;
     private String movieStudio;
-
-    public MovieViewDTO(Movie movie){
+    private Boolean isDelete;
+    public MovieViewDTO(Movie movie) {
         this.id = movie.getId();
+        this.name = movie.getName();
         this.timeAmount = movie.getTimeAmount();
         this.startDay = movie.getStartDay();
-        this.movieStudio = movie.getMovieAndStudios().getMovieStudio().getName();
+        this.movieStudio = movie.getGetListStudio()
+                .stream()
+                .map(item -> item.getMovieStudio().getName())
+                .collect(Collectors.joining(", "));
+        this.isDelete = movie.getIsDelete();
     }
 }

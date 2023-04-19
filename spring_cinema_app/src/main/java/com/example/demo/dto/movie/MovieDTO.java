@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import java.beans.Transient;
 import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,6 +23,8 @@ public class MovieDTO {
     private Date startDay;
     @NotNull
     private Integer movieStudioId;
+    @NotNull
+    private Boolean isDelete;
 
     @Transient
     public boolean isNew() {return id == null;}
