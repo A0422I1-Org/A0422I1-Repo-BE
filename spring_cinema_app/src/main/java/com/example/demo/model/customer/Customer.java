@@ -1,8 +1,6 @@
 package com.example.demo.model.customer;
 
 import com.example.demo.model.account.Account;
-import com.example.demo.model.ticket.Ticket;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -21,7 +19,7 @@ public class Customer {
     @NotNull
     private String fullName;
     @NotNull
-    private String gender;
+    private Boolean gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -29,34 +27,26 @@ public class Customer {
     private String email;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
-    private Integer phoneNumber;
+    private String phoneNumber;
     @NotNull
     private String address;
     @NotNull
-    private Integer cardId;
+    private String cardId;
 
     @OneToOne
     @JoinColumn(name = "username")
     @NotNull
     private Account account;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonBackReference
-    private Set<Ticket> tickets;
-
-    @OneToMany(mappedBy = "customers")
-    @JsonBackReference
-    private Set<Point> points;
-
     private Boolean isDelete;
 
     public Customer() {
     }
 
-    public Customer(String id, @NotNull String fullName, @NotNull String gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull Integer phoneNumber, @NotNull String address,
-                    @NotNull Integer cardId,
-                    @NotNull Account account, Set<Ticket> tickets, Set<Point> points, Boolean isDelete) {
+    public Customer(String id, @NotNull String fullName, @NotNull Boolean gender, @NotNull Date birthday,
+                    @NotNull String email, @NotNull String phoneNumber, @NotNull String address,
+                    @NotNull String cardId,
+                    @NotNull Account account, Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;
         this.gender = gender;
@@ -66,8 +56,6 @@ public class Customer {
         this.address = address;
         this.cardId = cardId;
         this.account = account;
-        this.tickets = tickets;
-        this.points = points;
         this.isDelete = isDelete;
     }
 }

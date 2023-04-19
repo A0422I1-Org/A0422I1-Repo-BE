@@ -1,17 +1,13 @@
 package com.example.demo.model.employee;
 
 import com.example.demo.model.account.Account;
-import com.example.demo.model.ticket.Ticket;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import sun.awt.image.ImageWatched;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -24,7 +20,7 @@ public class Employee {
     private String fullName;
     private String image;
     @NotNull
-    private String gender;
+    private Boolean gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -33,7 +29,7 @@ public class Employee {
     private Boolean isActivated;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
-    private Integer phoneNumber;
+    private String phoneNumber;
     @NotNull
     @Column(columnDefinition = ("varchar(255)"))
     private String address;
@@ -47,17 +43,14 @@ public class Employee {
     @JoinColumn(name = "username")
     @NotNull
     private Account account;
-//    @OneToMany(mappedBy = "employee")
-//    @JsonBackReference
-//    private Set<Ticket> tickets;
 
     private Boolean isDelete;
 
     public Employee() {
     }
 
-    public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull Boolean isActivated, @NotNull Integer phoneNumber,
+    public Employee(String id, @NotNull String fullName, String image, @NotNull Boolean gender, @NotNull Date birthday,
+                    @NotNull String email, @NotNull Boolean isActivated, @NotNull String phoneNumber,
                     @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
                     Boolean isDelete) {
         this.id = id;
@@ -73,5 +66,8 @@ public class Employee {
         this.position = position;
         this.account = account;
         this.isDelete = isDelete;
+    }
+    public Employee(String id){
+        this.id = id;
     }
 }

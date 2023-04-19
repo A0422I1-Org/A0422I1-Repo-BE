@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +19,7 @@ public class EmployeeService implements IEmployeeService {
     public Optional<Employee> findById(String id) {
         return employeeRepository.findById(id);
     }
+
 
     @Override
     public void remove(String id) {
@@ -38,6 +38,9 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId, Pageable pageable) {
+        if(positionId<0)
+            return employeeRepository.findAllByFullNameContaining(name,pageable);
+
         return employeeRepository.findAllByFullNameContainingAndPosition(name,positionId,pageable);
     }
 
