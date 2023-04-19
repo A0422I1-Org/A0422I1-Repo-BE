@@ -7,14 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
-    @Query(nativeQuery = true, value =
-            "SELECT start_time, MAX(sold_out) AS max_sold_out, MAX(sold_out) * 50000 AS totalRevenue " +
-                    "FROM show_time " +
-                    "GROUP BY start_time " +
-                    "ORDER BY max_sold_out ASC;")
-    List<?> statisticShowtime();
+    @Query(nativeQuery = true, value = "SELECT show_time.start_time, DATE(ticket.book_datetime) AS sale_date, COUNT(*) AS sold_tickets, COUNT(*) * 50000 AS total_revenue " +
+            "FROM ticket " +
+            "INNER JOIN show_time ON ticket.showtime_id = show_time.id " +
+            "WHERE ticket.status = 1 " +
+            "GROUP BY show_time.start_time, sale_date " +
+            "ORDER BY total_revenue DESC;")
+    List<Map<String, Object>> statisticShowtime();
 
 }

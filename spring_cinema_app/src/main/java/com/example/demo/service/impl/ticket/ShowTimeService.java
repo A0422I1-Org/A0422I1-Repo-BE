@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShowTimeService implements IShowTimeService {
@@ -13,7 +14,7 @@ public class ShowTimeService implements IShowTimeService {
     IShowTimeRepository showTimeRepository;
 
     @Override
-    public List<?> statisticShowtime() {
+    public List<Map<String, Object>> statisticShowtime() {
         return showTimeRepository.statisticShowtime();
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovieTypeService implements IMovieTypeService {
@@ -14,9 +15,7 @@ public class MovieTypeService implements IMovieTypeService {
     IMovieTypeRepository movieTypeRepository;
 
     @Override
-    public List<?> statisticCategoryMovie() {
+    public List<Map<String, Object>> statisticCategoryMovie() {
         return movieTypeRepository.statisticCategoryMovie();
     }
-
-
 }
