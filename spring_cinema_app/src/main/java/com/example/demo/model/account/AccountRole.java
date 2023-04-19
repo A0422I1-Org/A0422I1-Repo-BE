@@ -14,7 +14,7 @@ public class AccountRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "account_username")
     @NotNull
     private Account account;
 
@@ -28,7 +28,7 @@ public class AccountRole {
     public AccountRole() {
     }
 
-    public AccountRole(Integer id, @NotNull Account account, @NotNull Role role, Boolean isDelete) {
+    public AccountRole(Integer id, Account account, Role role, Boolean isDelete) {
         this.id = id;
         this.account = account;
         this.role = role;
