@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.ticket;
 
 import com.example.demo.model.ticket.ShowTime;
 import com.example.demo.service.ticket.IShowTimeService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cinema/showtime")
+@RequestMapping("/api/cinema/showtime")
 public class ShowTimeController {
     @Autowired
     IShowTimeService showTimeService;
