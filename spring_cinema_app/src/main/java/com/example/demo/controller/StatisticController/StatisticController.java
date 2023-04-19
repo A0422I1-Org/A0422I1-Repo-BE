@@ -1,11 +1,8 @@
 package com.example.demo.controller.StatisticController;
 
-import com.example.demo.model.customer.Customer;
-import com.example.demo.model.customer.Point;
-import com.example.demo.service.impl.customer.CustomerService;
-import com.example.demo.service.impl.customer.PointService;
-import com.example.demo.service.impl.movie.MovieService;
 
+import com.example.demo.service.impl.customer.CustomerService;
+import com.example.demo.service.impl.movie.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,39 +19,33 @@ public class StatisticController {
     MovieService movieService;
     @Autowired
     CustomerService customerService;
-    @Autowired
-    PointService pointService;
 
 
     @GetMapping("/movieList")
-    public ResponseEntity<List<?>> getListMovieStatistic(){
+    public ResponseEntity<List<?>> getListMovieStatistic() {
         return new ResponseEntity<>(movieService.findStatisticMovie(), HttpStatus.OK);
     }
 
     @GetMapping("/movieListAcs")
-    public ResponseEntity<List<?>> getListMovieStatisticAcs(){
+    public ResponseEntity<List<?>> getListMovieStatisticAcs() {
         return new ResponseEntity<>(movieService.findStatisticMovieAcs(), HttpStatus.OK);
     }
 
     @GetMapping("/searchMovieList")
-    public ResponseEntity<List<?>> searchListMovieStatisticByName(@RequestParam(value = "nameMovie" ,defaultValue = "") String nameMovie){
+    public ResponseEntity<List<?>> searchListMovieStatisticByName(@RequestParam(value = "nameMovie", defaultValue = "") String nameMovie) {
         List<?> movieList = movieService.searchStatisticMovieByName(nameMovie);
-        return new ResponseEntity<>(movieList,HttpStatus.OK);
+        return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
 
-    @GetMapping("/customerList")
-    public ResponseEntity<List<Customer>> getListCustomerStatistic(){
-        return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
+    @GetMapping("/customerListPoint")
+    public ResponseEntity<List<?>> getListCustomerStatisticPoint() {
+        return new ResponseEntity<>(customerService.getListCustomerPoint(), HttpStatus.OK);
     }
 
-    @GetMapping("/pointList")
-    public ResponseEntity<List<Point>> getListPointStatistic(){
-        return new ResponseEntity<>(pointService.findAll(), HttpStatus.OK);
+    @GetMapping("/customerListTicket")
+    public ResponseEntity<List<?>> getListCustomerStatisticTicket() {
+        return new ResponseEntity<>(customerService.getListCustomerTicket(), HttpStatus.OK);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<List<Point>> test(){
-        return new ResponseEntity<>(pointService.findAll(), HttpStatus.OK);
-    }
 
 }
