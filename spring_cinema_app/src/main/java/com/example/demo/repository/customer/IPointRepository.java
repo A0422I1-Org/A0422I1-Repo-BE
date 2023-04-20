@@ -16,4 +16,5 @@ public interface IPointRepository extends JpaRepository<Point, Integer> {
     @Query(nativeQuery = true, value = "select * from point where customer_id = ? and (is_delete = false)")
     List<Point> findPointByCustomers(String customer);
 
+
 }

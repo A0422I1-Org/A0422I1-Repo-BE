@@ -1,5 +1,6 @@
 package com.example.demo.model.customer;
 
+import com.example.demo.model.movie.Movie;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +27,7 @@ public class Point {
 
     private Boolean isDelete;
 
+
     public Point() {
     }
 
@@ -37,4 +39,53 @@ public class Point {
         this.customers = customers;
         this.isDelete = isDelete;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Customer getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Customer customers) {
+        this.customers = customers;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
 }

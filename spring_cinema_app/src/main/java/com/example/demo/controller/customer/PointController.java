@@ -28,38 +28,4 @@ public class PointController {
     @Autowired
     private IAccountService iAccountService;
 
-    @PostMapping("/savePoint")
-    public ResponseEntity<?> savePoint(@RequestParam int price, @RequestParam String description) {
-        Account account = iAccountService.findByUsername("customer4");
-        Customer customer = iCustomerService.findCustomerByAccount(account);
-        Date dateBookingTicket = new Date();
-        int pointPlus = (int) (price * 0.02);
-        Point point = new Point();
-        point.setDate(dateBookingTicket);
-        point.setDescription("Được cộng điểm do đặt vé xem phim : " + description);
-        point.setPoint(pointPlus);
-        point.setCustomers(customer);
-        point.setIsDelete(false);
-        iPointService.save(point);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/customer-point")
-    public ResponseEntity<List<Point>> getAllPointByCustomer() {
-        Account account = iAccountService.findByUsername("customer4");
-        Customer customer = iCustomerService.findCustomerByAccount(account);
-        List<Point> pointList = iPointService.findAllPointByCustomer(customer);
-        if (pointList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return new ResponseEntity<>(pointList, HttpStatus.OK);
-    }
-
-    @GetMapping("/customer-search-point")
-    public ResponseEntity<List<Point>> getAllPointByDateBetween(@RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                                @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        Account account = iAccountService.findByUsername("customer4");
-        Customer customer = iCustomerService.findCustomerByAccount(account);
-        return new ResponseEntity<>(iPointService.findAllPointDateBetweenByCustomer(startDate, endDate, customer.getId()), HttpStatus.OK);
-    }
 }

@@ -30,15 +30,4 @@ public class CustomerController {
     @Autowired
     private ICustomerService iCustomerService;
 
-    @GetMapping("/customer-ticket")
-    public ResponseEntity<List<Ticket>> getAllTicketByCustomer() {
-        Account account = iAccountService.findByUsername("customer4");
-        Customer customer = iCustomerService.findCustomerByAccount(account);
-        List<Ticket> ticketList = iTicketService.findAllTicketByCustomer(customer);
-        if (ticketList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return new ResponseEntity<>(ticketList, HttpStatus.OK);
-    }
-
 }
