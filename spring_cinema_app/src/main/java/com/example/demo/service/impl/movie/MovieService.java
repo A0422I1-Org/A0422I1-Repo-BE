@@ -13,8 +13,18 @@ public class MovieService implements IMovieService {
     @Autowired
     IMovieRepository movieRepository;
 
+    @Override
     public List<?> findStatisticMovie() {
         return movieRepository.findStatisticMovie();
     }
 
+    @Override
+    public List<?> findStatisticMovieAcs() {
+        return movieRepository.findStatisticMovieAcs();
+    }
+
+    @Override
+    public List<?> searchStatisticMovieByName(String nameMovie) {
+        return movieRepository.searchStatisticMovieByName(nameMovie);
+    }
 }
