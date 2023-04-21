@@ -9,12 +9,13 @@ import com.example.demo.service.customer.IPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
@@ -37,7 +38,7 @@ public class PointController {
      * @Author : TriLHH
      */
     @PostMapping("/savePoint")
-    public ResponseEntity<?> savePoint(@RequestParam int price, @RequestParam String descriptions) {
+    public ResponseEntity<?> savePoint(@RequestParam(name = "price", required = false, defaultValue = "0") int price, @RequestParam String descriptions) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Date dateBookingTicket = new Date();
@@ -73,6 +74,26 @@ public class PointController {
 
 
     /**
+     * @return Integer
+     * @Method : Sum Total Point
+     * @Author : TriLHH
+     */
+
+    @GetMapping("/customer-sum-point")
+    public ResponseEntity<Integer> sumPoint() {
+        Account account = iAccountService.findByUsername("customer4");
+        Customer customer = iCustomerService.findCustomerByAccount(account);
+        List<Point> pointList = iPointService.findAllPointByCustomer(customer);
+        Integer totalPoint = 0;
+        for (Point point : pointList
+        ) {
+            totalPoint += point.getPoint();
+        }
+        return new ResponseEntity<>(totalPoint, HttpStatus.OK);
+    }
+
+
+    /**
      * @param startDate
      * @param endDate
      * @param page
@@ -83,14 +104,12 @@ public class PointController {
      */
 
     @GetMapping("/customer-search-point")
-    public ResponseEntity<Page<Point>> getAllPointByDateBetween(@RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                                @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+    public ResponseEntity<Page<Point>> getAllPointByDateBetween(@RequestParam("startDate") String startDate,
+                                                                @RequestParam("endDate") String endDate,
                                                                 @RequestParam int page, @RequestParam int size) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
-        if (startDate.after(endDate) || startDate.equals(endDate)) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(iPointService.findAllPointDateBetweenByCustomer(startDate, endDate, customer.getId(), page, size), HttpStatus.OK);
+        Pageable pageable = PageRequest.of(page, size);
+        return new ResponseEntity<>(iPointService.findAllPointDateBetweenByCustomer(startDate, endDate, customer.getId(), pageable), HttpStatus.OK);
     }
 }

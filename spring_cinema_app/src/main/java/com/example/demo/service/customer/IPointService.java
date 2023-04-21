@@ -11,7 +11,9 @@ import java.util.List;
 public interface IPointService {
     void save(Point point);
 
+    List<Point> findAllPointByCustomer(Customer customer);
+
     Page<Point> findAllPointByCustomer(Customer customer , Pageable pageable);
 
-    Page<Point> findAllPointDateBetweenByCustomer(Date startDate, Date endDate , String customerId , int page , int size );
+    Page<Point> findAllPointDateBetweenByCustomer(String startDate, String endDate , String customerId ,Pageable  pageable);
 }
