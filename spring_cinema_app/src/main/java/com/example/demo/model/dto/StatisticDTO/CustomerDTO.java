@@ -1,15 +1,10 @@
 package com.example.demo.model.dto.StatisticDTO;
 
 import com.example.demo.model.customer.Customer;
-import com.example.demo.model.movie.Movie;
-import com.example.demo.repository.customer.ICustomerRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component

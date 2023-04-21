@@ -51,13 +51,25 @@ public class CustomerService implements ICustomerService {
         return customerDTOList;
     }
 
-    public List<CustomerDTO> searchCustomerStatisticListByName(String name) {
+    public List<CustomerDTO> searchCustomerStatisticListByNameDesc(String name) {
         List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
         List<CustomerDTO> customerDTOList = new ArrayList<>();
         for (int i = 0 ; i<customerList.size() ; i++){
             CustomerDTO customerDTO = new CustomerDTO(customerList.get(i));
             customerDTOList.add(customerDTO);
         }
+        customerDTOList.sort((o1, o2) -> o2.getTicket().compareTo(o1.getTicket()));
+        return customerDTOList;
+    }
+
+    public List<CustomerDTO> searchCustomerStatisticListByNameAcs(String name) {
+        List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        for (int i = 0 ; i<customerList.size() ; i++){
+            CustomerDTO customerDTO = new CustomerDTO(customerList.get(i));
+            customerDTOList.add(customerDTO);
+        }
+        customerDTOList.sort((o1, o2) -> o1.getTicket().compareTo(o2.getTicket()));
         return customerDTOList;
     }
 
