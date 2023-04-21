@@ -17,7 +17,7 @@ public class TicketRestController {
     private ITicketService ticketService;
 
     /**
-     * Lấy ra tất cả ticket trong db
+     * Lấy ra tất cả ticket trong db...
      * @return List<Ticket>
      */
     @GetMapping("/list")
