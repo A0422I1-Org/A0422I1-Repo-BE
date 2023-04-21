@@ -4,6 +4,8 @@ import com.example.demo.model.ticket.Ticket;
 import com.example.demo.repository.ticket.ITicketRepository;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class TicketService  implements ITicketService {
     @Autowired
     private ITicketRepository iTicketRepository;
     @Override
-    public Iterable<Ticket> searchTicket(String name) {
-        return iTicketRepository.searchTicket(name);
+    public Page<Ticket> searchTicket(String name, Pageable pageable) {
+        return iTicketRepository.searchTicket(name,pageable);
     }
 
     @Override
@@ -25,11 +27,23 @@ public class TicketService  implements ITicketService {
 
     @Override
     public Boolean bookingConfirmation(String id) {
-        return iTicketRepository.bookingConfirmation(id);
+       try {
+            iTicketRepository.bookingConfirmation(id);
+            return true;
+       }catch (Exception e){
+            e.getMessage();
+            return false;
+       }
     }
 
     @Override
     public Boolean deleteTicket(String id) {
-        return iTicketRepository.deleteTicket(id);
+        try {
+            iTicketRepository.deleteTicket(id);
+            return true;
+        }catch (Exception e){
+            e.getMessage();
+            return false;
+        }
     }
 }
