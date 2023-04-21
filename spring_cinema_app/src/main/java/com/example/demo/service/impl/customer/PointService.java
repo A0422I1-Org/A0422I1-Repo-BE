@@ -6,7 +6,6 @@ import com.example.demo.repository.customer.IPointRepository;
 import com.example.demo.service.customer.IPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class PointService implements IPointService {
 
     @Override
     public List<Point> findAllPointByCustomer(Customer customer) {
-        return iPointRepository.findPointByCustomers(customer.getId());
+        return null;
     }
 
     @Override
