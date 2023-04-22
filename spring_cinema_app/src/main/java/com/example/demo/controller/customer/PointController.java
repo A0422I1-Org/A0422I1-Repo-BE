@@ -43,7 +43,7 @@ public class PointController {
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Date dateBookingTicket = new Date();
         int pointPlus = (int) (price * 0.02);
-        String description = "do xem phim : " + descriptions;
+        String description = "Phim : " + descriptions;
         Point point = new Point();
         point.setDate(dateBookingTicket);
         point.setDescription(description);

@@ -38,7 +38,7 @@ public class CustomerController {
     public ResponseEntity<Page<Ticket>> getAllTicketByCustomer(@PathVariable int page) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
-        Page<Ticket> ticketList = iTicketService.findAllTicketByCustomer(customer, PageRequest.of(page, 10));
+        Page<Ticket> ticketList = iTicketService.findAllTicketByCustomer(customer, PageRequest.of(page, 5));
         if (ticketList.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
