@@ -28,7 +28,7 @@ public class CustomerService implements ICustomerService {
         return iCustomerRepository.findById(customerId).orElse(null);
     }
 
-
+    @Override
     public List<CustomerDTO> getListCustomerDTO() {
         List<Customer> customerList = iCustomerRepository.findAll();
         List<CustomerDTO> customerDTOList = new ArrayList<>();
@@ -39,7 +39,7 @@ public class CustomerService implements ICustomerService {
        customerDTOList.sort((o1, o2) -> o2.getTicket().compareTo(o1.getTicket()));
        return customerDTOList;
     }
-
+    @Override
     public List<CustomerDTO> getListCustomerDTOAcs() {
         List<Customer> customerList = iCustomerRepository.findAll();
         List<CustomerDTO> customerDTOList = new ArrayList<>();
@@ -50,7 +50,7 @@ public class CustomerService implements ICustomerService {
         customerDTOList.sort((o1, o2) -> o1.getTicket().compareTo(o2.getTicket()));
         return customerDTOList;
     }
-
+    @Override
     public List<CustomerDTO> searchCustomerStatisticListByNameDesc(String name) {
         List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
         List<CustomerDTO> customerDTOList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class CustomerService implements ICustomerService {
         customerDTOList.sort((o1, o2) -> o2.getTicket().compareTo(o1.getTicket()));
         return customerDTOList;
     }
-
+    @Override
     public List<CustomerDTO> searchCustomerStatisticListByNameAcs(String name) {
         List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
         List<CustomerDTO> customerDTOList = new ArrayList<>();

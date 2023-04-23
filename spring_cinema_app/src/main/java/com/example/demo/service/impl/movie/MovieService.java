@@ -9,29 +9,34 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import java.util.List;
 
 @Service
 public class MovieService implements IMovieService {
     @Autowired
     IMovieRepository movieRepository;
 
+    @Override
     public Page<Movie> findAll(Pageable pageable) {
         return movieRepository.findAll(pageable);
     }
 
     @Override
-    public List<MovieDTO> findStatisticMovie(int index) {
-        return movieRepository.findStatisticMovie(index);
+    public Page<MovieDTO> findStatisticMovieDesc(Pageable pageable) {
+        return movieRepository.findStatisticMovieDesc(pageable);
     }
 
     @Override
-    public List<?> findStatisticMovieAcs() {
-        return movieRepository.findStatisticMovieAcs();
+    public Page<MovieDTO> findStatisticMovieAcs(Pageable pageable) {
+        return movieRepository.findStatisticMovieAcs(pageable);
     }
 
     @Override
-    public List<?> searchStatisticMovieByName(String nameMovie) {
-        return movieRepository.searchStatisticMovieByName(nameMovie);
+    public Page<MovieDTO> searchStatisticMovieByNameDesc(String nameMovie, Pageable pageable) {
+        return movieRepository.searchStatisticMovieByNameDesc(nameMovie, pageable);
+    }
+
+    @Override
+    public Page<MovieDTO> searchStatisticMovieByNameAcs(String nameMovie, Pageable pageable) {
+        return movieRepository.searchStatisticMovieByNameAsc(nameMovie, pageable);
     }
 }
