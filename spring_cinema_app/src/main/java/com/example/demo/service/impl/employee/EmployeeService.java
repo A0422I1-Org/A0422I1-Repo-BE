@@ -22,26 +22,17 @@ public class EmployeeService implements IEmployeeService {
 
 
     @Override
-    public void remove(String id) {
-        employeeRepository.deleteById(id);
+    public Integer updateIsDeleteById(String id) {
+        return employeeRepository.updateIsDeleteById(id);
     }
 
-    @Override
-    public Page<Employee> findAll(Pageable pageable) {
-        return employeeRepository.findAll(pageable);
-    }
-
-    @Override
-    public Page<Employee> findAllByFullNameContaining(String name, Pageable pageable) {
-        return employeeRepository.findAllByFullNameContaining(name,pageable);
-    }
 
     @Override
     public Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId, Pageable pageable) {
         if(positionId<0)
-            return employeeRepository.findAllByFullNameContaining(name,pageable);
+            return employeeRepository.findAllByFullNameContaining(name.trim(),pageable);
 
-        return employeeRepository.findAllByFullNameContainingAndPosition(name,positionId,pageable);
+        return employeeRepository.findAllByFullNameContainingAndPosition(name.trim(),positionId,pageable);
     }
 
 

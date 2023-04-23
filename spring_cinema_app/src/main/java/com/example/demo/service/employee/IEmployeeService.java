@@ -10,11 +10,7 @@ import java.util.Optional;
 public interface IEmployeeService {
     Optional<Employee> findById(String id);
 
-    void remove(String id);
-
-    Page<Employee> findAll(Pageable pageable);
-
-    Page<Employee> findAllByFullNameContaining(String name,Pageable pageable);
+    Integer updateIsDeleteById(String id);
 
     Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId,Pageable pageable);
 }

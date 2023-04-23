@@ -22,10 +22,10 @@ public class Ticket {
     private Boolean status;
     private Boolean isDelete;
     @ManyToOne
-    @JoinColumn(name = "customer_id",columnDefinition = ("varchar(20)"))
+    @JoinColumn(name = "customer_id", columnDefinition = ("varchar(20)"))
     private Customer customer;
 
-//    @ManyToOne
+    //    @ManyToOne
 //    @JoinColumn(name = "employee_id",columnDefinition = ("varchar(20)"))
 //    private Employee employee;
     @ManyToOne

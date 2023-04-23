@@ -1,6 +1,7 @@
 package com.example.demo.controller.employee;
 
-import com.example.demo.dto.EmployeeViewDTO;
+import com.example.demo.dto.employee.EmployeeDeleteDTO;
+import com.example.demo.dto.employee.EmployeeViewDTO;
 import com.example.demo.model.employee.Employee;
 import com.example.demo.service.impl.employee.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,38 +14,29 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employee")
-@CrossOrigin("/*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeeController {
+    private static final int MAXDISPLAY = 5;
     @Autowired
     private EmployeeService employeeService;
 
+
     @GetMapping("")
-    public ResponseEntity<Page<EmployeeViewDTO>> getAllEmployees (@PageableDefault(value = 5) Pageable pageable) {
-        Page<Employee> employees = employeeService.findAll(pageable);
+    public ResponseEntity<Page<EmployeeViewDTO>> getAllEmployeesByNameContainingAndPosition(@RequestParam(value = "name" ,defaultValue = "") String name,
+                                                                                            @RequestParam(value = "positionId" ,defaultValue = "-1") String positionId,
+                                                                                            @PageableDefault(value = MAXDISPLAY) Pageable pageable) {
+        Page<Employee> employees = employeeService.findAllByFullNameContainingAndPosition(name, Integer.parseInt(positionId), pageable);
         return new ResponseEntity<>(employees.map(EmployeeViewDTO::new), HttpStatus.OK);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Page<EmployeeViewDTO>> getAllEmployeesByNameContaining (@PageableDefault(value = 5) Pageable pageable,@PathVariable("name") String name) {
-        Page<Employee> employees = employeeService.findAllByFullNameContaining(name, pageable);
-        return new ResponseEntity<>(employees.map(EmployeeViewDTO::new), HttpStatus.OK);
-    }
-
-    @GetMapping("/{name}/{position_id}")
-    public ResponseEntity<Page<EmployeeViewDTO>> getAllEmployeesByNameContainingAndPosition (@PageableDefault(value = 5) Pageable pageable,@PathVariable("name") String name, @PathVariable("position_id") String position_id) {
-        Page<Employee> employees = employeeService.findAllByFullNameContainingAndPosition(name,Integer.parseInt(position_id), pageable);
-        return new ResponseEntity<>(employees.map(EmployeeViewDTO::new), HttpStatus.OK);
-    }
-
-    @GetMapping("/find/{id}")
-    public ResponseEntity<EmployeeViewDTO> getEmployeeById (@PathVariable("id") String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeDeleteDTO> getEmployeeById(@PathVariable("id") String id) {
         Employee employee = employeeService.findById(id).get();
-        return new ResponseEntity<>(new EmployeeViewDTO(employee), HttpStatus.OK);
+        return new ResponseEntity<>(new EmployeeDeleteDTO(employee), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable("id") String id) {
-        employeeService.remove(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Integer> deleteEmployee(@PathVariable("id") String id) {
+        return new ResponseEntity<>(employeeService.updateIsDeleteById(id),HttpStatus.OK);
     }
 }
