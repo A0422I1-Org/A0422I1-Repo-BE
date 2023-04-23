@@ -17,8 +17,8 @@ public class MovieController {
     @Autowired
     IMovieService movieService;
 
-    @GetMapping("/list-movie")
-    public List<Movie> getAllMovie(){
-        return movieService.findAllMovie();
+    @GetMapping("/list-movie-by-start-date")
+    public List<Movie> getAllMovieByStartDate(){
+        return movieService.findMoviesByStartDate();
     }
 }

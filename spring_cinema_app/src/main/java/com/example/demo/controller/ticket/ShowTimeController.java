@@ -20,9 +20,9 @@ public class ShowTimeController {
         return showTimeService.findShowTimeByMovieId(id);
     }
 
-    @GetMapping("/show-time-by-date/{date}/{id}")
-    public List<ShowTime> getShowTimeByDate(@PathVariable("date") String date, @PathVariable("id") Integer id) {
-        List<ShowTime> showTimeByDate = showTimeService.findShowTimeByDate(date, id);
-        return showTimeByDate;
-    }
+//    @GetMapping("/show-time-by-date/{date}/{id}")
+//    public List<ShowTime> getShowTimeByDate(@PathVariable("date") String date, @PathVariable("id") Integer id) {
+//        List<ShowTime> showTimeByDate = showTimeService.findShowTimeByDate(date, id);
+//        return showTimeByDate;
+//    }
 }

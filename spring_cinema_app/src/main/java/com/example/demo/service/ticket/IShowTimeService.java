@@ -11,5 +11,5 @@ import java.util.List;
 public interface IShowTimeService {
     List<ShowTime> findShowTimeByMovieId(Integer idMovie);
 
-    List<ShowTime> findShowTimeByDate(String date, Integer id);
+//    List<ShowTime> findShowTimeByDate(String date, Integer id);
 }
