@@ -1,5 +1,6 @@
 package com.example.demo.controller.ticket;
 
+import com.example.demo.dto.TicketViewDTO;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class TicketManagerController {
     private ITicketService iTicketService;
     @GetMapping("")
     public ResponseEntity<Page<Ticket>>searchAndFindAll(@RequestParam(value = "nameSearch" ,defaultValue = "")String name,
-                                                        @PageableDefault(value = 2,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
+                                                               @PageableDefault(value = 5,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
         Page<Ticket> tickets=iTicketService.searchTicket(name,pageable);
         if(tickets.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -34,8 +35,8 @@ public class TicketManagerController {
 //        return new ResponseEntity<>(iTicketService.searchTicket(name), HttpStatus.OK);
 //    }
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Optional<Ticket>> detailTicket(@PathVariable String id){
-            Optional<Ticket> ticket = iTicketService.detail(id);
+    public ResponseEntity<Optional<TicketViewDTO>> detailTicket(@PathVariable String id){
+            Optional<TicketViewDTO> ticket = iTicketService.detail(id).map(TicketViewDTO::new);
             if(!ticket.isPresent()){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

@@ -39,7 +39,7 @@ public class TicketService  implements ITicketService {
     @Override
     public Boolean deleteTicket(String id) {
         try {
-            iTicketRepository.deleteTicket(id);
+            iTicketRepository.bookingConfirmation(id);
             return true;
         }catch (Exception e){
             e.getMessage();

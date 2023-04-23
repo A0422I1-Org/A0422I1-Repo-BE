@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-
 @Getter
 @Setter
 @Entity
@@ -47,6 +46,70 @@ public class Ticket {
         this.isDelete = isDelete;
         this.customer = customer;
         this.showTime = showTime;
+        this.chairRoom = chairRoom;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Date getBook_datetime() {
+        return book_datetime;
+    }
+
+    public void setBook_datetime(Date book_datetime) {
+        this.book_datetime = book_datetime;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public ShowTime getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(ShowTime showTime) {
+        this.showTime = showTime;
+    }
+
+    public ChairRoom getChairRoom() {
+        return chairRoom;
+    }
+
+    public void setChairRoom(ChairRoom chairRoom) {
         this.chairRoom = chairRoom;
     }
 }
