@@ -6,8 +6,8 @@ public interface IMovieService {
     /**
      * @param movieId of movie
      * @return MovieDetailDTO
-     * @content get movie detail by id
-     * @Author ChuongLN
+     * @content get movie detail by movieId
+     * @author ChuongLN
      */
     public MovieDetailDTO getMovieDetailByMovieId(Integer movieId);
 }

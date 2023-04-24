@@ -18,7 +18,7 @@ public class MovieController {
      * @param movieId of movie
      * @return MovieDetailDTO
      * @content get movie detail by movieId
-     * @Author ChuongLN
+     * @author ChuongLN
      */
     @GetMapping("detail/{movieId}")
     public ResponseEntity<MovieDetailDTO> getMovieDetailById(@PathVariable("movieId") Integer movieId) {

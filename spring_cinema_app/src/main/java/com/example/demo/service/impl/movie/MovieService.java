@@ -31,8 +31,8 @@ public class MovieService implements IMovieService {
     /**
      * @param movieId of movie
      * @return MovieDetailDTO
-     * @content get movie detail by id
-     * @Author ChuongLN
+     * @content get movie detail by movieId
+     * @author ChuongLN
      */
     @Override
     public MovieDetailDTO getMovieDetailByMovieId(Integer movieId) {
