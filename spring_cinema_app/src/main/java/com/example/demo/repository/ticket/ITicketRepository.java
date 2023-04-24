@@ -20,7 +20,7 @@ public interface ITicketRepository  extends JpaRepository<Ticket,String> {
             " join customer c on t.customer_id = c.id join show_time s on t.showtime_id = s.id join chair_room r on t.chair_room_id =r.id " +
             "where t.status = 1 and t.is_delete = 0 and (t.id like concat('%',:name,'%') or t.customer_id like co" +
             "" +
-            "ncat('%',:name,'%'))",nativeQuery=true,countQuery="select count(*) from(select t.id,t.price,t.book_datetime,t.status,t.is_delete,t.customer_id,t.showtime_id,t.chair_room_id from ticket t join customer c on t.customer_id = c.id join show_time s on t.showtime_id = s.id join chair_room r on t.chair_room_id =r.id where t.status = 1 and t.id like concat('%',:name,'%') or t.customer_id like concat('%',:name,'%')) ticket")
+            "ncat('%',:name,'%'))",nativeQuery=true,countQuery="select count(*) from(select t.id,t.price,t.book_datetime,t.status,t.is_delete,t.customer_id,t.showtime_id,t.chair_room_id from ticket t join customer c on t.customer_id = c.id join show_time s on t.showtime_id = s.id join chair_room r on t.chair_room_id =r.id where t.status = 1 and t.is_delete=0 and (t.id like concat('%',:name,'%') or t.customer_id like concat('%',:name,'%'))) ticket")
     Page<Ticket> searchTicket(@Param("name")String name, Pageable pageable);
 
     //Hàm dưới trả về 1 list dạng json, không trả về kiểu page
