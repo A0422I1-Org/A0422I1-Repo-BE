@@ -5,13 +5,11 @@ import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/movie")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MovieController {
     @Autowired
     private IMovieService movieService;
@@ -19,8 +17,8 @@ public class MovieController {
     /**
      * @param movieId of movie
      * @return MovieDetailDTO
-     * @content: get movie detail by movieId
-     * @Author: ChuongLN
+     * @content get movie detail by movieId
+     * @Author ChuongLN
      */
     @GetMapping("detail/{movieId}")
     public ResponseEntity<MovieDetailDTO> getMovieDetailById(@PathVariable("movieId") Integer movieId) {
