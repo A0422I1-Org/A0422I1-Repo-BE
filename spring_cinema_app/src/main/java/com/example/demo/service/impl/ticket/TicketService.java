@@ -14,12 +14,12 @@ public class TicketService  implements ITicketService {
     private ITicketRepository ticketRepository;
     @Override
     public List<Ticket> findAll() {
-        return ticketRepository.findAll();
+        return ticketRepository.findAllTicket();
     }
 
     @Override
     public Ticket findById(String id) {
-        return ticketRepository.findById(id).orElse(null);
+        return ticketRepository.findTicketById(id);
     }
 
     @Override
