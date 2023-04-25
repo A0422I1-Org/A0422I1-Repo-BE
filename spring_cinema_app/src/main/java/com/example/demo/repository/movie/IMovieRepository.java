@@ -18,6 +18,6 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
             "SELECT m.id, m.description, m.image,m.is_delete,m.language,m.name,m.rating,m.start_day,m.status,m.time_amount,m.trailer " +
                     "FROM Movie m " +
                     "join show_time st on st.movie_id = m.id " +
-                    "where st.date >= CURRENT_TIME  group by m.id", nativeQuery = true)
+                    "where st.date >= CURRENT_TIME  group by m.id ", nativeQuery = true)
     List<Movie> findMoviesByStartDate(LocalDate threeDaysLater);
 }
