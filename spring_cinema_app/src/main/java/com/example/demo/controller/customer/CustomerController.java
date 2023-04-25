@@ -3,7 +3,11 @@ package com.example.demo.controller.customer;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("customer-management")
+@CrossOrigin("http://localhost:4200")
 public class CustomerController {
     private ICustomerService customerService;
 
@@ -22,16 +27,28 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Customer>> getCustomerList(@PageableDefault(value = 5) Pageable pageable) {
+    public ResponseEntity<Page<Customer>> getCustomerList(@RequestParam(name = "search", required = false, defaultValue = "") String search,
+                                                          @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                                          @RequestParam(name = "sort", required = false, defaultValue = "asc") String sort) {
         /**
-         * Method: show customer list
+         * Method: show customer list, show search result, choose page
          * Author: DanhHC
+         * Params: search input, page, size, sort
          * Return: customer list
          */
-        return new ResponseEntity<>(customerService.getAllCustomer(pageable), HttpStatus.OK);
+        Sort sortable = null;
+        if (sort.equals("asc")) {
+            sortable = Sort.by("id").ascending();
+        }
+        if (sort.equals("desc")) {
+            sortable = Sort.by("id").descending();
+        }
+        Pageable pageable = PageRequest.of(page, size, sortable);
+        return new ResponseEntity<>(customerService.searchCustomerByName(search, pageable), HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("update/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
         /**
          * Method: get customer by id
@@ -40,17 +57,6 @@ public class CustomerController {
          * Return: customer with corresponding id
          */
         return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK) ;
-    }
-
-    @GetMapping("search/{name}")
-    public ResponseEntity<List<Customer>> searchCustomerByName(@PathVariable(required = false) String name, @PageableDefault(value = 5) Pageable pageable) {
-        /**
-         * Method: search customer by name
-         * Author: DanhHC
-         * Params: search input
-         * Return: list of customers with names contain search input
-         */
-        return new ResponseEntity<>(customerService.searchCustomerByName(name, pageable), HttpStatus.OK) ;
     }
 
     @PutMapping("update")
