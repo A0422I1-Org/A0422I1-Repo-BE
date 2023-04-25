@@ -24,6 +24,16 @@ public class StatisticController {
     @Autowired
     ICustomerService customerService;
 
+    /**
+     * Get a list movie or search and sort if param nameMovie and statusSort not null
+     *
+     * @param pageable page have size default = 5
+     * @param nameMovie name of movie wanna search
+     * @param statusSort status of sort
+     * @return a page movieDTO
+     *
+     * @Author: DuHC
+     */
     @GetMapping("/movie-statistic-list")
     public ResponseEntity<Page<MovieDTO>> getListMovieStatistic(@PageableDefault(size = 5) Pageable pageable,
                                                                 @RequestParam(defaultValue = "") String nameMovie,
@@ -47,8 +57,18 @@ public class StatisticController {
         return new ResponseEntity<>(movieDTOPage, HttpStatus.OK);
     }
 
+    /**
+     * Get a list customer or search and sort if param nameCustomer and statusSort not null
+     *
+     * @param pageable page object
+     * @param nameCustomer name of customer
+     * @param statusSort status sort
+     * @return a list customer after statistic by ticket
+     *
+     * @Author: DuHC
+     */
     @GetMapping("/customer-statistic-list")
-    public ResponseEntity<Page<CustomerDTO>> getListCustomerStatistic(@PageableDefault(size = 5 , sort = "getTicketList")Pageable pageable,
+    public ResponseEntity<Page<CustomerDTO>> getListCustomerStatistic(@PageableDefault(size = 5 )Pageable pageable,
                                                                 @RequestParam(defaultValue = "") String nameCustomer,
                                                                 @RequestParam(defaultValue = "desc") String statusSort) {
         Page<CustomerDTO> customerDTOPage;
@@ -70,6 +90,14 @@ public class StatisticController {
         return new ResponseEntity<>(customerDTOPage, HttpStatus.OK);
     }
 
+    /**
+     * Find customer rank after find by customerId
+     *
+     * @param customerId id of customer wanna find
+     * @return rank of customer after find by customerId
+     *
+     * @Author: DuHC
+     */
     @GetMapping("/get-rank-customer")
     public ResponseEntity<Integer> getRankCustomerById(@RequestParam String customerId){
         return new ResponseEntity<Integer>(customerService.getRankCustomer(customerId),HttpStatus.OK);
