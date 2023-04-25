@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cinema/showtime")
+@RequestMapping("/api/public/showtime")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ShowTimeController {
     @Autowired
@@ -18,6 +18,11 @@ public class ShowTimeController {
     @GetMapping("/showtime-by-movie/{id}")
     public List<ShowTime> getShowTimeByIdMovie(@PathVariable("id") Integer id) {
         return showTimeService.findShowTimeByMovieId(id);
+    }
+
+    @GetMapping("/showtime-by-id/{id}")
+    public ShowTime getShowTimeById(@PathVariable("id") Integer id) {
+        return showTimeService.findShowTimeById(id);
     }
 
 //    @GetMapping("/show-time-by-date/{date}/{id}")

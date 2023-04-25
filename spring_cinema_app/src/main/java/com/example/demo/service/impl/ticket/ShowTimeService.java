@@ -25,6 +25,11 @@ public class ShowTimeService implements IShowTimeService {
         return showTimes;
     }
 
+    @Override
+    public ShowTime findShowTimeById(Integer id) {
+        return showTimeRepository.findShowTimeById(id);
+    }
+
 //    @Override
 //    public List<ShowTime> findShowTimeByDate(String date, Integer id) {
 //        return showTimeRepository.findShowTimeByDateAndMovieId(date, id);
