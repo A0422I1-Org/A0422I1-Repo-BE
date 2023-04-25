@@ -1,13 +1,13 @@
 package com.example.demo.service.movie;
 
-import com.example.demo.dto.movie.MovieDetailDTO;
+import com.example.demo.dto.movie.IMovieDetailDTO;
 
 public interface IMovieService {
     /**
      * @param movieId of movie
-     * @return MovieDetailDTO
+     * @return IMovieDetailDTO
      * @content get movie detail by movieId
      * @author ChuongLN
      */
-    public MovieDetailDTO getMovieDetailByMovieId(Integer movieId);
+    public IMovieDetailDTO getMovieDetailByMovieId(Integer movieId);
 }
