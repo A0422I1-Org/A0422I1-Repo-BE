@@ -26,12 +26,15 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "showtime_id")
     private ShowTime showtime;
+
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
     private ChairRoom chairRoom;
     public Ticket() {
     }
-    public Ticket(String id,Double price, Date bookDateTime, Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
+
+
+    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
         this.bookDateTime = bookDateTime;
@@ -103,6 +106,7 @@ public class Ticket {
     }
 
     public void setChairRoom(ChairRoom chairRoom) {
+
         this.chairRoom = chairRoom;
     }
 }
