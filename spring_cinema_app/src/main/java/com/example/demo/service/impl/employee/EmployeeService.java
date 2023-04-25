@@ -23,6 +23,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Integer updateIsDeleteById(String id) {
+        employeeRepository.updateIsDeleteAccount(id);
         return employeeRepository.updateIsDeleteById(id);
     }
 

@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/admin")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeeController {
     private static final int MAXDISPLAY = 5;
@@ -21,7 +21,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
 
-    @GetMapping("")
+    @GetMapping("/employee")
     public ResponseEntity<Page<EmployeeViewDTO>> getAllEmployeesByNameContainingAndPosition(@RequestParam(value = "name" ,defaultValue = "") String name,
                                                                                             @RequestParam(value = "positionId" ,defaultValue = "-1") String positionId,
                                                                                             @PageableDefault(value = MAXDISPLAY) Pageable pageable) {
@@ -29,13 +29,13 @@ public class EmployeeController {
         return new ResponseEntity<>(employees.map(EmployeeViewDTO::new), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeDeleteDTO> getEmployeeById(@PathVariable("id") String id) {
         Employee employee = employeeService.findById(id).get();
         return new ResponseEntity<>(new EmployeeDeleteDTO(employee), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/employee/{id}")
     public ResponseEntity<Integer> deleteEmployee(@PathVariable("id") String id) {
         return new ResponseEntity<>(employeeService.updateIsDeleteById(id),HttpStatus.OK);
     }
