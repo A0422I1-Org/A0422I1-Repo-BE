@@ -1,16 +1,17 @@
 package com.example.demo.service.impl.customer;
 
 
-import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.dto.StatisticDTO.CustomerDTO;
 import com.example.demo.repository.customer.ICustomerRepository;
 import com.example.demo.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -19,58 +20,85 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository iCustomerRepository;
 
     @Override
-    public Customer findCustomerByAccount(Account account) {
-        return null;
+    public int getRankCustomer(String id) {
+        List<Customer> customerList = iCustomerRepository.findAll();
+        List<CustomerDTO> customerDTOList = convertCustomerToDTO(customerList);
+        customerDTOList.sort(Comparator.comparing(CustomerDTO::getTicket)
+                .thenComparing(CustomerDTO::getPoint)
+                .thenComparing(CustomerDTO::getMoney)
+                .reversed());
+        for (int i = 0; i < customerDTOList.size(); i++) {
+            if (customerDTOList.get(i).getId().equals(id)) {
+                return i + 1;
+            }
+        }
+        return 0;
     }
 
     @Override
-    public Customer findById(String customerId) {
-        return iCustomerRepository.findById(customerId).orElse(null);
+    public Page<CustomerDTO> getListCustomerDTODesc(Pageable pageable) {
+        List<Customer> customerList = iCustomerRepository.findAll();
+        List<CustomerDTO> customerDTOList = convertCustomerToDTO(customerList);
+        customerDTOList.sort(Comparator.comparing(CustomerDTO::getTicket)
+                .thenComparing(CustomerDTO::getPoint)
+                .thenComparing(CustomerDTO::getMoney)
+                .reversed());
+        Page<CustomerDTO> customerDTOPage = convertListToPage(customerDTOList, pageable);
+        return customerDTOPage;
     }
 
     @Override
-    public List<CustomerDTO> getListCustomerDTO() {
+    public Page<CustomerDTO> getListCustomerDTOAcs(Pageable pageable) {
         List<Customer> customerList = iCustomerRepository.findAll();
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-       for (int i = 0 ; i<customerList.size() ; i++){
-           CustomerDTO customerDTO = new CustomerDTO(customerList.get(i));
-           customerDTOList.add(customerDTO);
-       }
-       customerDTOList.sort((o1, o2) -> o2.getTicket().compareTo(o1.getTicket()));
-       return customerDTOList;
+        List<CustomerDTO> customerDTOList = convertCustomerToDTO(customerList);
+        customerDTOList.sort(Comparator.comparing(CustomerDTO::getTicket)
+                .thenComparing(CustomerDTO::getPoint)
+                .thenComparing(CustomerDTO::getMoney)
+                );
+        Page<CustomerDTO> customerDTOPage = convertListToPage(customerDTOList, pageable);
+        return customerDTOPage;
     }
+
     @Override
-    public List<CustomerDTO> getListCustomerDTOAcs() {
-        List<Customer> customerList = iCustomerRepository.findAll();
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-        for (int i = 0 ; i<customerList.size() ; i++){
-            CustomerDTO customerDTO = new CustomerDTO(customerList.get(i));
-            customerDTOList.add(customerDTO);
-        }
-        customerDTOList.sort((o1, o2) -> o1.getTicket().compareTo(o2.getTicket()));
-        return customerDTOList;
-    }
-    @Override
-    public List<CustomerDTO> searchCustomerStatisticListByNameDesc(String name) {
+    public Page<CustomerDTO> searchCustomerStatisticListByNameDesc(String name, Pageable pageable) {
         List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
+        List<CustomerDTO> customerDTOList = convertCustomerToDTO(customerList);
+        customerDTOList.sort(Comparator.comparing(CustomerDTO::getTicket)
+                .thenComparing(CustomerDTO::getPoint)
+                .thenComparing(CustomerDTO::getMoney)
+                .reversed());
+        Page<CustomerDTO> customerDTOPage = convertListToPage(customerDTOList, pageable);
+        return customerDTOPage;
+    }
+
+    @Override
+    public Page<CustomerDTO> searchCustomerStatisticListByNameAcs(String name, Pageable pageable) {
+        List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
+        List<CustomerDTO> customerDTOList = convertCustomerToDTO(customerList);
+        customerDTOList.sort(Comparator.comparing(CustomerDTO::getTicket)
+                .thenComparing(CustomerDTO::getPoint)
+                .thenComparing(CustomerDTO::getMoney)
+               );
+        Page<CustomerDTO> customerDTOPage = convertListToPage(customerDTOList, pageable);
+        return customerDTOPage;
+    }
+
+    @Override
+    public List<CustomerDTO> convertCustomerToDTO(List<Customer> customers) {
         List<CustomerDTO> customerDTOList = new ArrayList<>();
-        for (int i = 0 ; i<customerList.size() ; i++){
-            CustomerDTO customerDTO = new CustomerDTO(customerList.get(i));
+        for (int i = 0; i < customers.size(); i++) {
+            CustomerDTO customerDTO = new CustomerDTO(customers.get(i));
             customerDTOList.add(customerDTO);
         }
-        customerDTOList.sort((o1, o2) -> o2.getTicket().compareTo(o1.getTicket()));
         return customerDTOList;
     }
+
     @Override
-    public List<CustomerDTO> searchCustomerStatisticListByNameAcs(String name) {
-        List<Customer> customerList = iCustomerRepository.findCustomerByFullNameContaining(name);
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-        for (int i = 0 ; i<customerList.size() ; i++){
-            CustomerDTO customerDTO = new CustomerDTO(customerList.get(i));
-            customerDTOList.add(customerDTO);
-        }
-        customerDTOList.sort((o1, o2) -> o1.getTicket().compareTo(o2.getTicket()));
-        return customerDTOList;
+    public Page<CustomerDTO> convertListToPage(List<CustomerDTO> customerDTOs, Pageable pageable) {
+        final int start = (int) pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), customerDTOs.size());
+        final Page<CustomerDTO> page = new PageImpl<>(customerDTOs.subList(start, end), pageable, customerDTOs.size());
+        return page;
     }
 
 }

@@ -15,6 +15,11 @@ public class CustomerDTO implements Serializable {
     private double point;
     private Long ticket;
     private double money;
+    private String email;
+    private String phone;
+    private String address;
+    private String idCard;
+
 
     public CustomerDTO(Customer customer) {
         this.id = customer.getId();
@@ -23,26 +28,35 @@ public class CustomerDTO implements Serializable {
                 .stream()
                 .map(item -> item.getPoint())
                 .collect(Collectors.summingDouble(Integer::doubleValue));
-        this.ticket = customer.getGetTicketList()
+        this.ticket =  customer.getGetTicketList()
                 .stream()
-                .map(item -> item.getId())
-                .collect(Collectors.counting());
+                .map(item -> item.getId()).count();
         this.money = customer.getGetTicketList()
                 .stream()
                 .map(item -> item.getPrice())
                 .collect(Collectors.summingDouble(Double::doubleValue));
+
+        this.email = customer.getEmail();
+        this.phone = customer.getPhoneNumber();
+        this.address = customer.getAddress();
+        this.idCard = customer.getCardId();
+
     }
 
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String id, String fullName, double point, Long ticket, double money) {
+    public CustomerDTO(String id, String fullName, double point, Long ticket, double money, String email, String phone, String address, String idCard) {
         this.id = id;
         this.fullName = fullName;
         this.point = point;
         this.ticket = ticket;
         this.money = money;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.idCard = idCard;
     }
 
     public String getId() {
@@ -83,5 +97,53 @@ public class CustomerDTO implements Serializable {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setPoint(double point) {
+        this.point = point;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 }

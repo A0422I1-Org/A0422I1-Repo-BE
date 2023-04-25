@@ -3,9 +3,9 @@ package com.example.demo.controller.StatisticController;
 
 import com.example.demo.model.dto.StatisticDTO.CustomerDTO;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
-import com.example.demo.model.movie.Movie;
-import com.example.demo.repository.movie.IMovieRepository;
+
 import com.example.demo.service.customer.ICustomerService;
+import com.example.demo.service.impl.customer.CustomerService;
 import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -14,11 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
-@RequestMapping("/statistic")
+@RequestMapping("/api/admin")
 public class StatisticController {
 
     @Autowired
@@ -30,46 +28,52 @@ public class StatisticController {
     public ResponseEntity<Page<MovieDTO>> getListMovieStatistic(@PageableDefault(size = 5) Pageable pageable,
                                                                 @RequestParam(defaultValue = "") String nameMovie,
                                                                 @RequestParam(defaultValue = "desc") String statusSort) {
-        Page<MovieDTO> movieDTOList;
+        Page<MovieDTO> movieDTOPage;
 
         if (!(nameMovie.equals("")) && "desc".equals(statusSort) ) {
-            movieDTOList = movieService.searchStatisticMovieByNameDesc(nameMovie, pageable);
-            return new ResponseEntity<>(movieDTOList, HttpStatus.OK);
+            movieDTOPage = movieService.searchStatisticMovieByNameDesc(nameMovie, pageable);
+            return new ResponseEntity<>(movieDTOPage, HttpStatus.OK);
         }else if (!(nameMovie.equals("")) && "acs".equals(statusSort)){
-            movieDTOList = movieService.searchStatisticMovieByNameAcs(nameMovie, pageable);
-            return new ResponseEntity<>(movieDTOList, HttpStatus.OK);
+            movieDTOPage = movieService.searchStatisticMovieByNameAcs(nameMovie, pageable);
+            return new ResponseEntity<>(movieDTOPage, HttpStatus.OK);
         }
 
         if ("acs".equals(statusSort)) {
-            movieDTOList = movieService.findStatisticMovieAcs(pageable);
+            movieDTOPage = movieService.findStatisticMovieAcs(pageable);
 
         } else {
-            movieDTOList = movieService.findStatisticMovieDesc(pageable);
+            movieDTOPage = movieService.findStatisticMovieDesc(pageable);
         }
-        return new ResponseEntity<>(movieDTOList, HttpStatus.OK);
+        return new ResponseEntity<>(movieDTOPage, HttpStatus.OK);
     }
-
 
     @GetMapping("/customer-statistic-list")
-    public ResponseEntity<List<CustomerDTO>> getListCustomerDTO() {
-        return new ResponseEntity<>(customerService.getListCustomerDTO(), HttpStatus.OK);
-    }
+    public ResponseEntity<Page<CustomerDTO>> getListCustomerStatistic(@PageableDefault(size = 5 , sort = "getTicketList")Pageable pageable,
+                                                                @RequestParam(defaultValue = "") String nameCustomer,
+                                                                @RequestParam(defaultValue = "desc") String statusSort) {
+        Page<CustomerDTO> customerDTOPage;
 
-    @GetMapping("/customer-statistic-list-asc")
-    public ResponseEntity<List<CustomerDTO>> getListCustomerDTOAcs() {
-        return new ResponseEntity<>(customerService.getListCustomerDTOAcs(), HttpStatus.OK);
-    }
-
-    @GetMapping("/customer-statistic-list-search")
-    public ResponseEntity<List<CustomerDTO>> searchCustomerStatisticListByName(@RequestParam(value = "nameCustomer", defaultValue = "") String nameCustomer,
-                                                                               @RequestParam(value = "status", defaultValue = "") String status) {
-        if ("".equals(nameCustomer)) {
-            return new ResponseEntity<>(customerService.getListCustomerDTO(), HttpStatus.OK);
-        } else if ("false".equals(status)) {
-            return new ResponseEntity<>(customerService.searchCustomerStatisticListByNameAcs(nameCustomer), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(customerService.searchCustomerStatisticListByNameDesc(nameCustomer), HttpStatus.OK);
+        if (!(nameCustomer.equals("")) && "desc".equals(statusSort) ) {
+            customerDTOPage = customerService.searchCustomerStatisticListByNameDesc(nameCustomer, pageable);
+            return new ResponseEntity<>(customerDTOPage, HttpStatus.OK);
+        }else if (!(nameCustomer.equals("")) && "acs".equals(statusSort)){
+            customerDTOPage = customerService.searchCustomerStatisticListByNameAcs(nameCustomer, pageable);
+            return new ResponseEntity<>(customerDTOPage, HttpStatus.OK);
         }
+
+        if ("acs".equals(statusSort)) {
+            customerDTOPage = customerService.getListCustomerDTOAcs(pageable);
+
+        } else {
+            customerDTOPage = customerService.getListCustomerDTODesc(pageable);
+        }
+        return new ResponseEntity<>(customerDTOPage, HttpStatus.OK);
     }
+
+    @GetMapping("/get-rank-customer")
+    public ResponseEntity<Integer> getRankCustomerById(@RequestParam String customerId){
+        return new ResponseEntity<Integer>(customerService.getRankCustomer(customerId),HttpStatus.OK);
+    }
+
 
 }
