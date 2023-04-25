@@ -18,6 +18,11 @@ public interface IEmployeeRepository extends JpaRepository<Employee,String> {
     @Query("UPDATE Employee e SET e.isDelete=true WHERE e.id=?1 and e.isDelete=false")
     Integer updateIsDeleteById(String id);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Account a SET a.isDelete=true  WHERE a.username IN (select e.account.username FROM Employee e WHERE e.id= ?1)")
+    Integer updateIsDeleteAccount(String id);
+
     @Query("SELECT e FROM Employee e WHERE e.id=?1 and e.isDelete=false ")
     Optional<Employee> findById(String id);
 
