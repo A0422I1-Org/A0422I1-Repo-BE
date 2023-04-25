@@ -35,4 +35,4 @@ out/
 ### VS Code ###
 .vscode/
 ### application Code ###
-resources/application.properties
+application.properties
