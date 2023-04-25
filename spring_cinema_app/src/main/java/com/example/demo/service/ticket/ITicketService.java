@@ -12,5 +12,4 @@ public interface ITicketService {
     Boolean bookingConfirmation(String id);
     Boolean deleteTicket(String id);
 
-
 }

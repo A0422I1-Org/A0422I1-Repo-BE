@@ -24,7 +24,7 @@ public class Employee {
     private String fullName;
     private String image;
     @NotNull
-    private String gender;
+    private Boolean gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -56,7 +56,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
+    public Employee(String id, @NotNull String fullName, String image, @NotNull Boolean gender, @NotNull Date birthday,
                     @NotNull String email, @NotNull Boolean isActivated, @NotNull String phoneNumber,
                     @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
                     Boolean isDelete) {

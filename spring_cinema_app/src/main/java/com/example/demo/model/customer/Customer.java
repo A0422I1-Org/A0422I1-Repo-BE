@@ -21,7 +21,7 @@ public class Customer {
     @NotNull
     private String fullName;
     @NotNull
-    private String gender;
+    private Boolean gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -45,7 +45,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String id, @NotNull String fullName, @NotNull String gender, @NotNull Date birthday,
+    public Customer(String id, @NotNull String fullName, @NotNull Boolean gender, @NotNull Date birthday,
                     @NotNull String email, @NotNull String phoneNumber, @NotNull String address,
                     @NotNull String cardId,
                     @NotNull Account account, Boolean isDelete) {
@@ -77,11 +77,11 @@ public class Customer {
         this.fullName = fullName;
     }
 
-    public String getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 

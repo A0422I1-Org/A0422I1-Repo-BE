@@ -22,10 +22,13 @@ public class TicketViewDTO {
     private String screen;
     private Date startDate;
     private String startTime;
+    private String endTime;
     private String nameChair;
+    private String room;
     private Double price;
     private String email;
     private String image;
+    private Date bookDateTime;
 
     public TicketViewDTO(Ticket ticket){
         this.id = ticket.getId();
@@ -33,14 +36,17 @@ public class TicketViewDTO {
         this.fullName = ticket.getCustomer().getFullName();
         this.cardId = ticket.getCustomer().getCardId();
         this.phoneNumber = ticket.getCustomer().getPhoneNumber();
-        this.nameMovie = ticket.getShowTime().getMovie().getName();
+        this.nameMovie = ticket.getShowtime().getMovie().getName();
         this.screen = ticket.getChairRoom().getRoom().getScreen();
-        this.startDate = ticket.getShowTime().getMovie().getStartDay();
-        this.startTime = ticket.getShowTime().getStartTime();
+        this.startDate = ticket.getShowtime().getMovie().getStartDay();
+        this.startTime = ticket.getShowtime().getStartTime();
+        this.endTime = ticket.getShowtime().getEndTime();
         this.nameChair = ticket.getChairRoom().getChair().getName();
         this.price = ticket.getPrice();
         this.email = ticket.getCustomer().getEmail();
-        this.image = ticket.getShowTime().getMovie().getImage();
+        this.image = ticket.getShowtime().getMovie().getImage();
+        this.bookDateTime = ticket.getBookDateTime();
+        this.room = ticket.getChairRoom().getRoom().getName();
     }
 
 }

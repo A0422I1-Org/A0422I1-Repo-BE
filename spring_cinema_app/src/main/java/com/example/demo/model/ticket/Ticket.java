@@ -1,12 +1,12 @@
 package com.example.demo.model.ticket;
 
 import com.example.demo.model.customer.Customer;
-
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -16,20 +16,18 @@ public class Ticket {
     private String id;
     @NotNull
     private Double price;
-    private Date book_datetime;
+    private Date bookDateTime;
     @NotNull
     private Boolean status;
     private Boolean isDelete;
+
     @ManyToOne
-    @JoinColumn(name = "customer_id",columnDefinition = ("varchar(20)"))
+    @JoinColumn(name = "customer_id", columnDefinition = ("varchar(20)"))
     private Customer customer;
 
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id",columnDefinition = ("varchar(20)"))
-//    private Employee employee;
     @ManyToOne
     @JoinColumn(name = "showtime_id")
-    private ShowTime showTime;
+    private ShowTime showtime;
 
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
@@ -38,14 +36,14 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String id, Double price, Date book_datetime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
+    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
-        this.book_datetime = book_datetime;
+        this.bookDateTime = bookDateTime;
         this.status = status;
         this.isDelete = isDelete;
         this.customer = customer;
-        this.showTime = showTime;
+        this.showtime = showtime;
         this.chairRoom = chairRoom;
     }
 
@@ -65,12 +63,12 @@ public class Ticket {
         this.price = price;
     }
 
-    public Date getBook_datetime() {
-        return book_datetime;
+    public Date getBookDateTime() {
+        return bookDateTime;
     }
 
-    public void setBook_datetime(Date book_datetime) {
-        this.book_datetime = book_datetime;
+    public void setBookDateTime(Date bookDateTime) {
+        this.bookDateTime = bookDateTime;
     }
 
     public Boolean getStatus() {
@@ -97,12 +95,12 @@ public class Ticket {
         this.customer = customer;
     }
 
-    public ShowTime getShowTime() {
-        return showTime;
+    public ShowTime getShowtime() {
+        return showtime;
     }
 
-    public void setShowTime(ShowTime showTime) {
-        this.showTime = showTime;
+    public void setShowtime(ShowTime showtime) {
+        this.showtime = showtime;
     }
 
     public ChairRoom getChairRoom() {
