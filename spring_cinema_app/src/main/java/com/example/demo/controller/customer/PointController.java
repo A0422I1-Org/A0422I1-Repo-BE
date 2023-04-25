@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RequestMapping("api/customer")
+@RequestMapping("api/user")
 public class PointController {
     @Autowired
     private IPointService iPointService;
@@ -61,7 +61,7 @@ public class PointController {
      * @Author : TriLHH
      */
 
-    @GetMapping("/customer-point/{page}")
+    @GetMapping("/user-point/{page}")
     public ResponseEntity<Page<Point>> getAllPointByCustomer(@PathVariable int page) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
@@ -79,7 +79,7 @@ public class PointController {
      * @Author : TriLHH
      */
 
-    @GetMapping("/customer-sum-point")
+    @GetMapping("/user-sum-point")
     public ResponseEntity<Integer> sumPoint() {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
@@ -103,7 +103,7 @@ public class PointController {
      * @Author : TriLHH
      */
 
-    @GetMapping("/customer-search-point")
+    @GetMapping("/user-search-point")
     public ResponseEntity<Page<Point>> getAllPointByDateBetween(@RequestParam("startDate") String startDate,
                                                                 @RequestParam("endDate") String endDate,
                                                                 @RequestParam int page, @RequestParam int size) {

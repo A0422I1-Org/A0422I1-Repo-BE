@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RequestMapping("api/customer")
+@RequestMapping("api/user")
 public class CustomerController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class CustomerController {
      * @Method : Get all ticket by customer
      * @Author : TriLHH
      */
-    @GetMapping("/customer-ticket/{page}")
+    @GetMapping("/user-ticket/{page}")
     public ResponseEntity<Page<Ticket>> getAllTicketByCustomer(@PathVariable int page) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
