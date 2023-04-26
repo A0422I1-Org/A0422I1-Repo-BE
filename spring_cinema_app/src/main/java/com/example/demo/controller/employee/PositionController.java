@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/position")
+@RequestMapping("/api/admin")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PositionController {
     @Autowired
     private IPositionService positionService;
 
-    @GetMapping
+    @GetMapping("/position")
     public ResponseEntity<Iterable<PositionViewDTO>> findAllPosition() {
         List<Position> positions = (List<Position>) positionService.findAll();
         if (positions.isEmpty()) {
