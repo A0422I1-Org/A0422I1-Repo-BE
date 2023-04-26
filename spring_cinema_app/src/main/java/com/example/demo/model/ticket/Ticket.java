@@ -1,15 +1,12 @@
 package com.example.demo.model.ticket;
 
 import com.example.demo.model.customer.Customer;
-import com.example.demo.model.employee.Employee;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -25,10 +22,10 @@ public class Ticket {
     private Boolean status;
     private Boolean isDelete;
     @ManyToOne
-    @JoinColumn(name = "customer_id",columnDefinition = ("varchar(20)"))
+    @JoinColumn(name = "customer_id", columnDefinition = ("varchar(20)"))
     private Customer customer;
 
-//    @ManyToOne
+    //    @ManyToOne
 //    @JoinColumn(name = "employee_id",columnDefinition = ("varchar(20)"))
 //    private Employee employee;
     @ManyToOne

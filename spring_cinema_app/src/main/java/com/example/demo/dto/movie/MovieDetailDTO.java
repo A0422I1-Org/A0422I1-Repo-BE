@@ -11,29 +11,26 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class MovieViewDTO implements Serializable {
+public class MovieDetailDTO implements Serializable {
     private Integer id;
     private String name;
     private Integer timeAmount;
     private Date startDay;
-    private String image;
     private String movieStudio;
     private String movieActor;
     private String movieType;
     private String movieDirector;
     private Boolean isDelete;
-    public MovieViewDTO(Movie movie) {
+    public MovieDetailDTO(Movie movie) {
         this.id = movie.getId();
         this.name = movie.getName();
         this.timeAmount = movie.getTimeAmount();
         this.startDay = movie.getStartDay();
-        this.image = movie.getImage();
         this.movieStudio = movie.getGetListStudio()
                 .stream()
                 .map(item -> item.getMovieStudio().getName())

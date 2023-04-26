@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 
 public interface IMovieService {
-    Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, Pageable pageable);
+    Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, String studios, Pageable pageable);
 
     Movie findById(Integer id);
 

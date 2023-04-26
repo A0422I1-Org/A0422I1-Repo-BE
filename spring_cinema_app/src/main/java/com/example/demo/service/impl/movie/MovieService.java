@@ -7,10 +7,13 @@ import com.example.demo.service.movie.IMovieService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,15 +27,23 @@ public class MovieService implements IMovieService {
 //    }
 
     @Override
-    public Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, Pageable pageable) {
-        return repository.findAllByNameAndByStartDayAndByTimeAmount(name,startDay,timeAmount,pageable).map(MovieViewDTO::new);
+    public Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, String studios, Pageable pageable) {
+        if ("".equalsIgnoreCase(studios)) {
+            return repository.findAllByNameAndByStartDayAndByTimeAmount(name, startDay, timeAmount, pageable).map(MovieViewDTO::new);
+        }
+        return new PageImpl<>(repository
+                .findAllByThreeCondition(name, startDay, timeAmount)
+                .stream()
+                .map(MovieViewDTO::new)
+                .filter(x -> x.getMovieStudio().toLowerCase().contains(studios.toLowerCase()))
+                .collect(Collectors.toList()));
     }
 
     @Override
     @SneakyThrows
     public Movie findById(Integer id) {
         Optional<Movie> movie = repository.findById(id);
-        if (movie.isPresent()){
+        if (movie.isPresent()) {
             return (movie.get());
         }
         throw new Exception("");

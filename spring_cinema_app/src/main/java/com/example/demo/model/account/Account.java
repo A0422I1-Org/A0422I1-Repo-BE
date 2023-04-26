@@ -25,13 +25,6 @@ public class Account {
     private Boolean isEnable;
     @Column(columnDefinition = ("varchar(255)"))
     private String verification_code;
-    @OneToOne(mappedBy = "account")
-    @JsonBackReference
-    private Employee employees;
-
-    @OneToOne(mappedBy = "account")
-    @JsonBackReference
-    private Customer customer;
 
     public Account() {
     }
@@ -42,7 +35,5 @@ public class Account {
         this.isDelete = isDelete;
         this.isEnable = isEnable;
         this.verification_code = verification_code;
-        this.employees = employees;
-        this.customer = customer;
     }
 }

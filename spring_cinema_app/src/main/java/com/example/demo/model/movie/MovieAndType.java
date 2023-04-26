@@ -1,6 +1,8 @@
 package com.example.demo.model.movie;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class MovieAndType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +19,7 @@ public class MovieAndType {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movieT;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "movie_type_id")

@@ -46,7 +46,15 @@ public class Movie {
     @JsonIgnore
     private List<MovieAndStudio> getListStudio;
 
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieActor> getListActor;
 
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieAndType> getListType;
 
-
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieDirector> getListDirector;
 }
