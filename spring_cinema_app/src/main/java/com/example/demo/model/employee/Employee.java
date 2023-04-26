@@ -1,17 +1,14 @@
 package com.example.demo.model.employee;
 
 import com.example.demo.model.account.Account;
-import com.example.demo.model.ticket.Ticket;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import sun.awt.image.ImageWatched;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -47,9 +44,7 @@ public class Employee {
     @JoinColumn(name = "username")
     @NotNull
     private Account account;
-//    @OneToMany(mappedBy = "employee")
-//    @JsonBackReference
-//    private Set<Ticket> tickets;
+
 
     private Boolean isDelete;
 

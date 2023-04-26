@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface IChairRoomService {
-    Room getRoomAvailable(int showTimeId);
+    boolean checkAvailableChairRoom(int roomId, int showTimeId);
 }

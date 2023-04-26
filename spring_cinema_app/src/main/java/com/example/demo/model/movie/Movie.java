@@ -40,30 +40,11 @@ public class Movie {
     @NotNull
     private Boolean isDelete;
 
-    @OneToMany(mappedBy = "movie")
-    @JsonBackReference
-    private Set<ShowTime> showTimes;
-
-    @OneToMany(mappedBy = "movieT")
-    @JsonBackReference
-    private Set<MovieAndType>movieAndTypes;
-
-    @OneToMany(mappedBy = "movieA")
-    @JsonBackReference
-    private Set<MovieActor> movieActors;
-
-    @OneToMany(mappedBy = "movieS")
-    @JsonBackReference
-    private Set<MovieAndStudio> movieAndStudios;
-
-    @OneToMany(mappedBy = "movieD")
-    @JsonBackReference
-    private Set<MovieDirector> movieDirectors;
 
     public Movie() {
     }
 
-    public Movie(Integer id, String name, String image, Date startDay, Integer timeAmount, String description, String status, String trailer, Double rating, String language, Boolean isDelete, Set<ShowTime> showTimes, Set<MovieAndType> movieAndTypes, Set<MovieActor> movieActors, Set<MovieAndStudio> movieAndStudios, Set<MovieDirector> movieDirectors) {
+    public Movie(Integer id, String name, String image, Date startDay, Integer timeAmount, String description, String status, String trailer, Double rating, String language, Boolean isDelete) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -75,10 +56,5 @@ public class Movie {
         this.rating = rating;
         this.language = language;
         this.isDelete = isDelete;
-        this.showTimes = showTimes;
-        this.movieAndTypes = movieAndTypes;
-        this.movieActors = movieActors;
-        this.movieAndStudios = movieAndStudios;
-        this.movieDirectors = movieDirectors;
     }
 }

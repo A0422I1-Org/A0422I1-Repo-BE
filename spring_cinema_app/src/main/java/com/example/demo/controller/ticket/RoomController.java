@@ -2,6 +2,7 @@ package com.example.demo.controller.ticket;
 
 import com.example.demo.model.ticket.Room;
 import com.example.demo.service.ticket.IChairRoomService;
+import com.example.demo.service.ticket.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:4200")
 public class RoomController {
     @Autowired
-    IChairRoomService chairRoomService;
+    IRoomService roomService;
     @GetMapping("/check-room/{idShowTime}")
-    Room getRoomAvailable(@PathVariable("idShowTime") Integer id) {
-        return chairRoomService.getRoomAvailable(id);
+    public Room getRoomAvailable(@PathVariable("idShowTime") Integer id) {
+        Room room = roomService.getRoomAvailable(id);
+        if (room!=null){
+            return room;
+        }
+        return null;
     }
 }

@@ -30,10 +30,5 @@ public class ShowTimeService implements IShowTimeService {
         return showTimeRepository.findShowTimeById(id);
     }
 
-//    @Override
-//    public List<ShowTime> findShowTimeByDate(String date, Integer id) {
-//        return showTimeRepository.findShowTimeByDateAndMovieId(date, id);
-//    }
-
 
 }
