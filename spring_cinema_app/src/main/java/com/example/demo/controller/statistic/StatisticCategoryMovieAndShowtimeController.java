@@ -32,7 +32,7 @@ public class StatisticCategoryMovieAndShowtimeController {
 
 
     @GetMapping("/categoryMovie")
-    public ResponseEntity<List<Map<String, Object>>> statisticCategoryMovie() {
+    public ResponseEntity<List<Map<String,Object>>> statisticCategoryMovie() {
         return new ResponseEntity<>(movieTypeService.statisticCategoryMovie(), HttpStatus.OK);
     }
 

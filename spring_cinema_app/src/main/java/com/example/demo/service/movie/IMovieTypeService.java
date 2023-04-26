@@ -4,6 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface IMovieTypeService {
-    List<Map<String, Object>> statisticCategoryMovie();
+    List<Map<String,Object>> statisticCategoryMovie();
 
 }

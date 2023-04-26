@@ -25,9 +25,6 @@ public class Ticket {
     @JoinColumn(name = "customer_id", columnDefinition = ("varchar(20)"))
     private Customer customer;
 
-    //    @ManyToOne
-//    @JoinColumn(name = "employee_id",columnDefinition = ("varchar(20)"))
-//    private Employee employee;
     @ManyToOne
     @JoinColumn(name = "showtime_id")
     private ShowTime showTime;
@@ -39,7 +36,7 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String id, Double price, Date book_datetime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
+    public Ticket(String id, @NotNull Double price, Date book_datetime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
         this.book_datetime = book_datetime;
