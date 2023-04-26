@@ -19,21 +19,16 @@ public class Room {
     @NotNull
     private String screen;
 
-    @OneToMany(mappedBy = "room")
-    @JsonBackReference
-    private Set<ChairRoom> chairRooms;
-
     private Boolean isDelete;
 
 
     public Room() {
     }
 
-    public Room(Integer id, @NotNull String name, @NotNull String screen, Set<ChairRoom> chairRooms, Boolean isDelete) {
+    public Room(Integer id, @NotNull String name, @NotNull String screen, Boolean isDelete) {
         this.id = id;
         this.name = name;
         this.screen = screen;
-        this.chairRooms = chairRooms;
         this.isDelete = isDelete;
     }
 }
