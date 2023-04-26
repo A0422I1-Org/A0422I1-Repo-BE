@@ -34,7 +34,7 @@ public class CustomerController {
      * @Method : Get all ticket by customer
      * @Author : TriLHH
      */
-    @GetMapping("/user-ticket/{page}")
+    @GetMapping("/ticket/{page}")
     public ResponseEntity<Page<Ticket>> getAllTicketByCustomer(@PathVariable int page) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
