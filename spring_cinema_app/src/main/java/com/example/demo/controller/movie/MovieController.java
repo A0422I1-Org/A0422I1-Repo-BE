@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.movie.Movie;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/public/movie")
@@ -27,5 +30,10 @@ public class MovieController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(movieDetailDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/list-movie-by-date-show-time")
+    public List<Movie> getAllMovieByDateShowTime() {
+        return movieService.findMoviesByStartDate();
     }
 }

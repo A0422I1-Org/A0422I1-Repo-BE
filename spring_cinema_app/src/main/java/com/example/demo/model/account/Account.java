@@ -36,7 +36,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Employee employees, Customer customer) {
+    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Set<AccountRole> accountRoles, Employee employees, Customer customer) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
