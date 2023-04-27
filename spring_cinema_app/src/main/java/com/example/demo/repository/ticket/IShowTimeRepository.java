@@ -19,7 +19,7 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
                     "From show_time st " +
                     "Where st.movie_id =:id and st.date >= CURDATE() " +
                     "AND (st.date > CURDATE() OR st.start_time > TIME(NOW())) " +
-                    "ORDER BY st.date ASC"
+                    "ORDER BY st.date  ASC, st.start_time ASC"
             , nativeQuery = true)
     List<ShowTime> findShowTimeByMovieId(@Param("id") int id);
 

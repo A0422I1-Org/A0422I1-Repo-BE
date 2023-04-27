@@ -12,8 +12,10 @@ import java.util.List;
 public class TicketService  implements ITicketService {
     @Autowired
     ITicketRepository ticketRepository;
+
+
     @Override
-    public List<Ticket> findAllTicket() {
-        return ticketRepository.findAll();
+    public List<Ticket> findTicketByShowTimeAndIdRoom(Integer idRoom, Integer idShowTime) {
+        return ticketRepository.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
     }
 }
