@@ -10,7 +10,4 @@ public interface IPromotionService {
     List<Promotion> findAll();
 
     Promotion findById(Integer id);
-
-    /** phân trang */
-    Page<Promotion> findAllWithPagingAndSort(Pageable pageable);
 }

@@ -4,10 +4,7 @@ import com.example.demo.model.promotion.Promotion;
 import com.example.demo.repository.promotion.IPromotionRepository;
 import com.example.demo.service.promotion.IPromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -23,10 +20,5 @@ public class PromotionService implements IPromotionService {
     @Override
     public Promotion findById(Integer id) {
         return iPromotionRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Page<Promotion> findAllWithPagingAndSort(Pageable pageable) {
-        return iPromotionRepository.findAll(pageable);
     }
 }
