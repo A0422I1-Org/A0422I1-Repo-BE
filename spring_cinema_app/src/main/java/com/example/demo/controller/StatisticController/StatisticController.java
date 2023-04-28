@@ -5,7 +5,6 @@ import com.example.demo.model.dto.StatisticDTO.CustomerDTO;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
 
 import com.example.demo.service.customer.ICustomerService;
-import com.example.demo.service.impl.customer.CustomerService;
 import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -100,7 +99,7 @@ public class StatisticController {
      */
     @GetMapping("/get-rank-customer")
     public ResponseEntity<Integer> getRankCustomerById(@RequestParam String customerId){
-        return new ResponseEntity<Integer>(customerService.getRankCustomer(customerId),HttpStatus.OK);
+        return new ResponseEntity<>(customerService.getRankCustomer(customerId),HttpStatus.OK);
     }
 
 
