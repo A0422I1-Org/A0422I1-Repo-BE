@@ -18,7 +18,7 @@ public class MovieService implements IMovieService {
     public List<Movie> findMoviesByStartDate() {
         LocalDate currentDate = LocalDate.now();
         LocalDate threeDaysLater = currentDate.plusDays(3);
-        return movieRepository.findMoviesByStartDate(threeDaysLater);
+        return movieRepository.findMoviesByStartDate();
     }
 
 }

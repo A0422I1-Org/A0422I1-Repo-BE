@@ -22,17 +22,17 @@ public class ChairRoomService implements IChairRoomService {
     IChairRoomRepository chairRoomRepository;
     @Autowired
     ITicketRepository ticketRepository;
+
     @Override
     public boolean checkAvailableChairRoom(int roomId, int showTimeId) {
-        // Truy vấn bảng show_time để kiểm tra xem phòng hiện tại còn chỗ trống không
         ShowTime showTime = showTimeRepository.findShowTimeById(showTimeId);
         if (showTime == null || showTime.getSoldOut().equals('1')) {
             return false;
         }
-        List<Ticket> ticketList = ticketRepository.findTicketAvailable(roomId,showTimeId);
+        List<Ticket> ticketList = ticketRepository.findTicketAvailable(roomId, showTimeId);
         int countTicketInRoom = 0;
-        for (Ticket ticket:ticketList) {
-            if (ticket.getStatus()==true){
+        for (Ticket ticket : ticketList) {
+            if (ticket.getStatus() == true) {
                 countTicketInRoom++;
             }
         }

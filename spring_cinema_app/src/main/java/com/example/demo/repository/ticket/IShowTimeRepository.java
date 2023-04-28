@@ -13,15 +13,34 @@ import java.util.List;
 @Repository
 @Transactional
 public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
+//        @Modifying
+//    @Query(value =
+//            "Select st.id, st.date,st.end_time, st.sold_out,st.start_time ,st.is_delete,st.movie_id " +
+//                    "From show_time st " +
+//                    "Where st.movie_id =:id and st.date >= CURDATE() " +
+//                    "AND (st.date >= CURDATE() OR st.start_time > TIME(NOW())) " +
+//                    "ORDER BY st.date  ASC, st.start_time ASC"
+//            , nativeQuery = true)
+//    List<ShowTime> findShowTimeByMovieId(@Param("id") int id);
+
+    //    @Modifying
+//    @Query(value =
+//            "SELECT st.id, st.date, st.end_time, st.sold_out, st.start_time, st.is_delete, st.movie_id " +
+//                    "FROM show_time st " +
+//                    "WHERE st.movie_id = :id AND st.date >= CURDATE() AND (st.date > CURDATE() OR st.start_time > TIME(NOW())) " +
+//                    "ORDER BY st.date ASC, st.start_time ASC"
+//            , nativeQuery = true)
+//    List<ShowTime> findShowTimeByMovieId(@Param("id") int id);
     @Modifying
     @Query(value =
-            "Select st.id, st.date,st.end_time, st.sold_out,st.start_time ,st.is_delete,st.movie_id " +
-                    "From show_time st " +
-                    "Where st.movie_id =:id and st.date >= CURDATE() " +
-                    "AND (st.date > CURDATE() OR st.start_time > TIME(NOW())) " +
-                    "ORDER BY st.date  ASC, st.start_time ASC"
+            "SELECT st.id, st.date, st.end_time, st.sold_out, st.start_time, st.is_delete, st.movie_id " +
+                    "FROM show_time st " +
+                    "WHERE st.movie_id = :id AND st.date >= CURDATE() " +
+                    "AND (st.date > CURDATE() OR (st.start_time > TIME(NOW() + INTERVAL 30 MINUTE))) " +
+                    "ORDER BY st.date ASC, st.start_time ASC"
             , nativeQuery = true)
     List<ShowTime> findShowTimeByMovieId(@Param("id") int id);
+
 
     @Query(value = "SELECT st.id, st.date, st.end_time, st.sold_out, st.start_time, st.is_delete, st.movie_id " +
             "FROM show_time st " +
