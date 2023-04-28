@@ -74,4 +74,22 @@ public class Employee {
         this.account = account;
         this.isDelete = isDelete;
     }
+
+    public Employee(@NotNull String fullName, String image, @NotNull Boolean gender, @NotNull Date birthday,
+                    @NotNull String email, @NotNull Boolean isActivated, @NotNull String phoneNumber,
+                    @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
+                    Boolean isDelete) {
+        this.fullName = fullName;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.isActivated = isActivated;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
+        this.position = position;
+        this.account = account;
+        this.isDelete = isDelete;
+    }
 }
