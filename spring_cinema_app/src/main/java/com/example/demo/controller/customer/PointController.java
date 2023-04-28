@@ -39,7 +39,7 @@ public class PointController {
      */
     @PostMapping("/save-point")
     public ResponseEntity<?> savePoint(@RequestParam(name = "price", required = false, defaultValue = "0") int price, @RequestParam String descriptions) {
-        Account account = iAccountService.findByUsername("customer4");
+        Account account = iAccountService.findByUsername("Trandangkhoa");
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Date dateBookingTicket = new Date();
         int pointPlus = (int) (price * 0.02);
