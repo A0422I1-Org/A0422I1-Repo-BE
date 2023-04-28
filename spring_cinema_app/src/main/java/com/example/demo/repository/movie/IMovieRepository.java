@@ -34,7 +34,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
             "LEFT JOIN movie_and_type matype ON mv.id = matype.movie_id " +
             "LEFT JOIN movie_type as mtype ON matype.movie_type_id = mtype.id " +
             "LEFT JOIN movie_and_studio mastudio ON mv.id = mastudio.movie_id " +
-            "LEFT JOIN movie_studio as mstudio ON mastudio.movie_studio_id = mstudio.id  where mv.id = ?1 " +
+            "LEFT JOIN movie_studio as mstudio ON mastudio.movie_studio_id = mstudio.id  where mv.id = ?1 and mv.is_delete = 0 " +
             "GROUP BY mv.id", nativeQuery = true)
     IMovieDetailDTO getMovieByMovieId(Integer movieId);
 

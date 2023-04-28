@@ -14,7 +14,7 @@ public interface IMovieService {
      * @content get movie detail by movieId
      * @author ChuongLN
      */
-    public IMovieDetailDTO getMovieDetailByMovieId(Integer movieId);
+    IMovieDetailDTO getMovieDetailByMovieId(Integer movieId);
 
     List<Movie> findMoviesByStartDate();
 }

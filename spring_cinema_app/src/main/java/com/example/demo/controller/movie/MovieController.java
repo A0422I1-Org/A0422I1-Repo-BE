@@ -27,7 +27,7 @@ public class MovieController {
     public ResponseEntity<IMovieDetailDTO> getMovieDetailById(@PathVariable("movieId") Integer movieId) {
         IMovieDetailDTO movieDetailDTO = movieService.getMovieDetailByMovieId(movieId);
         if (movieDetailDTO == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(movieDetailDTO, HttpStatus.OK);
     }
