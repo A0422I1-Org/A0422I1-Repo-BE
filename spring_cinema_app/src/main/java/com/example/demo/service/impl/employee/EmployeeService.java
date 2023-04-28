@@ -1,8 +1,10 @@
 package com.example.demo.service.impl.employee;
 
+import com.example.demo.error.NotFoundById;
 import com.example.demo.model.employee.Employee;
 import com.example.demo.repository.employee.IEmployeeRepository;
 import com.example.demo.service.employee.IEmployeeService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +18,12 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeRepository employeeRepository;
 
     @Override
-    public Optional<Employee> findById(String id) {
-        return employeeRepository.findById(id);
+    @SneakyThrows
+    public Employee findById(String id) {
+        Optional<Employee> employee=employeeRepository.findById(id);
+        if(employee.isPresent())
+            return employee.get();
+        throw new NotFoundById("Không tìm thấy nhân viên nào có id: "+id);
     }
 
 

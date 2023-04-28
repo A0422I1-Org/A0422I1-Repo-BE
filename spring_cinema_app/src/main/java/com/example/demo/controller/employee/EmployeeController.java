@@ -2,6 +2,7 @@ package com.example.demo.controller.employee;
 
 import com.example.demo.dto.employee.EmployeeDeleteDTO;
 import com.example.demo.dto.employee.EmployeeViewDTO;
+import com.example.demo.error.NotFoundById;
 import com.example.demo.model.employee.Employee;
 import com.example.demo.service.impl.employee.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/admin")
@@ -31,8 +35,7 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeDeleteDTO> getEmployeeById(@PathVariable("id") String id) {
-        Employee employee = employeeService.findById(id).get();
-        return new ResponseEntity<>(new EmployeeDeleteDTO(employee), HttpStatus.OK);
+        return new ResponseEntity<>(new EmployeeDeleteDTO(employeeService.findById(id)), HttpStatus.OK);
     }
 
     @DeleteMapping("/employee/{id}")

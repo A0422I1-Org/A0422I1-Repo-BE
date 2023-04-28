@@ -1,11 +1,9 @@
 package com.example.demo.dto.employee;
 
 import com.example.demo.model.employee.Employee;
-import com.example.demo.model.employee.Position;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
 
 @AllArgsConstructor
 @Getter
