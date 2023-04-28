@@ -1,7 +1,9 @@
 package com.example.demo.service.account;
 
-import com.example.demo.model.account.Account;
+import com.example.demo.model.customer.Customer;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface IAccountService {
-    Account findAccountByUsername(String username);
+    void updatePassword(Customer customer);
 }

@@ -1,29 +1,28 @@
 package com.example.demo.controller.customer;
 
 import com.example.demo.model.customer.Customer;
+import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("customer-management")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
     private ICustomerService customerService;
+    private IAccountService accountService;
 
     @Autowired
-    public CustomerController(ICustomerService customerService) {
+    public CustomerController(ICustomerService customerService, IAccountService accountService) {
         this.customerService = customerService;
+        this.accountService = accountService;
     }
 
     @GetMapping("")
@@ -56,17 +55,22 @@ public class CustomerController {
          * Params: customer id
          * Return: customer with corresponding id
          */
-        return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK) ;
+        return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
     }
 
     @PutMapping("update")
-    public void updateCustomer(Customer customer) {
+    public void updateCustomer(@RequestBody Customer customer) {
         /**
          * Method: edit customer
          * Author: DanhHC
          * Params: customer
          * Return: void
          */
-        customerService.saveCustomer(customer);
+        try {
+            customerService.saveCustomer(customer);
+            accountService.updatePassword(customer);
+        } catch (Error error) {
+            System.out.println(error.getMessage());
+        }
     }
 }
