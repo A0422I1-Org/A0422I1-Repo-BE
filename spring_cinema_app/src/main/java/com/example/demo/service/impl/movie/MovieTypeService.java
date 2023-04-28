@@ -14,6 +14,14 @@ public class MovieTypeService implements IMovieTypeService {
     @Autowired
     IMovieTypeRepository movieTypeRepository;
 
+    /**
+     * Get all category movie by ticket
+     *
+     * no @param
+     * @return List<Map<String,Object>>
+     *
+     * @Author: NghiaDC
+     */
     @Override
     public List<Map<String,Object>> statisticCategoryMovie() {
         return movieTypeRepository.statisticCategoryMovie();

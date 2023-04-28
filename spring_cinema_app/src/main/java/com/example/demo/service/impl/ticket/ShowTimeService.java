@@ -13,6 +13,14 @@ public class ShowTimeService implements IShowTimeService {
     @Autowired
     IShowTimeRepository showTimeRepository;
 
+    /**
+     * Get all showtime movie by ticket
+     *
+     * no @param
+     * @return List<Map<String,Object>>
+     *
+     * @Author: NghiaDC
+     */
     @Override
     public List<Map<String, Object>> statisticShowtime() {
         return showTimeRepository.statisticShowtime();
