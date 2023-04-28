@@ -30,6 +30,7 @@ public class PointController {
     @Autowired
     private IAccountService iAccountService;
 
+
     /**
      * @param price
      * @param descriptions
@@ -38,7 +39,7 @@ public class PointController {
      * @Author : TriLHH
      */
     @PostMapping("/save-point")
-    public ResponseEntity<?> savePoint(@RequestParam(name = "price", required = false, defaultValue = "0") int price, @RequestParam String descriptions) {
+    public ResponseEntity<Void> savePoint(@RequestParam(name = "price", required = false, defaultValue = "0") int price, @RequestParam String descriptions) {
         Account account = iAccountService.findByUsername("customer4");
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Date dateBookingTicket = new Date();
