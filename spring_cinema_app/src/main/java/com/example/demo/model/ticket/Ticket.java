@@ -34,6 +34,7 @@ public class Ticket {
     }
 
 
+
     public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;

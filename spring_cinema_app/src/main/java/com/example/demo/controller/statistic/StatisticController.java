@@ -1,10 +1,11 @@
-package com.example.demo.controller.StatisticController;
+package com.example.demo.controller.statistic;
 
 
 import com.example.demo.model.dto.StatisticDTO.CustomerDTO;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
-
 import com.example.demo.service.customer.ICustomerService;
+import com.example.demo.service.impl.movie.MovieTypeService;
+import com.example.demo.service.impl.ticket.ShowTimeService;
 import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -13,15 +14,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api/admin")
 public class StatisticController {
 
     @Autowired
-    IMovieService movieService;
+    private IMovieService movieService;
     @Autowired
-    ICustomerService customerService;
+    private ICustomerService customerService;
+    @Autowired
+    private MovieTypeService movieTypeService;
+    @Autowired
+    private ShowTimeService showTimeService;
+
+
 
     /**
      * Get a list movie or search and sort if param nameMovie and statusSort not null
@@ -102,5 +112,24 @@ public class StatisticController {
         return new ResponseEntity<>(customerService.getRankCustomer(customerId),HttpStatus.OK);
     }
 
+    /**
+     * Get a list category movie by ticket , format date and sort by revenue
+     * @return a page List<Map<String,Object>
+     * @Author: NghiaDC
+     */
+    @GetMapping("/category-movie")
+    public ResponseEntity<List<Map<String,Object>>> statisticCategoryMovie() {
+        return new ResponseEntity<>(movieTypeService.statisticCategoryMovie(), HttpStatus.OK);
+    }
+
+    /**
+     * Get a list showtime movie by ticket , format date and sort by revenue
+     * @return a page List<Map<String,Object>
+     * @Author: NghiaDC
+     */
+    @GetMapping("/showtime-movie")
+    public ResponseEntity<List<Map<String, Object>>> getMovieShowtimeStatistic() {
+        return new ResponseEntity<>(showTimeService.statisticShowtime(), HttpStatus.OK);
+    }
 
 }
