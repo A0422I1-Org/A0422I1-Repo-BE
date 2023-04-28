@@ -41,4 +41,6 @@ public class StatisticCategoryMovieAndShowtimeController {
     public ResponseEntity<List<Map<String, Object>>> getMovieShowtimeStatistic() {
         return new ResponseEntity<>(showTimeService.statisticShowtime(), HttpStatus.OK);
     }
+
+
 }
