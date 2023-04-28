@@ -18,17 +18,18 @@ public class Role {
     @Column(columnDefinition = ("varchar(255)"))
     private String name;
     private Boolean isDelete;
-    @OneToMany(mappedBy = "role")
+
+    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
     @JsonBackReference
-    private Set<AccountRole> accountRoles;
+    private Set<AccountRole> accountRoleList;
 
     public Role() {
     }
 
-    public Role(Integer id, @NotNull String name, Boolean isDelete, Set<AccountRole> accountRoles) {
+    public Role(Integer id, String name, Boolean isDelete, Set<AccountRole> accountRoleList) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
-        this.accountRoles = accountRoles;
+        this.accountRoleList = accountRoleList;
     }
 }

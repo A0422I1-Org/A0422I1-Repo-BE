@@ -24,7 +24,7 @@ public class Employee {
     private String fullName;
     private String image;
     @NotNull
-    private String gender;
+    private Boolean gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -33,7 +33,7 @@ public class Employee {
     private Boolean isActivated;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
-    private Integer phoneNumber;
+    private String phoneNumber;
     @NotNull
     @Column(columnDefinition = ("varchar(255)"))
     private String address;
@@ -49,10 +49,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String id, @NotNull String fullName, String image, @NotNull String gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull Boolean isActivated, @NotNull Integer phoneNumber,
-                    @NotNull String address, String cardId, @NotNull Position position,
-                    Boolean isDelete) {
+    public Employee(String id, String fullName, String image, Boolean gender, Date birthday, String email, Boolean isActivated, String phoneNumber, String address, String cardId, Position position, Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;
         this.image = image;

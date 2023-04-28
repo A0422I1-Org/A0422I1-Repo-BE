@@ -14,4 +14,10 @@ public class CustomerService implements ICustomerService {
     public Customer findById(String id) {
         return customerRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public String existsByEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
 }

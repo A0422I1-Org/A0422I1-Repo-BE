@@ -13,31 +13,29 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/ticket")
+@RequestMapping("/api/public/user")
 @CrossOrigin("*")
-public class TicketRestController {
-    @Autowired
-    private ITicketService ticketService;
+public class CustomerController {
     @Autowired
     private ICustomerService customerService;
     @Autowired
-    private JavaMailSender mailSender;
+    private ITicketService ticketService;
+    @Autowired
+    JavaMailSender javaMailSender;
 
-    /**
-     * Lấy ra tất cả ticket trong db...
-     * @return List<Ticket>
-     */
-    @GetMapping("/list")
-    public ResponseEntity<List<Ticket>> findAllTicket() {
-        return new ResponseEntity<>(ticketService.findAll(), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public Customer findCustomerById(@PathVariable String id) {
+        return customerService.findById(id);
     }
 
     /**
      * Mô phỏng dữ liệu cứng
      * Lấy ra những vé người dùng đã chọn
+     *
      * @return List<Ticket>
      */
     @GetMapping("/ticket-choosed")
@@ -49,43 +47,36 @@ public class TicketRestController {
     }
 
     /**
-     * Tìm kiếm ticket theo id
-     * @return Ticket
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<Ticket> findById(@PathVariable String id) {
-        return new ResponseEntity<>(ticketService.findById(id), HttpStatus.OK);
-    }
-
-    /**
-     * @param ticket
-     * Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
+     * @param ticket Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
      */
     @PostMapping("/confirm-booking-ticket")
-    public void confirmBookingTicket(@RequestBody Ticket ticket) {
+    public ResponseEntity<Void> confirmBookingTicket(@RequestBody Ticket ticket) {
         Customer customer = customerService.findById("KH-002");
         ticket.setStatus(true);
         ticket.setCustomer(customer);
+        Date date = new Date();
+        ticket.setBook_datetime(date);
         ticketService.createOrUpdate(ticket);
-        // Create a Simple MailMessage.
+//         Create a Simple MailMessage.
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(MyConstants.FRIEND_EMAIL);
         message.setSubject("ĐẶT VÉ THÀNH CÔNG");
         message.setText("Xác nhận đặt vé thành công !!!" +
-                "\n-------- Thông tin vé ----------"+
+                "\n-------- Thông tin vé ----------" +
                 "\nMã vé: " + ticket.getId() +
                 "\nRạp: " + ticket.getChairRoom().getRoom().getName() +
                 "\nMàn hình : " + ticket.getChairRoom().getRoom().getScreen() +
                 "\nGhế : " + ticket.getChairRoom().getChair().getName() +
                 "\nGiá vé : " + ticket.getPrice() +
-                "\n-------- Thông tin khách hàng ----------"+
+                "\n-------- Thông tin khách hàng ----------" +
                 "\nHọ tên : " + customer.getFullName() +
                 "\nEmail : " + customer.getEmail() +
                 "\nEmail : " + customer.getCardId() +
                 "\nSố điện thoại: " + customer.getPhoneNumber());
 
-        // Send Message!
-        this.mailSender.send(message);
+//         Send Message!
+        javaMailSender.send(message);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

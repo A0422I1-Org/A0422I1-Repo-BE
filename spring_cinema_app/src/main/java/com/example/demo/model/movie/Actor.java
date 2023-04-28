@@ -17,7 +17,6 @@ public class Actor {
     private String name;
     private Boolean isDelete;
 
-
     public Actor() {
     }
 
