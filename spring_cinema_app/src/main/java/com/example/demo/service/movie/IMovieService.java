@@ -1,13 +1,12 @@
 package com.example.demo.service.movie;
 
-import com.example.demo.model.movie.Movie;
+import com.example.demo.dto.movie.MovieBookingDTO;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public interface IMovieService {
 
-    List<Movie> findMoviesByStartDate();
+    List<MovieBookingDTO> findMoviesByStartDate();
 }

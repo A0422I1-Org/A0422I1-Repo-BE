@@ -3,6 +3,8 @@ package com.example.demo.controller.ticket;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +16,11 @@ public class TicketController {
     @Autowired
     ITicketService ticketService;
     @GetMapping("/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
-    public List<Ticket> getAllTicketByShowTimeAndIdRoom(@PathVariable("idRoom")Integer idRoom,@PathVariable("idShowTime")Integer idShowTime){
-        return ticketService.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
+    public ResponseEntity<List<Ticket>> getAllTicketByShowTimeAndIdRoom(@PathVariable("idRoom")Integer idRoom, @PathVariable("idShowTime")Integer idShowTime){
+        List<Ticket> ticketList = ticketService.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
+        if (ticketList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 }

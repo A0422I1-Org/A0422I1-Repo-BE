@@ -1,6 +1,5 @@
 package com.example.demo.repository.ticket;
 
-import com.example.demo.model.ticket.ChairRoom;
 import com.example.demo.model.ticket.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
