@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/admin")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/admin")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class TicketManagerController {
     @Autowired
     private ITicketService iTicketService;
-    @GetMapping("")
+
+        @GetMapping("")
     public ResponseEntity<Page<Ticket>>searchAndFindAll(@RequestParam(value = "nameSearch" ,defaultValue = "")String name,
                                                                @PageableDefault(value = 5,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
         Page<Ticket> tickets=iTicketService.searchTicket(name,pageable);
@@ -30,10 +31,7 @@ public class TicketManagerController {
         }
         return new ResponseEntity<>(tickets,HttpStatus.OK);
     }
-//    @GetMapping("/search/{name}")
-//    public ResponseEntity<Iterable<Ticket>> searchTicket(@PathVariable String name){
-//        return new ResponseEntity<>(iTicketService.searchTicket(name), HttpStatus.OK);
-//    }
+
     @GetMapping("/detail/{id}")
     public ResponseEntity<Optional<TicketViewDTO>> detailTicket(@PathVariable String id){
             Optional<TicketViewDTO> ticket = iTicketService.detail(id).map(TicketViewDTO::new);

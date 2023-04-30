@@ -26,14 +26,19 @@ public class Account {
     @Column(columnDefinition = ("varchar(255)"))
     private String verification_code;
 
+    @OneToMany(mappedBy = "account",fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Set<AccountRole> accountRoleList;
+
     public Account() {
     }
 
-    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Employee employees, Customer customer) {
+    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Set<AccountRole> accountRoleList) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
         this.isEnable = isEnable;
         this.verification_code = verification_code;
+        this.accountRoleList = accountRoleList;
     }
 }

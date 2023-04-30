@@ -12,6 +12,11 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository iCustomerRepository;
 
     @Override
+    public String existsByEmail(String email) {
+        return iCustomerRepository.existsByEmail(email);
+    }
+
+    @Override
     public Customer findById(String customerId) {
         return iCustomerRepository.findById(customerId).orElse(null);
     }
