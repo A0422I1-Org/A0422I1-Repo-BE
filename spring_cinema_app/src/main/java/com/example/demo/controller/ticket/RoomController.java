@@ -21,5 +21,4 @@ public class RoomController {
         }
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
-
 }

@@ -26,9 +26,11 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
     List<ShowTimeBookingDTO> findShowTimeByMovieId(@Param("id") int id);
 
 
-    @Query(value = "SELECT st.id, st.date, st.end_time, st.sold_out, st.start_time, st.is_delete, st.movie_id " +
-            "FROM show_time st " +
-            "JOIN movie m ON m.id = st.movie_id " +
-            "WHERE st.id = :id", nativeQuery = true)
+    @Query(value =
+            "SELECT st.id, st.date, st.end_time, st.sold_out, st.start_time, st.is_delete, st.movie_id " +
+                    "FROM show_time st " +
+                    "JOIN movie m ON m.id = st.movie_id " +
+                    "WHERE st.id = :id"
+            , nativeQuery = true)
     ShowTime findShowTimeById(@Param("id") Integer id);
 }

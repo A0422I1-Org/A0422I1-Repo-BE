@@ -14,10 +14,11 @@ import java.util.List;
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
     @Modifying
     @Query(value =
-            "SELECT m.id, m.description, m.image, m.is_delete , m.language, m.name, m.rating, m.start_day , m.status, m.time_amount, m.trailer " +
-                    "FROM Movie m " +
-                    "JOIN show_time st ON st.movie_id = m.id " +
-                    "WHERE st.date BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 3 DAY) " +
+            "SELECT m.id, m.description, m.image, m.is_delete as isDelete , m.language, m.name, m.rating, m.start_day as startDay, m.status, m.time_amount as timeAmount, m.trailer " +
+                    "FROM Movie as m " +
+                    "JOIN show_time as st ON st.movie_id = m.id " +
+                    "WHERE st.date BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY) " +
+                    "AND (st.date > CURDATE() OR (st.start_time > TIME(NOW())))" +
                     "GROUP BY m.id", nativeQuery = true)
     List<MovieBookingDTO> findMoviesByStartDate();
 
