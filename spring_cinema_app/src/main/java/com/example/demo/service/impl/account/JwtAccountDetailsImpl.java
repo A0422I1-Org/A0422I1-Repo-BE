@@ -14,16 +14,17 @@ import java.util.stream.Collectors;
 public class JwtAccountDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
     private String username;
+    private Boolean enabled;
     @JsonIgnore
     private String password;
-    List<GrantedAuthority> grantedAuthorities = null;
+    private List<GrantedAuthority> grantedAuthorities = null;
 
     public JwtAccountDetailsImpl() {
     }
 
-    public JwtAccountDetailsImpl(String username, String password,
-                                 List<GrantedAuthority> grantedAuthorities) {
+    public JwtAccountDetailsImpl(String username, Boolean enabled, String password, List<GrantedAuthority> grantedAuthorities) {
         this.username = username;
+        this.enabled = enabled;
         this.password = password;
         this.grantedAuthorities = grantedAuthorities;
     }
@@ -39,6 +40,7 @@ public class JwtAccountDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
         return new JwtAccountDetailsImpl(
                 account.getUsername(),
+                account.getIsEnable(),
                 account.getPassword(),
                 authorities);
     }
@@ -75,34 +77,16 @@ public class JwtAccountDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<GrantedAuthority> getGrantedAuthorities() {
-        return grantedAuthorities;
-    }
-
-    public void setGrantedAuthorities(List<GrantedAuthority> grantedAuthorities) {
-        this.grantedAuthorities = grantedAuthorities;
+        return enabled;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o)
             return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (o == null || getClass() != o.getClass())
             return false;
-        }
-        JwtAccountDetailsImpl account = (JwtAccountDetailsImpl) obj;
+        JwtAccountDetailsImpl account = (JwtAccountDetailsImpl) o;
         return Objects.equals(username, account.username);
     }
 }

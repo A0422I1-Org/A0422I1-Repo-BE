@@ -4,6 +4,7 @@ import com.example.demo.model.account.Account;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 
 public interface IAccountService {
 
@@ -49,4 +50,10 @@ public interface IAccountService {
      * @param code
      */
     void saveNewPassword(String password, String code);
+
+    Optional<Account> findByUsername(String username);
+
+    Boolean existsByUsername(String username);
+
+    Account save(Account account);
 }
