@@ -18,7 +18,7 @@ public class ShowTimeController {
     IShowTimeService showTimeService;
 
     @GetMapping("/showtime-by-movie/{id}")
-    public ResponseEntity<List<ShowTimeBookingDTO>> getAllMovieByDateShowTime(@PathVariable("id") Integer id) {
+    public ResponseEntity<List<ShowTimeBookingDTO>> getShowTimeByIdMovie(@PathVariable("id") Integer id) {
         List<ShowTimeBookingDTO> showTimeList = showTimeService.findShowTimeByMovieId(id);
         if (showTimeList.isEmpty()) {
             return ResponseEntity.notFound().build();

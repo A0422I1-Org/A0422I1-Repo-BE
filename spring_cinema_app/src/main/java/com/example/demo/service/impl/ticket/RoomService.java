@@ -17,7 +17,7 @@ public class RoomService implements IRoomService {
     IChairRoomService chairRoomService;
     @Override
     public Room getRoomAvailable(int showTimeId) {
-        List<Room> roms = roomRepository.findAll();
+        List<Room> roms = roomRepository.getRoomByShowTimeOfMovie(showTimeId);
         for (Room room: roms) {
             if (chairRoomService.checkAvailableChairRoom(room.getId(),showTimeId)){
                 return room;
@@ -25,4 +25,5 @@ public class RoomService implements IRoomService {
         }
         return null;
     }
+
 }

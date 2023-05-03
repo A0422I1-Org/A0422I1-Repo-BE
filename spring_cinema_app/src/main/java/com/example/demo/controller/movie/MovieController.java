@@ -1,7 +1,6 @@
 package com.example.demo.controller.movie;
 
 import com.example.demo.dto.movie.MovieBookingDTO;
-import com.example.demo.model.movie.Movie;
 import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,6 @@ public class MovieController {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(movieList, HttpStatus.OK);
-
     }
 
 }
