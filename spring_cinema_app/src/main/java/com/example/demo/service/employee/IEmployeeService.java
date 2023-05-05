@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface IEmployeeService {
     Employee addNewEmployee(Employee employee);
-    Optional<Employee> findEmployeeById(String id);
-    void updateEmployee(Employee employee);
+    Employee finEById(String id);
+    public Iterable<Employee> findAll();
 }

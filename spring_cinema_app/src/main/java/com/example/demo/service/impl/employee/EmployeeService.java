@@ -19,13 +19,14 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Optional<Employee> findEmployeeById(String id) {
-        return employeeRepository.findById(id);
+    public Employee finEById(String id) {
+        return employeeRepository.findById(id).orElse(null);
     }
+
+
 
     @Override
-    public void updateEmployee(Employee employee) {
-          employeeRepository.updateEmployee(employee.getFullName(), employee.getImage(), employee.getGender(), employee.getBirthday(), employee.getEmail(),employee.getPhoneNumber(), employee.getAddress(), employee.getCardId(),employee.getPosition(),employee.getId());
+    public Iterable<Employee> findAll() {
+        return employeeRepository.findAll();
     }
-
 }

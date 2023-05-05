@@ -26,13 +26,9 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Optional<Account> findAccountByUsername(String username) {
+    public Account findAccountByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
 
-    @Override
-    public void updatePass(Employee employee) {
-        accountRepository.updatePassword(employee.getAccount().getUsername(),employee.getAccount().getPassword());
-    }
 
 }

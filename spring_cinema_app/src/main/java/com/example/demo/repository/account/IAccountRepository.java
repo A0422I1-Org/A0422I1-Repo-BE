@@ -17,10 +17,6 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
     @Query(value = "select username from account where username = ?1", nativeQuery = true)
     String existsByEmployeeName(String username);
     @Query(value = "select a from Account as a where a.username like %:userName%",nativeQuery = false)
-    Optional<Account> findByUsername(@Param("userName") String userName);
+    Account findByUsername(@Param("userName") String userName);
 
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE account SET password  = ?1 WHERE username = ?2",nativeQuery = true)
-    void updatePassword(String password, String username);
 }

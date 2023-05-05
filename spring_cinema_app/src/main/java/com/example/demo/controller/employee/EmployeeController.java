@@ -1,5 +1,7 @@
 package com.example.demo.controller.employee;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 import com.example.demo.dto.employee.EmployeeCreateDTO;
 import com.example.demo.dto.employee.EmployeeDTO;
 import com.example.demo.dto.employee.EmployeeUpdateDTO;
@@ -16,12 +18,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employee")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
+    private static int counter = 1;
+    private static final String PATTERN = "Employee-%04d";
+
+    public static String generate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String dateString = dateFormat.format(new Date());
+        String id = String.format(PATTERN, counter++);
+        return id + "-" + dateString;
+    }
     @Autowired
     private IEmployeeService employeeService;
 
@@ -31,11 +43,22 @@ public class EmployeeController {
     @Autowired
     private IAccountRoleService accountRoleService;
 
+
+    @GetMapping
+    public ResponseEntity<Iterable<Employee>> findAllCustomer() {
+        List<Employee> customers = (List<Employee>) employeeService.findAll();
+        if (customers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
     @PostMapping("/add")
     public ResponseEntity<?> saveEmployee(@RequestBody EmployeeCreateDTO employee) {
         if(accountService.existsByEmployeeName(employee.getUsername()) != null){
             return ResponseEntity.badRequest().body("Account đã tồn tại!");
         }
+//        String id = UUID.randomUUID().toString();
+        String id = generate();
         Account account = new Account();
         account.setUsername(employee.getUsername());
         account.setPassword(employee.getPassword());
@@ -62,45 +85,38 @@ public class EmployeeController {
                 account,
                 false
         );
-        employee1.setId("id0012");
+        employee1.setId(id);
+//        employee1.setId("id0055");
         return new ResponseEntity<>(employeeService.addNewEmployee(employee1), HttpStatus.CREATED);
     }
 
     @GetMapping("/update/{id}")
-    public ResponseEntity<Employee> findCustomerById(@PathVariable String id) {
-        Optional<Employee> customerOptional = employeeService.findEmployeeById(id);
-        if (!customerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        System.out.println("00000000000000000000000000000000000000000000");
-        return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
+    public ResponseEntity<Employee> findEmployeeById(@PathVariable String id) {
+        return new ResponseEntity<>(employeeService.finEById(id), HttpStatus.OK);
     }
-
     @PutMapping("/update")
-    public void updateEmployee(@RequestBody Employee employee){
-        System.out.println("@222222222222222222222222222222222222222222222222222");
-        employeeService.updateEmployee(employee);
-        System.out.println("111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-        accountService.updatePass(employee);
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeCreateDTO employee) {
+        Account account = new Account();
+        account.setUsername(employee.getUsername());
+        account.setPassword(employee.getPassword());
+        account.setIsEnable(false);
+        account.setIsDelete(false);
+        accountService.addNewAccount(account);
+        Employee employee1 = new Employee(
+                employee.getId(),
+                employee.getFullName(),
+                employee.getImage(),
+                employee.getGender(),
+                employee.getBirthday(),
+                employee.getEmail(),
+                false,
+                employee.getPhoneNumber(),
+                employee.getAddress(),
+                employee.getCardId(),
+                employee.getPosition(),
+                account,
+                false
+        );
+        return new ResponseEntity<>(employeeService.addNewEmployee(employee1), HttpStatus.CREATED);
     }
-
-    @GetMapping("/account/{id}")
-    public ResponseEntity<Account> findAccountId(@PathVariable String id) {
-        Optional<Account> accountOptional = accountService.findAccountByUsername(id);
-        if (!accountOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
-    }
-//    @PutMapping("/id")
-//    public ResponseEntity<Employee> updateEmployee(@PathVariable String id, @RequestBody Employee employee){
-//        Optional<Employee> employeeOptional = employeeService.findEmployeeById(id);
-//        if (!employeeOptional.isPresent()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        Optional<Account> accountOptional = accountService.findAccountByUsername(String.valueOf(employeeOptional.get().getAccount()));
-//        accountService.updatePass(employee);
-//        return new ResponseEntity<>(employeeService.updateEmployee(employee),HttpStatus.OK);
-//    }
-
 }

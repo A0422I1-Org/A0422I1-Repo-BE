@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.util.Date;
 
 public class EmployeeCreateDTO {
-//    private String id;
+    private String id;
     private String fullName;
     private String image;
     private Boolean gender;
@@ -115,6 +115,13 @@ public class EmployeeCreateDTO {
         this.password = password;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 //    public Role getRole() {
 //        return role;
 //    }

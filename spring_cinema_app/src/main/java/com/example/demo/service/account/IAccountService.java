@@ -7,7 +7,6 @@ import java.util.Optional;
 public interface IAccountService {
     void addNewAccount(Account account);
     String existsByEmployeeName(String username);
-    Optional<Account> findAccountByUsername(String username);
+    Account findAccountByUsername(String username);
 
-    public void updatePass(Employee employee);
 }
