@@ -3,7 +3,6 @@ package com.example.demo.validator;
 import com.example.demo.model.account.Account;
 import com.example.demo.repository.account.IAccountRepository;
 import com.example.demo.validator.annotation.AccountDuplicated;
-import jdk.internal.logger.BootstrapLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
