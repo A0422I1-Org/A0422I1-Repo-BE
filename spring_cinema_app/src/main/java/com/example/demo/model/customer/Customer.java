@@ -1,16 +1,13 @@
 package com.example.demo.model.customer;
 
 import com.example.demo.model.account.Account;
-import com.example.demo.model.ticket.Ticket;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
+
 @Getter
 @Setter
 @Entity

@@ -36,7 +36,7 @@ public class CustomerController {
          * Params: search input, page, size, sort
          * Return: customer list
          */
-        Sort sortable = null;
+        Sort sortable = Sort.by("id").ascending();
         if (sort.equals("asc")) {
             sortable = Sort.by("id").ascending();
         }
@@ -66,11 +66,8 @@ public class CustomerController {
          * Params: customer
          * Return: void
          */
-        try {
-            customerService.saveCustomer(customer);
-            accountService.updatePassword(customer);
-        } catch (Error error) {
-            System.out.println(error.getMessage());
-        }
+        customerService.saveCustomer(customer);
+        accountService.updatePassword(customer);
+
     }
 }
