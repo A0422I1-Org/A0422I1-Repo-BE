@@ -13,10 +13,13 @@ import java.util.Date;
 @Repository
 public interface ICustomerRepository  extends JpaRepository<Customer,String> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM customer c WHERE id = ?1")
+    @Query(nativeQuery = true, value = "SELECT id, address, birthday, card_id, email, full_name, gender," +
+            "is_delete, phone_number, username FROM customer c WHERE id = ?1")
     Customer findCustomerById(String id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM customer WHERE full_name LIKE CONCAT('%',?1,'%')")
+    @Query(nativeQuery = true, value = "SELECT * FROM customer " +
+            "WHERE full_name LIKE CONCAT('%',?1,'%') OR phone_number LIKE CONCAT('%',?1,'%') " +
+            "OR card_id LIKE CONCAT('%',?1,'%') OR email LIKE CONCAT('%',?1,'%')")
     Page<Customer> searchCustomerByName(String name, Pageable pageable);
 
     @Modifying
