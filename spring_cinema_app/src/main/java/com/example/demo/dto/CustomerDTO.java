@@ -1,5 +1,4 @@
 package com.example.demo.dto;
-import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class CustomerDTO {
@@ -89,4 +88,5 @@ public class CustomerDTO {
     public void setCardId(String cardId) {
         this.cardId = cardId;
     }
+
 }

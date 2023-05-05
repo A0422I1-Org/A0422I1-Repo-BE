@@ -1,9 +1,7 @@
 package com.example.demo.dto;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 

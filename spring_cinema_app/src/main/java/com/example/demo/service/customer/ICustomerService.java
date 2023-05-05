@@ -6,8 +6,6 @@ import com.example.demo.model.customer.Customer;
 import java.util.Optional;
 
 public interface ICustomerService {
-    Customer findCustomerByAccount(Account account );
-//    Customer findById(String customerId);
     void save(Customer customer);
     void updateCustomer(Customer customer);
     Customer findCustomerByUsername(String username);

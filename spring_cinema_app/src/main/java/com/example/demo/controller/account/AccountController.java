@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class AccountController {
     @Autowired
@@ -31,7 +31,7 @@ public class AccountController {
     @Autowired
     private HttpSession session;
 
-    @PostMapping("/signup")
+    @PostMapping("/public/signup")
     public ResponseEntity<?> registerCustomer(@RequestBody SignupRequest signupRequest){
         if(accountService.existsByUserName(signupRequest.getUsername()) != null){
             return ResponseEntity.badRequest().body("Tên đăng nhập đã được đăng ký!");
@@ -60,7 +60,7 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/do-reset-password")
+    @PostMapping("/user/do-reset-password")
     public ResponseEntity<?> doResetPassword(@RequestBody ResetPassRequest resetPassRequest) {
         if(accountService.existsByPassword(resetPassRequest.getUsername(), resetPassRequest.getOldPassword()) != null){
             accountService.saveNewPassword(resetPassRequest.getPassword(), resetPassRequest.getUsername());

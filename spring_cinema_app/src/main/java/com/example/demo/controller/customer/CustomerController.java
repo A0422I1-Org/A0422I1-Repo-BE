@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
@@ -20,12 +20,12 @@ public class CustomerController {
     @Autowired
     private HttpSession session;
 
-    @GetMapping("/{username}")
+    @GetMapping("/user/{username}")
     public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
         return new ResponseEntity<>(this.customerService.findCustomerByUsername(username), HttpStatus.OK);
     }
 
-    @PutMapping("edit/{id}")
+    @PutMapping("/user/edit/{id}")
     public ResponseEntity<?> updateTaiKhoan(@PathVariable String id, @RequestBody CustomerDTO customerDTO) {
         Optional<Customer> customerOptional = customerService.findById(id);
         if (!customerOptional.isPresent()) {
