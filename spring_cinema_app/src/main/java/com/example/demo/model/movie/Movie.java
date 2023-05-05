@@ -1,7 +1,5 @@
 package com.example.demo.model.movie;
 
-import com.example.demo.model.ticket.ShowTime;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter

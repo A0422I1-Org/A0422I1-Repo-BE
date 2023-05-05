@@ -12,4 +12,8 @@ public interface IPositionRepository extends JpaRepository<Position,Integer> {
     @Query("SELECT p " +
             "FROM Position p WHERE p.isDelete=false")
     List<Position> findAll();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984

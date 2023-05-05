@@ -6,9 +6,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -25,6 +28,13 @@ public class Account {
     private Boolean isEnable;
     @Column(columnDefinition = ("varchar(255)"))
     private String verification_code;
+    @OneToOne(mappedBy = "account")
+    @JsonBackReference
+    private Employee employees;
+
+    @OneToOne(mappedBy = "account")
+    @JsonBackReference
+    private Customer customer;
 
     public Account() {
     }
@@ -35,5 +45,7 @@ public class Account {
         this.isDelete = isDelete;
         this.isEnable = isEnable;
         this.verification_code = verification_code;
+        this.employees = employees;
+        this.customer = customer;
     }
 }

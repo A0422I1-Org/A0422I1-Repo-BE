@@ -27,4 +27,8 @@ public class PositionService implements IPositionService {
         }
         return dtoList;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984

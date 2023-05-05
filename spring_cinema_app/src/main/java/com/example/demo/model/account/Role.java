@@ -1,12 +1,11 @@
 package com.example.demo.model.account;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+
 @Getter
 @Setter
 @Entity
