@@ -11,4 +11,5 @@ public interface ICustomerService {
     String existsByEmail(String email);
 
     Customer findById(String customerId);
+    Customer findByUsername(String username);
 }

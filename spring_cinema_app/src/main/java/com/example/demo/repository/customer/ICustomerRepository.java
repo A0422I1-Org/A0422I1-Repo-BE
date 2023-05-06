@@ -15,4 +15,6 @@ public interface ICustomerRepository  extends JpaRepository<Customer,String> {
      */
     @Query(value = "select email from customer where email =?1", nativeQuery = true)
     String existsByEmail(String email);
+    @Query(value = "select * from customer where username = ?", nativeQuery = true)
+    Customer findCustomerByUsername(String username);
 }
