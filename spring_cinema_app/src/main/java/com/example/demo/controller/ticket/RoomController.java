@@ -1,5 +1,6 @@
 package com.example.demo.controller.ticket;
 
+
 import com.example.demo.model.ticket.Room;
 import com.example.demo.service.ticket.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,12 @@ public class RoomController {
     @Autowired
     IRoomService roomService;
 
+    /**
+     * @param
+     * @return Room
+     * @content get room of showtime now
+     * @author PhatVN
+     */
     @GetMapping("/check-room/{idShowTime}")
     public ResponseEntity<Room> getRoomAvailable(@PathVariable("idShowTime") Integer id) {
         Room room = roomService.getRoomAvailable(id);
@@ -21,4 +28,5 @@ public class RoomController {
         }
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
+
 }

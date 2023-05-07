@@ -34,5 +34,6 @@ public class ChairRoom {
         this.isDelete = isDelete;
         this.room = room;
         this.chair = chair;
+
     }
 }

@@ -15,7 +15,7 @@ public class MovieService implements IMovieService {
     IMovieRepository movieRepository;
 
     @Override
-    public List<MovieBookingDTO> findMoviesByStartDate() {
+    public List<MovieBookingDTO> findMoviesByShowTime() {
         return movieRepository.findMoviesByStartDate();
     }
 
