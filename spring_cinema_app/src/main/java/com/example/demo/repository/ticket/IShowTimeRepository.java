@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Repository
 public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
-    @Query(nativeQuery = true, value = "SELECT show_time.start_time as startTime, DATE_FORMAT(ticket.book_datetime, '%d/%m/%Y') AS saleDate, COUNT(*) AS soldTickets, COUNT(*) * 40000 AS totalRevenue " +
+    @Query(nativeQuery = true, value = "SELECT show_time.start_time as startTime, DATE_FORMAT(ticket.book_date_time, '%d/%m/%Y') AS saleDate, COUNT(*) AS soldTickets, COUNT(*) * price AS totalRevenue " +
             "FROM ticket " +
             "INNER JOIN show_time ON ticket.showtime_id = show_time.id " +
             "WHERE ticket.status = 1 " +
