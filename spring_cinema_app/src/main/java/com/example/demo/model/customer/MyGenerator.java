@@ -14,6 +14,6 @@ public class MyGenerator implements IdentifierGenerator {
         String query = "SELECT c.id FROM Customer c";
         Stream<String> ids = session.createQuery(query, String.class).stream();
         Long max = ids.map(o -> o.replace(prefix, "")).mapToLong(Long::parseLong).max().orElse(0L);
-        return prefix + (String.format("%04d", max + 1));
+        return prefix + (String.format("%03d", max + 1));
     }
 }
