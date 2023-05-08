@@ -47,17 +47,6 @@ public class CustomerDTO implements Serializable {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String id, String fullName, double point, Long ticket, double money, String email, String phone, String address, String idCard) {
-        this.id = id;
-        this.fullName = fullName;
-        this.point = point;
-        this.ticket = ticket;
-        this.money = money;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.idCard = idCard;
-    }
 
     public String getId() {
         return id;
@@ -99,9 +88,6 @@ public class CustomerDTO implements Serializable {
         this.money = money;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;

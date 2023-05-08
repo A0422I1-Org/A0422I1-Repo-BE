@@ -3,9 +3,7 @@ package com.example.demo.controller.statistic;
 
 import com.example.demo.model.dto.StatisticDTO.CustomerDTO;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
-
 import com.example.demo.service.customer.ICustomerService;
-import com.example.demo.service.impl.customer.CustomerService;
 import com.example.demo.service.impl.movie.MovieTypeService;
 import com.example.demo.service.impl.ticket.ShowTimeService;
 import com.example.demo.service.movie.IMovieService;
@@ -25,9 +23,9 @@ import java.util.Map;
 public class StatisticController {
 
     @Autowired
-    IMovieService movieService;
+    private IMovieService movieService;
     @Autowired
-    ICustomerService customerService;
+    private ICustomerService customerService;
     @Autowired
     private MovieTypeService movieTypeService;
     @Autowired
@@ -111,7 +109,7 @@ public class StatisticController {
      */
     @GetMapping("/get-rank-customer")
     public ResponseEntity<Integer> getRankCustomerById(@RequestParam String customerId){
-        return new ResponseEntity<Integer>(customerService.getRankCustomer(customerId),HttpStatus.OK);
+        return new ResponseEntity<>(customerService.getRankCustomer(customerId),HttpStatus.OK);
     }
 
     /**
