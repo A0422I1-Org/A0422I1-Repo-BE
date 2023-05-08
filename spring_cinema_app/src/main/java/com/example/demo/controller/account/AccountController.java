@@ -54,7 +54,7 @@ public class AccountController {
                 false
         );
         customerService.save(customer);
-        Role role = new Role(1, "customer", true );
+        Role role = new Role(4, "customer", true );
         AccountRole accountRole = new AccountRole(account, role, true);
         accountRoleService.save(accountRole);
         return new ResponseEntity<>(HttpStatus.OK);
