@@ -14,7 +14,7 @@ public class MovieDirector {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "moive_id")
+    @JoinColumn(name = "movie_id")
     private Movie movieD;
 
     @ManyToOne

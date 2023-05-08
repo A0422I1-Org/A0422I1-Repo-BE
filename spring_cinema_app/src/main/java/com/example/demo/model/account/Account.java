@@ -21,30 +21,19 @@ public class Account {
     private String password;
     @NotNull
     private Boolean isDelete;
+    @NotNull
+    private Boolean isEnable;
     @Column(columnDefinition = ("varchar(255)"))
     private String verification_code;
-    @OneToMany(mappedBy = "account")
-    @JsonBackReference
-    private Set<AccountRole> accountRoles;
-    @OneToOne(mappedBy = "account")
-    @JsonBackReference
-    private Employee employees;
-
-    @OneToOne(mappedBy = "account")
-    @JsonBackReference
-    private Customer customer;
 
     public Account() {
     }
 
-    public Account(String username, String password, Boolean isDelete, String verification_code,
-                   Set<AccountRole> accountRoles, Employee employees, Customer customer) {
+    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Employee employees, Customer customer) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
+        this.isEnable = isEnable;
         this.verification_code = verification_code;
-        this.accountRoles = accountRoles;
-        this.employees = employees;
-        this.customer = customer;
     }
 }
