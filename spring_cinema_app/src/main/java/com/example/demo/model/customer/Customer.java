@@ -71,6 +71,7 @@ public class Customer {
         this.isDelete = isDelete;
     }
 
+
     public List<Point> getGetListPoint() {
         return getListPoint;
     }
@@ -86,6 +87,7 @@ public class Customer {
     public void setGetTicketList(List<Ticket> getTicketList) {
         this.getTicketList = getTicketList;
     }
+
 
     public String getId() {
         return id;

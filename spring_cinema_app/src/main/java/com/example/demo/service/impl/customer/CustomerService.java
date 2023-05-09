@@ -169,4 +169,18 @@ public class CustomerService implements ICustomerService {
         return page;
     }
 
+    public String existsByEmail(String email) {
+        return iCustomerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Customer findById(String customerId) {
+        return iCustomerRepository.findById(customerId).orElse(null);
+    }
+
+    @Override
+    public Customer getCustomerByAccount(String username) {
+        return iCustomerRepository.getCustomerByAccount(username);
+    }
+
 }

@@ -1,10 +1,12 @@
 package com.example.demo.model.ticket;
+
 import com.example.demo.model.customer.Customer;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -30,21 +32,6 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
     private ChairRoom chairRoom;
-    public Ticket() {
-    }
-
-
-
-    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
-        this.id = id;
-        this.price = price;
-        this.bookDateTime = bookDateTime;
-        this.status = status;
-        this.isDelete = isDelete;
-        this.customer = customer;
-        this.showtime = showtime;
-        this.chairRoom = chairRoom;
-    }
 
     public String getId() {
         return id;
@@ -107,7 +94,6 @@ public class Ticket {
     }
 
     public void setChairRoom(ChairRoom chairRoom) {
-
         this.chairRoom = chairRoom;
     }
 }

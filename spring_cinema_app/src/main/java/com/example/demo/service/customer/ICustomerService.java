@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ICustomerService {
 
+
     Page<CustomerDTO> getListCustomerDTODesc(Pageable pageable);
 
     Page<CustomerDTO> getListCustomerDTOAcs(Pageable pageable);
@@ -21,5 +22,17 @@ public interface ICustomerService {
     Page<CustomerDTO> convertListToPage(List<CustomerDTO> customerDTOs , Pageable pageable);
 
     int getRankCustomer(String id);
+
+
+    /**
+     * Pham Trung Hieu
+     * @param email
+     * @return email
+     */
+    String existsByEmail(String email);
+
+    Customer findById(String customerId);
+
+    Customer getCustomerByAccount(String username);
 
 }
