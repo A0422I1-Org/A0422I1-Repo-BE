@@ -79,7 +79,7 @@ public class SecurityController {
         try {
             final GoogleIdToken googleIdToken = GoogleIdToken.parse(builder.getJsonFactory(), jwtSocial.getValue());
             final GoogleIdToken.Payload payload = googleIdToken.getPayload();
-            Optional<Account> accountOptional = accountService.findByUsername(payload.getEmail());
+            Optional<Account> accountOptional = accountService.findByUsernames(payload.getEmail());
 
             if (!accountOptional.isPresent()) {
                 Account account = new Account();

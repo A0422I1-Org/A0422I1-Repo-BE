@@ -3,6 +3,7 @@ package com.example.demo.model.ticket;
 import com.example.demo.model.customer.Customer;
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -32,6 +33,15 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
     private ChairRoom chairRoom;
+
+
+    public Ticket() {
+    }
+
+
+    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
+    }
+
 
     public String getId() {
         return id;

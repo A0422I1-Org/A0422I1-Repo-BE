@@ -12,6 +12,13 @@ import java.util.List;
 
 public interface ICustomerRepository extends JpaRepository<Customer, String> {
 
+    /**
+     *
+     * @param name
+     * @return List customer
+     *
+     * Author: DuHC
+     */
     List<Customer> findCustomerByFullNameContaining(String name);
 
     /**

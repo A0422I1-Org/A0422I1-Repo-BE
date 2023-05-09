@@ -88,7 +88,6 @@ public class Customer {
         this.getTicketList = getTicketList;
     }
 
-
     public String getId() {
         return id;
     }

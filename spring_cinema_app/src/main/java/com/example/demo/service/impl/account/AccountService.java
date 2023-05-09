@@ -7,7 +7,6 @@ import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
@@ -16,6 +15,16 @@ public class AccountService implements IAccountService {
 
     @Autowired
     private IAccountRepository accountRepository;
+
+    public Account findByUsername(String username) {
+        return accountRepository.findByUsernames(username);
+    }
+
+    @Override
+    public Optional<Account> findByUsernames(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
 
     /**
      * Pham Trung Hieu
@@ -88,10 +97,6 @@ public class AccountService implements IAccountService {
         accountRepository.saveNewPassword(password, code);
     }
 
-    @Override
-    public Optional<Account> findByUsername(String username) {
-        return accountRepository.findByUsername(username);
-    }
 
     @Override
     public Boolean existsByUsername(String username) {
@@ -101,5 +106,6 @@ public class AccountService implements IAccountService {
     public Account save(Account account) {
         return accountRepository.save(account);
     }
+
 
 }

@@ -2,7 +2,6 @@ package com.example.demo.service.account;
 
 import com.example.demo.model.account.Account;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
@@ -53,7 +52,7 @@ public interface IAccountService {
      */
     void saveNewPassword(String password, String code);
 
-    Optional<Account> findByUsername(String username);
+    Optional<Account> findByUsernames(String username);
 
     Boolean existsByUsername(String username);
 
