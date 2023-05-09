@@ -18,7 +18,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -90,12 +89,7 @@ public class SecurityController {
 
             String jwt = jwtTokenProvider.generateToken(payload.getEmail());
 
-            JwtAccountDetailsImpl userDetails = (JwtAccountDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-
-            return ResponseEntity.ok(new JwtReponse( jwt,
-                    userDetails.getUsername(),
-                    roles));
+            return ResponseEntity.ok(new JwtReponse(jwt));
 
         } catch (Exception e) {
             e.printStackTrace();
