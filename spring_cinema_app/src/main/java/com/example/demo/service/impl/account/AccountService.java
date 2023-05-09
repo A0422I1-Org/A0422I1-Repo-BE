@@ -68,10 +68,10 @@ public class AccountService implements IAccountService {
     @Override
     public Boolean findAccountByVerificationCode(String code) {
         Account account = accountRepository.findAccountByVerificationCode(code);
-        if (account == null || account.getIsEnable()) {
+        if (account == null || account.getEnable()) {
             return false;
         } else {
-            account.setIsEnable(true);
+            account.setEnable(true);
             account.setVerification_code(null);
             accountRepository.save(account);
             return true;

@@ -39,4 +39,52 @@ public class Account {
         this.verification_code = verification_code;
         this.accountRoleList = accountRoleList;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
+    }
+
+    public String getVerification_code() {
+        return verification_code;
+    }
+
+    public void setVerification_code(String verification_code) {
+        this.verification_code = verification_code;
+    }
+
+    public Set<AccountRole> getAccountRoleList() {
+        return accountRoleList;
+    }
+
+    public void setAccountRoleList(Set<AccountRole> accountRoleList) {
+        this.accountRoleList = accountRoleList;
+    }
 }
