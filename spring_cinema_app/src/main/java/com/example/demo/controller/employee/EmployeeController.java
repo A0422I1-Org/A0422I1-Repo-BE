@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class EmployeeController {
     private static final int MAXDISPLAY = 5;
     private static int counter = 1;
