@@ -57,4 +57,5 @@ public class Movie {
     @OneToMany(mappedBy = "movie")
     @JsonIgnore
     private List<MovieDirector> getListDirector;
+
 }

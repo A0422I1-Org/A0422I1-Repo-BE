@@ -17,11 +17,7 @@ public interface IMovieDetailDTO {
 
     String getTrailer();
 
-    Double getRating();
-
     String getLanguage();
-
-    Boolean getDelete();
 
     String getActors();
 
@@ -31,4 +27,5 @@ public interface IMovieDetailDTO {
 
     String getMovieStudios();
 
+    Double getAvgRating();
 }

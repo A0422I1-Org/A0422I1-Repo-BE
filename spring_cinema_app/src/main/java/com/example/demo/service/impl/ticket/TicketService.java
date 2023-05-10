@@ -1,5 +1,6 @@
 package com.example.demo.service.impl.ticket;
 
+
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.repository.ticket.ITicketRepository;
 import com.example.demo.service.ticket.ITicketService;
@@ -15,5 +16,6 @@ public class TicketService  implements ITicketService {
     @Override
     public List<Ticket> findAllTicket() {
         return ticketRepository.findAll();
+
     }
 }
