@@ -24,7 +24,7 @@ public class ShowTime {
     private String startTime;
     private String endTime;
     @NotNull
-    private String soldOut;
+    private Boolean soldOut;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -36,8 +36,8 @@ public class ShowTime {
     public ShowTime() {
     }
 
-    public ShowTime(Integer id, @NotNull Date date, @NotNull String startTime, String endTime,
-                    @NotNull String soldOut, Movie movie, Boolean isDelete) {
+    public ShowTime(Integer id, @NotNull Date date, @NotNull String startTime, String endTime, @NotNull Boolean soldOut, Movie movie, Boolean isDelete) {
+
         this.id = id;
         this.date = date;
         this.startTime = startTime;

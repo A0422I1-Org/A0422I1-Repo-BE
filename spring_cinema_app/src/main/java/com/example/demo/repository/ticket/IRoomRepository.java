@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface IRoomRepository extends JpaRepository<Room,Integer> {
+public interface IRoomRepository extends JpaRepository<Room, Integer> {
     @Modifying
     @Query(value =
             "select r.id,r.name,r.is_delete,r.screen  from room r " +

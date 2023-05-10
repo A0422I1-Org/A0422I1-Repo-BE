@@ -14,7 +14,6 @@ public class Director {
     private Integer id;
     private String name;
     private Boolean isDelete;
-
     public Director() {
     }
 
