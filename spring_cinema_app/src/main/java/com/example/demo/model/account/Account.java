@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,10 +34,14 @@ public class Account {
     @JsonBackReference
     private Customer customer;
 
+    @OneToMany(mappedBy = "account",fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Set<AccountRole> accountRoleList;
+
     public Account() {
     }
 
-    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Employee employees, Customer customer) {
+    public Account(String username, String password, Boolean isDelete, Boolean isEnable, String verification_code, Set<AccountRole> accountRoleList) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
@@ -47,5 +49,6 @@ public class Account {
         this.verification_code = verification_code;
         this.employees = employees;
         this.customer = customer;
+        this.accountRoleList = accountRoleList;
     }
 }
