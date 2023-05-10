@@ -19,6 +19,10 @@ public class Role {
     private String name;
     private Boolean isDelete;
 
+    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Set<AccountRole> accountRoleList;
+
     public Role() {
     }
 
@@ -26,6 +30,12 @@ public class Role {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
+    }
 
+    public Role(Integer id, String name, Boolean isDelete, Set<AccountRole> accountRoleList) {
+        this.id = id;
+        this.name = name;
+        this.isDelete = isDelete;
+        this.accountRoleList = accountRoleList;
     }
 }

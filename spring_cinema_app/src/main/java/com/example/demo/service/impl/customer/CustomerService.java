@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService implements ICustomerService {
+
     private ICustomerRepository customerRepository;
 
     @Autowired
@@ -36,4 +37,20 @@ public class CustomerService implements ICustomerService {
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
+
+    @Override
+    public String existsByEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Customer findById(String customerId) {
+        return customerRepository.findById(customerId).orElse(null);
+    }
+
+    @Override
+    public Customer getCustomerByAccount(String username) {
+        return customerRepository.getCustomerByAccount(username);
+    }
+
 }

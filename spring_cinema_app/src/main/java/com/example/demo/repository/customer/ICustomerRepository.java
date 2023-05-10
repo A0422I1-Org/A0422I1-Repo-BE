@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -29,4 +30,14 @@ public interface ICustomerRepository  extends JpaRepository<Customer,String> {
     void updateCustomer(String id, String fullName, Date birthday, boolean gender, String email,
                                             String cardId, String phoneNumber, String address);
 
+
+    /**
+     * Pham Trung Hieu
+     * @param email
+     * @return email to reset password
+     */
+    @Query(value = "select email from customer where email =?1", nativeQuery = true)
+    String existsByEmail(String email);
+
+    Customer getCustomerByAccount(@Param("username")String username);
 }

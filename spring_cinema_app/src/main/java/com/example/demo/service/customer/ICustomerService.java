@@ -9,4 +9,16 @@ public interface ICustomerService {
     Page<Customer> searchCustomerByName(String name, Pageable pageable);
     void saveCustomer(Customer customer);
     void save(Customer customer);
+
+    /**
+     * Pham Trung Hieu
+     * @param email
+     * @return email
+     */
+    String existsByEmail(String email);
+
+    Customer findById(String customerId);
+
+    Customer getCustomerByAccount(String username);
+
 }
