@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface IPointRepository extends JpaRepository<Point, Integer> {
+
     @Query(nativeQuery = true, value = "SELECT * FROM point WHERE (date BETWEEN ?1  AND  ?2 ) and (is_delete = false) and (customer_id = ?3)")
     Page<Point> findAllPointDateBetweenByCustomer(String startDate, String endDate, String customerId, Pageable pageable);
 
@@ -19,4 +20,5 @@ public interface IPointRepository extends JpaRepository<Point, Integer> {
 
     @Query(nativeQuery = true, value = "select * from point WHERE customer_id = ? and is_delete = false")
     List<Point> findPointByCustomers(String customer);
+
 }
