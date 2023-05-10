@@ -8,5 +8,5 @@ import java.util.List;
 @Service
 public interface IMovieService {
 
-    List<MovieBookingDTO> findMoviesByShowTime();
+    List<MovieBookingDTO> findMoviesByStartDate();
 }

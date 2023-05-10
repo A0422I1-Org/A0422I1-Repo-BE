@@ -29,7 +29,7 @@ public class MovieController {
      */
     @GetMapping("/public/movie/list-movie-by-date-show-time")
     public ResponseEntity<List<MovieBookingDTO>> getAllMovieByDateShowTime() {
-        List<MovieBookingDTO> movieList = movieService.findMoviesByShowTime();
+        List<MovieBookingDTO> movieList = movieService.findMoviesByStartDate();
         if (movieList.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

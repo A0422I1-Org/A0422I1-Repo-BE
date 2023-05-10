@@ -25,10 +25,10 @@ public class AccountRole {
 
     private Boolean isDelete;
 
-    public AccountRole(){
+    public AccountRole() {
     }
 
-    public AccountRole(Integer id, Account account, Role role, Boolean isDelete) {
+    public AccountRole(Integer id, @NotNull Account account, @NotNull Role role, Boolean isDelete) {
         this.id = id;
         this.account = account;
         this.role = role;

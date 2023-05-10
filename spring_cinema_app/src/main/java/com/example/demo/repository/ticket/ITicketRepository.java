@@ -1,6 +1,5 @@
 package com.example.demo.repository.ticket;
 
-import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,12 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Repository
 @Transactional
 public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
-    List<Ticket> findTicketByCustomer(Customer customer);
-
     @Modifying
     @Query(value =
             "SELECT t.id,t.book_date_time,t.is_delete,t.price,t.status,t.chair_room_id,t.customer_id,t.showtime_id" +
