@@ -14,13 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-<<<<<<< HEAD
-@RequestMapping("/api/employee")
-@CrossOrigin(origins = "http://localhost:4200")
-=======
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class PositionController {
     @Autowired
     private IPositionService positionService;
@@ -33,8 +28,4 @@ public class PositionController {
         }
         return new ResponseEntity<>(positionService.convertAll(positions), HttpStatus.OK);
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
 }

@@ -10,8 +10,4 @@ public interface IPositionService {
     List<Position> findAll();
 
     List<PositionViewDTO> convertAll(List<Position> positionList);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
