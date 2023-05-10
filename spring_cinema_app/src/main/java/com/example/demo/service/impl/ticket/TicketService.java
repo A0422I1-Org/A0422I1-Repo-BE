@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class TicketService  implements ITicketService {
     @Autowired
     private ITicketRepository ticketRepository;
@@ -35,6 +34,8 @@ public class TicketService  implements ITicketService {
 
     @Override
     public List<Ticket> findAllTicketByCustomer(Customer customer) {
-        return null;
+        return ticketRepository.findTicketByCustomer(customer);
     }
+
+
 }

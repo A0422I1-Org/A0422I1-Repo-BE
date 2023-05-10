@@ -10,9 +10,15 @@ import org.springframework.stereotype.Service;
 public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
+
     @Override
-    public Customer findById(String id) {
-        return customerRepository.findById(id).orElse(null);
+    public String existsByEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Customer findById(String customerId) {
+        return customerRepository.findById(customerId).orElse(null);
     }
 
     @Override
@@ -21,8 +27,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public String existsByEmail(String email) {
-        return customerRepository.existsByEmail(email);
+    public Customer getCustomerByAccount(String username) {
+        return customerRepository.getCustomerByAccount(username);
     }
-
 }

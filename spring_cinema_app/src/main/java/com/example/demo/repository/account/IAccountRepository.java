@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.Optional;
+
 @Repository
 @Transactional
 public interface IAccountRepository extends JpaRepository<Account,String> {
-
     /**
      * Pham Trung Hieu
      * @param username
@@ -41,7 +43,7 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
      * @param verifyCode
      * @return account information by verify code
      */
-    @Query(value = "select * from account where verification_code =?1",nativeQuery = true)
+    @Query(value = "select username, is_delete, is_enable, password, verification_code from account where verification_code =?1",nativeQuery = true)
     Account findAccountByVerificationCode(String verifyCode);
 
     /**
@@ -52,4 +54,6 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
     @Modifying
     @Query(value = "update account set password =?1,verification_code=null where verification_code=?2",nativeQuery = true)
     void saveNewPassword(String password, String code);
+    Optional<Account> findByUsername(String username);
+    boolean existsByUsername(String username);
 }

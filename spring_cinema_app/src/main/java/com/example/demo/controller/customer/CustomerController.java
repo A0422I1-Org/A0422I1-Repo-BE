@@ -47,8 +47,8 @@ public class CustomerController {
     @GetMapping("/ticket-choosed")
     public ResponseEntity<List<Ticket>> findTicketsChoosed() {
         List<Ticket> ticketList = new ArrayList<>();
-        ticketList.add(ticketService.findById("11"));
-        ticketList.add(ticketService.findById("12"));
+        ticketList.add(ticketService.findById("1"));
+        ticketList.add(ticketService.findById("2"));
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 

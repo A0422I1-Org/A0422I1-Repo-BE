@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 
 @Service
 public class AccountService implements IAccountService {
@@ -86,6 +87,20 @@ public class AccountService implements IAccountService {
     @Override
     public void saveNewPassword(String password, String code) {
         accountRepository.saveNewPassword(password, code);
+    }
+
+    @Override
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return accountRepository.existsByUsername(username);
+    }
+
+    public Account save(Account account) {
+        return accountRepository.save(account);
     }
 
 }

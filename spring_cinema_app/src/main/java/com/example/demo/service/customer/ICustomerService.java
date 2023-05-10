@@ -9,7 +9,7 @@ public interface ICustomerService {
      * @return email
      */
     String existsByEmail(String email);
-
     Customer findById(String customerId);
     Customer findByUsername(String username);
+    Customer getCustomerByAccount(String username);
 }
