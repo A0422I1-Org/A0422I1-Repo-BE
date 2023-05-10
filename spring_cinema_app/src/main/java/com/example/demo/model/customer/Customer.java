@@ -18,7 +18,7 @@ public class Customer {
     @NotNull
     private String fullName;
     @NotNull
-    private Boolean gender;
+    private String gender;
     @DateTimeFormat()
     @NotNull
     private Date birthday;
@@ -26,27 +26,26 @@ public class Customer {
     private String email;
     @NotNull
     @Column(columnDefinition = ("varchar(15)"))
-    private String phoneNumber;
+    private Integer phoneNumber;
     @NotNull
     private String address;
     @NotNull
-    private String cardId;
+    private Integer cardId;
 
     @OneToOne
     @JoinColumn(name = "username")
     @NotNull
     private Account account;
 
+
     private Boolean isDelete;
 
     public Customer() {
     }
 
-
-    public Customer(String id, @NotNull String fullName, @NotNull Boolean gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull String phoneNumber, @NotNull String address,
-                    @NotNull String cardId,
-
+    public Customer(String id, @NotNull String fullName, @NotNull String gender, @NotNull Date birthday,
+                    @NotNull String email, @NotNull Integer phoneNumber, @NotNull String address,
+                    @NotNull Integer cardId,
                     @NotNull Account account, Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;

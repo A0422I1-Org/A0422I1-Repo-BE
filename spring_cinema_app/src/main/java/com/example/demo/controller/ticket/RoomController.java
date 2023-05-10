@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
-@RequestMapping("/api/public/room")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RoomController {
     @Autowired
@@ -20,10 +21,10 @@ public class RoomController {
      * @content get room of showtime now
      * @author PhatVN
      */
-    @GetMapping("/check-room/{idShowTime}")
+    @GetMapping("/public/room/check-room/{idShowTime}")
     public ResponseEntity<Room> getRoomAvailable(@PathVariable("idShowTime") Integer id) {
         Room room = roomService.getRoomAvailable(id);
-        if (room ==null){
+        if (room == null) {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(room, HttpStatus.OK);

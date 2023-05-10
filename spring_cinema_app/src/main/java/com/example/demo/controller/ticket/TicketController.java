@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/public/ticket")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TicketController {
     @Autowired
@@ -22,7 +22,7 @@ public class TicketController {
      * @content get all ticket of showtime and room now
      * @author PhatVN
      */
-    @GetMapping("/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
+    @GetMapping("/public/ticket/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
     public ResponseEntity<List<Ticket>> getAllTicketByShowTimeAndIdRoom(@PathVariable("idRoom")Integer idRoom, @PathVariable("idShowTime")Integer idShowTime){
         List<Ticket> ticketList = ticketService.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
         if (ticketList.isEmpty()) {

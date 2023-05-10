@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/public/showtime")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ShowTimeController {
     @Autowired
@@ -23,7 +23,7 @@ public class ShowTimeController {
      * @content get all showtime of movie
      * @author PhatVN
      */
-    @GetMapping("/showtime-by-movie/{id}")
+    @GetMapping("/public/showtime/showtime-by-movie/{id}")
     public ResponseEntity<List<ShowTimeBookingDTO>> getShowTimeByIdMovie(@PathVariable("id") Integer id) {
         List<ShowTimeBookingDTO> showTimeList = showTimeService.findShowTimeByMovieId(id);
         if (showTimeList.isEmpty()) {
@@ -31,16 +31,17 @@ public class ShowTimeController {
         }
         return new ResponseEntity<>(showTimeList, HttpStatus.OK);
     }
+
     /**
      * @param
      * @return ShowTime
      * @content get showtime by id
      * @author PhatVN
      */
-    @GetMapping("/showtime-by-id/{id}")
+    @GetMapping("/public/showtime/showtime-by-id/{id}")
     public ResponseEntity<ShowTime> getShowTimeById(@PathVariable("id") Integer id) {
         ShowTime showTime = showTimeService.findShowTimeById(id);
-        if (showTime == null){
+        if (showTime == null) {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(showTime, HttpStatus.OK);

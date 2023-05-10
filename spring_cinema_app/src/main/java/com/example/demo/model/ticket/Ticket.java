@@ -1,12 +1,15 @@
 package com.example.demo.model.ticket;
 
 import com.example.demo.model.customer.Customer;
+import com.example.demo.model.employee.Employee;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,9 +20,7 @@ public class Ticket {
     private String id;
     @NotNull
     private Double price;
-
     private Date bookDateTime;
-
     @NotNull
     private Boolean status;
     private Boolean isDelete;

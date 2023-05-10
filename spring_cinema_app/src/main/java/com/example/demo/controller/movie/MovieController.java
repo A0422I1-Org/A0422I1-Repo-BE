@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/public/movie")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class MovieController {
     @Autowired
@@ -27,9 +27,9 @@ public class MovieController {
      * @content Get all the movies with showings from today to the next three days
      * @author PhatVN
      */
-    @GetMapping("/list-movie-by-date-show-time")
+    @GetMapping("/public/movie/list-movie-by-date-show-time")
     public ResponseEntity<List<MovieBookingDTO>> getAllMovieByDateShowTime() {
-        List<MovieBookingDTO> movieList = movieService.findMoviesByShowTime();
+        List<MovieBookingDTO> movieList = movieService.findMoviesByStartDate();
         if (movieList.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
