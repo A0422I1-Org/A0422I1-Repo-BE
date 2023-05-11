@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-//KHÔNG DÙNG NỮA
+//NOT USE
 @Getter
 @Setter
 @Entity
