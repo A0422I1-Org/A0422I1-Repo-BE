@@ -10,22 +10,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("customer-management")
+@RequestMapping("api/admin/")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
     private ICustomerService customerService;
     private IAccountService accountService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomerController(ICustomerService customerService, IAccountService accountService) {
+    public CustomerController(ICustomerService customerService, IAccountService accountService, PasswordEncoder passwordEncoder) {
         this.customerService = customerService;
         this.accountService = accountService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("")
+    @GetMapping("customer-management")
     public ResponseEntity<Page<Customer>> getCustomerList(@RequestParam(name = "search", required = false, defaultValue = "") String search,
                                                           @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                           @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -67,7 +70,9 @@ public class CustomerController {
          * Return: void
          */
         customerService.saveCustomer(customer);
+        String passInput = customer.getAccount().getPassword();
+        String passEncode = passwordEncoder.encode(passInput);
+        customer.getAccount().setPassword(passEncode);
         accountService.updatePassword(customer);
-
     }
 }
