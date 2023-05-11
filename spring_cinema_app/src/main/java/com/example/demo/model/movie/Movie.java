@@ -2,6 +2,7 @@ package com.example.demo.model.movie;
 
 import com.example.demo.model.ticket.ShowTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -39,6 +41,10 @@ public class Movie {
     private String language;
     @NotNull
     private Boolean isDelete;
+
+    @OneToMany(mappedBy = "movieT")
+    @JsonIgnore
+    private List<MovieAndType> getListMovieType;
 
     public Movie() {
     }
