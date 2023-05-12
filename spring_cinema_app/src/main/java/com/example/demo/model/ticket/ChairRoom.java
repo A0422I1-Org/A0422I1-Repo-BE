@@ -25,8 +25,6 @@ public class ChairRoom {
     @JoinColumn(name = "chair_id")
     private Chair chair;
 
-
-
     public ChairRoom() {
     }
 
@@ -36,6 +34,5 @@ public class ChairRoom {
         this.isDelete = isDelete;
         this.room = room;
         this.chair = chair;
-
     }
 }

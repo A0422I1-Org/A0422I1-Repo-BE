@@ -2,6 +2,7 @@ package com.example.demo.service.impl.movie;
 
 import com.example.demo.dto.movie.IMovieDetailDTO;
 import com.example.demo.dto.movie.MovieListViewDTO;
+import com.example.demo.dto.movie.MovieBookingDTO;
 import com.example.demo.model.movie.Movie;
 import com.example.demo.repository.movie.IMovieRepository;
 import com.example.demo.service.movie.IMovieService;
@@ -26,13 +27,6 @@ public class MovieService implements IMovieService {
     @Override
     public IMovieDetailDTO getMovieDetailByMovieId(Integer movieId) {
         return movieRepository.getMovieByMovieId(movieId);
-    }
-
-    @Override
-    public List<Movie> findMoviesByStartDate() {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate threeDaysLater = currentDate.plusDays(3);
-        return movieRepository.findMoviesByStartDate(threeDaysLater);
     }
 
     @Override
@@ -67,5 +61,10 @@ public class MovieService implements IMovieService {
         }
         movieListViewDTOS.sort((o1, o2) -> o2.getStartDay().compareTo(o1.getStartDay()));
         return movieListViewDTOS;
+    }
+
+    @Override
+    public List<MovieBookingDTO> findMoviesByStartDate() {
+        return movieRepository.findMoviesByStartDate();
     }
 }

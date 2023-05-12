@@ -47,6 +47,7 @@ public class AccountService implements IAccountService {
     public void addVerificationCode(String username) throws MessagingException, UnsupportedEncodingException {
         String code = RandomString.make(20);
         accountRepository.addVerificationCode(code, username);
+        Account account = accountRepository.findAccountByVerificationCode(code);
     }
 
     /**

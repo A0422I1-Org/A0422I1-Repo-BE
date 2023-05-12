@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
 @Getter
 @Setter
 @Entity
@@ -19,6 +18,7 @@ public class Room {
     private String name;
     @NotNull
     private String screen;
+
     private Boolean isDelete;
 
     public Integer getId() {
@@ -45,6 +45,7 @@ public class Room {
         this.screen = screen;
     }
 
+
     public Boolean getDelete() {
         return isDelete;
     }
@@ -63,8 +64,3 @@ public class Room {
         this.isDelete = isDelete;
     }
 }
-
-
-
-
-

@@ -1,13 +1,12 @@
 package com.example.demo.model.ticket;
+
 import com.example.demo.model.customer.Customer;
-import com.example.demo.model.employee.Employee;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -18,33 +17,36 @@ public class Ticket {
     private String id;
     @NotNull
     private Double price;
-
     private Date bookDateTime;
     @NotNull
     private Boolean status;
     private Boolean isDelete;
-
     @ManyToOne
     @JoinColumn(name = "customer_id", columnDefinition = ("varchar(20)"))
     private Customer customer;
 
+    //    @ManyToOne
+//    @JoinColumn(name = "employee_id",columnDefinition = ("varchar(20)"))
+//    private Employee employee;
     @ManyToOne
     @JoinColumn(name = "showtime_id")
-    private ShowTime showtime;
+    private ShowTime showTime;
+
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
     private ChairRoom chairRoom;
+
     public Ticket() {
     }
-    public Ticket(String id, Double price, Date bookDateTime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
 
+    public Ticket(String id, Double price, Date bookDateTime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
         this.bookDateTime = bookDateTime;
         this.status = status;
         this.isDelete = isDelete;
         this.customer = customer;
-        this.showtime = showtime;
+        this.showTime = showTime;
         this.chairRoom = chairRoom;
     }
 }

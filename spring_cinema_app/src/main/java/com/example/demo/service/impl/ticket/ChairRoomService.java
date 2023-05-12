@@ -1,11 +1,9 @@
 package com.example.demo.service.impl.ticket;
 
-import com.example.demo.model.ticket.ChairRoom;
-import com.example.demo.model.ticket.Room;
+
 import com.example.demo.model.ticket.ShowTime;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.repository.ticket.IChairRoomRepository;
-import com.example.demo.repository.ticket.IRoomRepository;
 import com.example.demo.repository.ticket.IShowTimeRepository;
 import com.example.demo.repository.ticket.ITicketRepository;
 import com.example.demo.service.ticket.IChairRoomService;
@@ -22,35 +20,22 @@ public class ChairRoomService implements IChairRoomService {
     IChairRoomRepository chairRoomRepository;
     @Autowired
     ITicketRepository ticketRepository;
-    @Autowired
-    IRoomRepository roomRepository;
+
+    @Override
     public boolean checkAvailableChairRoom(int roomId, int showTimeId) {
-        // Truy vấn bảng show_time để kiểm tra xem phòng hiện tại còn chỗ trống không
         ShowTime showTime = showTimeRepository.findShowTimeById(showTimeId);
-        if (showTime == null || showTime.getSoldOut().equals('1')) {
+        if (showTime == null) {
             return false;
         }
-        List<Ticket> ticketList = ticketRepository.findTicketAvailable(roomId,showTimeId);
+        List<Ticket> ticketList = ticketRepository.findTicketAvailable(roomId, showTimeId);
         int countTicketInRoom = 0;
-        for (Ticket ticket:ticketList) {
-            if (ticket.getStatus()==true){
+        for (Ticket ticket : ticketList) {
+            if (ticket.getStatus()) {
                 countTicketInRoom++;
             }
         }
-        if (countTicketInRoom == 40) {
-            return false;
-        }
-        return true;
+        return countTicketInRoom != 40;
     }
-    @Override
-    public Room getRoomAvailable(int showTimeId){
-        List<Room> roms = roomRepository.findAll();
-        for (Room room: roms) {
-            if (checkAvailableChairRoom(room.getId(),showTimeId)){
-                return room;
-            }
-        }
-        return null;
-    }
+
 
 }
