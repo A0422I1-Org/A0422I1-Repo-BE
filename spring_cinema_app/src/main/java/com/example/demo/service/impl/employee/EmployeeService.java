@@ -1,20 +1,13 @@
 package com.example.demo.service.impl.employee;
 
-<<<<<<< HEAD
 import com.example.demo.model.employee.Employee;
 import com.example.demo.repository.employee.IEmployeeRepository;
 import com.example.demo.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.example.demo.error.NotFoundById;
-import com.example.demo.model.employee.Employee;
-import com.example.demo.repository.employee.IEmployeeRepository;
-import com.example.demo.service.employee.IEmployeeService;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -25,23 +18,15 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeRepository employeeRepository;
 
     @Override
-<<<<<<< HEAD
     public Employee addNewEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
     @Override
-    public Employee finEById(String id) {
-        return employeeRepository.findById(id).orElse(null);
-    }
-
-
-
-    @Override
     public Iterable<Employee> findAll() {
         return employeeRepository.findAll();
     }
-=======
+
     @SneakyThrows
     public Employee findById(String id) {
         Optional<Employee> employee=employeeRepository.findById(id);
@@ -65,6 +50,4 @@ public class EmployeeService implements IEmployeeService {
         return employeeRepository.findAllByFullNameContainingAndPosition(name.trim(),positionId,pageable);
     }
 
-
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
 }

@@ -14,6 +14,7 @@ import java.util.List;
 public class PositionService implements IPositionService {
     @Autowired
     IPositionRepository positionRepository;
+
     @Override
     public List<Position> findAll() {
         return positionRepository.findAll();
@@ -21,14 +22,10 @@ public class PositionService implements IPositionService {
 
     @Override
     public List<PositionViewDTO> convertAll(List<Position> positionList) {
-        List<PositionViewDTO> dtoList=new ArrayList<>();
-        for (Position position:positionList) {
+        List<PositionViewDTO> dtoList = new ArrayList<>();
+        for (Position position : positionList) {
             dtoList.add(new PositionViewDTO(position));
         }
         return dtoList;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984

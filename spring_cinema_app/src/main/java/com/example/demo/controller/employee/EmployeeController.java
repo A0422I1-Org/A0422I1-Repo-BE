@@ -1,10 +1,11 @@
+
 package com.example.demo.controller.employee;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 import com.example.demo.dto.employee.EmployeeCreateDTO;
-import com.example.demo.dto.employee.EmployeeDTO;
-import com.example.demo.dto.employee.EmployeeUpdateDTO;
+import com.example.demo.dto.employee.EmployeeDeleteDTO;
+import com.example.demo.dto.employee.EmployeeViewDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.account.AccountRole;
 import com.example.demo.model.account.Role;
@@ -14,20 +15,23 @@ import com.example.demo.service.account.IAccountRoleService;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/employee")
+@RequestMapping("/api/admin/employee")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
     private static int counter = 1;
     private static final String PATTERN = "Employee-%04d";
+    private static final int MAXDISPLAY = 5;
 
     public static String generate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -44,15 +48,6 @@ public class EmployeeController {
     @Autowired
     private IAccountRoleService accountRoleService;
 
-
-    @GetMapping
-    public ResponseEntity<Iterable<Employee>> findAllCustomer() {
-        List<Employee> customers = (List<Employee>) employeeService.findAll();
-        if (customers.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(customers, HttpStatus.OK);
-    }
     @PostMapping("/add")
     public ResponseEntity<?> saveEmployee(@RequestBody EmployeeCreateDTO employee) {
         if(accountService.existsByEmployeeName(employee.getUsername()) != null){
@@ -93,7 +88,7 @@ public class EmployeeController {
 
     @GetMapping("/update/{id}")
     public ResponseEntity<Employee> findEmployeeById(@PathVariable String id) {
-        return new ResponseEntity<>(employeeService.finEById(id), HttpStatus.OK);
+        return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
     }
     @PutMapping("/update")
     public ResponseEntity<?> updateEmployee(@RequestBody EmployeeCreateDTO employee) {
@@ -119,33 +114,9 @@ public class EmployeeController {
                 false
         );
         return new ResponseEntity<>(employeeService.addNewEmployee(employee1), HttpStatus.CREATED);
-=======
-import com.example.demo.dto.employee.EmployeeDeleteDTO;
-import com.example.demo.dto.employee.EmployeeViewDTO;
-import com.example.demo.error.NotFoundById;
-import com.example.demo.model.employee.Employee;
-import com.example.demo.service.impl.employee.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+    }
 
-import java.util.Optional;
-
-
-@RestController
-@RequestMapping("/api/admin")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-public class EmployeeController {
-    private static final int MAXDISPLAY = 5;
-    @Autowired
-    private EmployeeService employeeService;
-
-
-    @GetMapping("/employee")
+    @GetMapping()
     public ResponseEntity<Page<EmployeeViewDTO>> getAllEmployeesByNameContainingAndPosition(@RequestParam(value = "name" ,defaultValue = "") String name,
                                                                                             @RequestParam(value = "positionId" ,defaultValue = "-1") String positionId,
                                                                                             @PageableDefault(value = MAXDISPLAY) Pageable pageable) {
@@ -153,14 +124,13 @@ public class EmployeeController {
         return new ResponseEntity<>(employees.map(EmployeeViewDTO::new), HttpStatus.OK);
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<EmployeeDeleteDTO> getEmployeeById(@PathVariable("id") String id) {
         return new ResponseEntity<>(new EmployeeDeleteDTO(employeeService.findById(id)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Integer> deleteEmployee(@PathVariable("id") String id) {
         return new ResponseEntity<>(employeeService.updateIsDeleteById(id),HttpStatus.OK);
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
     }
 }

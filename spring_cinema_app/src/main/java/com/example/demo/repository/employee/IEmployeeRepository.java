@@ -1,24 +1,13 @@
 package com.example.demo.repository.employee;
-
 import com.example.demo.model.employee.Employee;
-<<<<<<< HEAD
-import com.example.demo.model.employee.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Date;
-=======
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
 import javax.transaction.Transactional;
 import java.util.Optional;
->>>>>>> 0c38633d66e7a01ae60b5357fdbeb7a928d75984
 
 @Repository
 public interface IEmployeeRepository extends JpaRepository<Employee,String> {
@@ -43,5 +32,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee,String> {
             " FROM Employee e WHERE e.fullName LIKE concat('%',?1,'%') and e.position.id=?2 and e.isDelete=false")
     Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId,Pageable pageable);
 
-
+    @Query("SELECT e FROM Employee e")
+    Iterable<Employee> fin();
 }
