@@ -4,6 +4,8 @@ import com.example.demo.dto.movie.RatingMovieDTO;
 import com.example.demo.service.movie.IRatingMovieService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class RatingMovieController {
     @Autowired
     private IRatingMovieService ratingMovieService;
+
+    private final Logger logger = LoggerFactory.getLogger(RatingMovieController.class);
 
     /**
      * @param ratingMovieDTO
@@ -36,6 +40,8 @@ public class RatingMovieController {
         try {
             jsonResult = new ObjectMapper().writeValueAsString(result);
         } catch (JsonProcessingException e){
+            logger.error("Error processing JSON: {}", e.getMessage());
+            return new ResponseEntity<>("Sorry, we could not process your request. Please try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(jsonResult, HttpStatus.OK);
     }
