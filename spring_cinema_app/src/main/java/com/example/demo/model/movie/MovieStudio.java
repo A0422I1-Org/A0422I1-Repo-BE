@@ -17,7 +17,6 @@ public class MovieStudio {
     private String name;
     private Boolean isDelete;
 
-
     public MovieStudio() {
     }
 

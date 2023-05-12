@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 @Getter
 @Setter
@@ -16,6 +17,7 @@ public class Account {
     @Column(columnDefinition = ("varchar(255)"))
     private String password;
     private Boolean isDelete;
+    @NotNull
     private Boolean isEnable;
     @Column(columnDefinition = ("varchar(255)"))
     private String verification_code;

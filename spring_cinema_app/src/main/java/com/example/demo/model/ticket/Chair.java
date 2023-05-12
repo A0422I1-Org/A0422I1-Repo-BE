@@ -18,7 +18,6 @@ public class Chair {
     @NotNull
     private String name;
     private Boolean isDelete;
-
     public Chair() {
     }
 

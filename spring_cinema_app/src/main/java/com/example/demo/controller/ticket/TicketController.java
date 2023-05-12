@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/ticket")
+@RequestMapping("api")
 @CrossOrigin("*")
 public class TicketController {
     @Autowired
@@ -20,7 +20,7 @@ public class TicketController {
      * Lấy ra tất cả ticket trong db...
      * @return List<Ticket>
      */
-    @GetMapping("/list")
+    @GetMapping("/ticket/list")
     public ResponseEntity<List<Ticket>> findAllTicket() {
         return new ResponseEntity<>(ticketService.findAll(), HttpStatus.OK);
     }
@@ -29,8 +29,21 @@ public class TicketController {
      * Tìm kiếm ticket theo id
      * @return Ticket
      */
-    @GetMapping("/{id}")
+    @GetMapping("/ticket/{id}")
     public ResponseEntity<Ticket> findById(@PathVariable String id) {
-        return new ResponseEntity<>(ticketService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(ticketService.findById(id), HttpStatus.OK);}
+    /**
+     * @param
+     * @return List<Ticket>
+     * @content get all ticket of showtime and room now
+     * @author PhatVN
+     */
+    @GetMapping("/public/ticket/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
+    public ResponseEntity<List<Ticket>> getAllTicketByShowTimeAndIdRoom(@PathVariable("idRoom")Integer idRoom, @PathVariable("idShowTime")Integer idShowTime){
+        List<Ticket> ticketList = ticketService.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
+        if (ticketList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 }

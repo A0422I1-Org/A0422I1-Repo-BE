@@ -41,7 +41,7 @@ public class CustomerController {
     /**
      * Mô phỏng dữ liệu cứng
      * Lấy ra những vé người dùng đã chọn
-     *
+     * TanHP
      * @return List<Ticket>
      */
     @GetMapping("/ticket-choosed")
@@ -53,18 +53,19 @@ public class CustomerController {
     }
 
     /**
-     * @param ticket Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
+     * @param ticket
+     * Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
+     * TanHP
      */
     @PostMapping("/confirm-booking-ticket")
     public ResponseEntity<Void> confirmBookingTicket(@RequestBody Ticket ticket, Principal principal) {
         Customer customer = customerService.findByUsername(principal.getName());
-//        Customer customer = customerService.findById("KH-002");
         ticket.setStatus(true);
         ticket.setCustomer(customer);
         Date date = new Date();
-        ticket.setBook_datetime(date);
+        ticket.setBookDateTime(date);
         ticketService.createOrUpdate(ticket);
-//         Create a Simple MailMessage.
+
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(MyConstants.FRIEND_EMAIL);
@@ -82,8 +83,8 @@ public class CustomerController {
                 "\nCMND : " + customer.getCardId() +
                 "\nSố điện thoại: " + customer.getPhoneNumber());
 
-//         Send Message!
         javaMailSender.send(message);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

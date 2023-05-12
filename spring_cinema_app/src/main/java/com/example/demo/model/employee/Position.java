@@ -1,12 +1,11 @@
 package com.example.demo.model.employee;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -18,6 +17,7 @@ public class Position {
     private String name;
     @NotNull
     private Boolean isDelete;
+
     public Position() {
     }
 
