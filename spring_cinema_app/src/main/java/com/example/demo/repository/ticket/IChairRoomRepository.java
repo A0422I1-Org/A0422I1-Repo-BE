@@ -13,6 +13,12 @@ import java.util.List;
 @Repository
 @Transactional
 public interface IChairRoomRepository extends JpaRepository<ChairRoom, Integer> {
+    /**
+     * @param
+     * @return List<ChairRoom>
+     * @content findByIdRom
+     * @author PhatVN
+     */
     @Modifying
     @Query(value =
             "SELECT cr.id,cr.is_delete,cr.status,cr.chair_id, cr.room_id" +

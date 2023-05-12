@@ -14,7 +14,12 @@ import java.util.List;
 @Repository
 @Transactional
 public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
-
+    /**
+     * @param
+     * @return List<ShowTimeBookingDTO>
+     * @content findShowTimeByMovieId
+     * @author PhatVN
+     */
     @Modifying
     @Query(value =
             "SELECT st.id, st.date, st.end_time as endTime, st.sold_out as soldOut, st.start_time as startTime, st.is_delete as `delete`, st.movie_id as movieId " +
@@ -24,8 +29,12 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
                     "ORDER BY st.date ASC, st.start_time ASC"
             , nativeQuery = true)
     List<ShowTimeBookingDTO> findShowTimeByMovieId(@Param("id") int id);
-
-
+    /**
+     * @param
+     * @return ShowTime
+     * @content findShowTimeById
+     * @author PhatVN
+     */
     @Query(value =
             "SELECT st.id, st.date, st.end_time, st.sold_out, st.start_time, st.is_delete, st.movie_id " +
                     "FROM show_time st " +

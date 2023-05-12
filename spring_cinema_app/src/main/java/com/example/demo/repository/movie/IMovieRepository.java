@@ -12,6 +12,12 @@ import java.util.List;
 @Repository
 @Transactional
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
+    /**
+     * @param
+     * @return List<MovieBookingDTO>
+     * @content find all the movies with showings from today to the next three days
+     * @author PhatVN
+     */
     @Modifying
     @Query(value =
             "SELECT m.id, m.description, m.image, m.is_delete as isDelete , m.language, m.name, m.rating, m.start_day as startDay, m.status, m.time_amount as timeAmount, m.trailer " +

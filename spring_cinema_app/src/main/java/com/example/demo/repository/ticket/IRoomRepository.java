@@ -13,6 +13,13 @@ import java.util.List;
 @Repository
 @Transactional
 public interface IRoomRepository extends JpaRepository<Room,Integer> {
+
+    /**
+     * @param
+     * @return List<Room>
+     * @content get room by showtime Of Movie
+     * @author PhatVN
+     */
     @Modifying
     @Query(value =
             "select r.id,r.name,r.is_delete,r.screen  from room r " +
