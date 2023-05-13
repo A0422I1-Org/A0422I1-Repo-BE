@@ -1,33 +1,78 @@
 package com.example.demo.controller.customer;
 
-import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
-import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
-import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RequestMapping("api/customer")
+@RequestMapping("api/admin/")
+@CrossOrigin("http://localhost:4200")
 public class CustomerController {
+    private ICustomerService customerService;
+    private IAccountService accountService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private IAccountService iAccountService;
+    public CustomerController(ICustomerService customerService, IAccountService accountService, PasswordEncoder passwordEncoder) {
+        this.customerService = customerService;
+        this.accountService = accountService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    @Autowired
-    private ITicketService iTicketService;
+    @GetMapping("customer-management")
+    public ResponseEntity<Page<Customer>> getCustomerList(@RequestParam(name = "search", required = false, defaultValue = "") String search,
+                                                          @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                                          @RequestParam(name = "sort", required = false, defaultValue = "asc") String sort) {
+        /**
+         * Method: show customer list, show search result, choose page
+         * Author: DanhHC
+         * Params: search input, page, size, sort
+         * Return: customer list
+         */
+        Sort sortable = Sort.by("id").ascending();
+        if (sort.equals("asc")) {
+            sortable = Sort.by("id").ascending();
+        }
+        if (sort.equals("desc")) {
+            sortable = Sort.by("id").descending();
+        }
+        Pageable pageable = PageRequest.of(page, size, sortable);
+        return new ResponseEntity<>(customerService.searchCustomerByName(search, pageable), HttpStatus.OK);
+    }
 
-    @Autowired
-    private ICustomerService iCustomerService;
+    @GetMapping("update/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
+        /**
+         * Method: get customer by id
+         * Author: DanhHC
+         * Params: customer id
+         * Return: customer with corresponding id
+         */
+        return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
+    }
 
+    @PutMapping("update")
+    public void updateCustomer(@RequestBody Customer customer) {
+        /**
+         * Method: edit customer
+         * Author: DanhHC
+         * Params: customer
+         * Return: void
+         */
+        customerService.saveCustomer(customer);
+        String passInput = customer.getAccount().getPassword();
+        String passEncode = passwordEncoder.encode(passInput);
+        customer.getAccount().setPassword(passEncode);
+        accountService.updatePassword(customer);
+    }
 }

@@ -26,6 +26,12 @@ public class Role {
     public Role() {
     }
 
+    public Role(Integer id, @NotNull String name, Boolean isDelete) {
+        this.id = id;
+        this.name = name;
+        this.isDelete = isDelete;
+    }
+
     public Role(Integer id, String name, Boolean isDelete, Set<AccountRole> accountRoleList) {
         this.id = id;
         this.name = name;

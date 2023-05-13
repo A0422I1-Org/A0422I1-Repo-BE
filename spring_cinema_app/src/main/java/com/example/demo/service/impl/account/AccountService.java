@@ -1,8 +1,8 @@
 package com.example.demo.service.impl.account;
-
-import com.example.demo.model.account.Account;
+import com.example.demo.model.customer.Customer;
 import com.example.demo.repository.account.IAccountRepository;
 import com.example.demo.service.account.IAccountService;
+import com.example.demo.model.account.Account;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +12,17 @@ import java.util.Optional;
 
 @Service
 public class AccountService implements IAccountService {
-
-    @Autowired
     private IAccountRepository accountRepository;
 
-    public Account findByUsername(String username) {
-        return accountRepository.findByUsernames(username);
+    @Autowired
+    public AccountService(IAccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 
     @Override
-    public Optional<Account> findByUsernames(String username) {
-        return accountRepository.findByUsername(username);
+    public void updatePassword(Customer customer) {
+        this.accountRepository.updatePassword(customer.getAccount().getPassword(), customer.getAccount().getUsername());
     }
-
 
     /**
      * Pham Trung Hieu
@@ -81,7 +79,7 @@ public class AccountService implements IAccountService {
             return false;
         } else {
             account.setEnable(true);
-            account.setVerification_code(null);
+            account.setVerificationCode(null);
             accountRepository.save(account);
             return true;
         }
@@ -97,6 +95,10 @@ public class AccountService implements IAccountService {
         accountRepository.saveNewPassword(password, code);
     }
 
+    @Override
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
 
     @Override
     public Boolean existsByUsername(String username) {
@@ -106,6 +108,5 @@ public class AccountService implements IAccountService {
     public Account save(Account account) {
         return accountRepository.save(account);
     }
-
 
 }

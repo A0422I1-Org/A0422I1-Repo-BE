@@ -40,8 +40,15 @@ public class Ticket {
 
 
     public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
+        this.id = id;
+        this.price = price;
+        this.bookDateTime = bookDateTime;
+        this.status = status;
+        this.isDelete = isDelete;
+        this.customer = customer;
+        this.showtime = showtime;
+        this.chairRoom = chairRoom;
     }
-
 
     public String getId() {
         return id;
