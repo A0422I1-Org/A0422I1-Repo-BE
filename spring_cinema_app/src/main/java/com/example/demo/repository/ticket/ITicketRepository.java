@@ -44,4 +44,9 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
                     "ORDER BY t.chair_room_id ASC ",
             nativeQuery = true)
     List<Ticket> findTicketByShowTimeAndIdRoom(@Param("idRoom") Integer idRoom, @Param("idShowTime") Integer idShowTime);
+
+    @Transactional
+    @Modifying
+    @Query(value ="update ticket set status = 1 and customer_id = :customerId where id = :ticket.id", nativeQuery = true)
+    public void confirmBooking(Ticket ticket, String customerId);
 }

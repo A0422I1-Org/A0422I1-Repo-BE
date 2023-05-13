@@ -19,6 +19,7 @@ public class TicketController {
     /**
      * Lấy ra tất cả ticket trong db...
      * @return List<Ticket>
+     * TanHP
      */
     @GetMapping("/ticket/list")
     public ResponseEntity<List<Ticket>> findAllTicket() {
@@ -28,6 +29,7 @@ public class TicketController {
     /**
      * Tìm kiếm ticket theo id
      * @return Ticket
+     * TanHP
      */
     @GetMapping("/ticket/{id}")
     public ResponseEntity<Ticket> findById(@PathVariable String id) {
