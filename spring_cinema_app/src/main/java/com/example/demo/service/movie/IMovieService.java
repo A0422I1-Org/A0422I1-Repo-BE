@@ -1,12 +1,10 @@
 package com.example.demo.service.movie;
 
-<<<<<<< HEAD
 import com.example.demo.dto.movie.IMovieDetailDTO;
-import com.example.demo.model.movie.Movie;
-import java.util.List;
-import com.example.demo.dto.movie.MovieListViewDTO;
 import com.example.demo.dto.movie.MovieBookingDTO;
-import org.springframework.stereotype.Service;
+import com.example.demo.dto.movie.MovieListViewDTO;
+
+import java.util.List;
 
 public interface IMovieService {
     /**

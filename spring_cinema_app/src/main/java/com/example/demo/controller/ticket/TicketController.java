@@ -1,5 +1,6 @@
 package com.example.demo.controller.ticket;
 
+import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

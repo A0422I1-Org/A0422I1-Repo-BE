@@ -1,15 +1,14 @@
 package com.example.demo.service.impl.movie;
 
 import com.example.demo.dto.movie.IMovieDetailDTO;
-import com.example.demo.dto.movie.MovieListViewDTO;
 import com.example.demo.dto.movie.MovieBookingDTO;
+import com.example.demo.dto.movie.MovieListViewDTO;
 import com.example.demo.model.movie.Movie;
 import com.example.demo.repository.movie.IMovieRepository;
 import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class MovieService implements IMovieService {
      */
     @Override
     public IMovieDetailDTO getMovieDetailByMovieId(Integer movieId) {
+        movieRepository.getMovieByMovieId(movieId);
         return movieRepository.getMovieByMovieId(movieId);
     }
 

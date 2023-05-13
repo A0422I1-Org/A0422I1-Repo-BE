@@ -2,6 +2,7 @@ package com.example.demo.controller.customer;
 
 import com.example.demo.config.MyConstants;
 import com.example.demo.model.customer.Customer;
+import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;

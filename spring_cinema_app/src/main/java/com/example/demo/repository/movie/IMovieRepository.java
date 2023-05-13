@@ -1,16 +1,13 @@
 package com.example.demo.repository.movie;
 
 import com.example.demo.dto.movie.IMovieDetailDTO;
+import com.example.demo.dto.movie.MovieBookingDTO;
 import com.example.demo.model.movie.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.example.demo.dto.movie.MovieBookingDTO;
-
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDate;
 
 import java.util.List;
 
@@ -41,14 +38,6 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
             "LEFT JOIN rating_movie as rat ON mv.id = rat.movie_id where mv.id = ?1 and mv.is_delete = 0 " +
             "GROUP BY mv.id", nativeQuery = true)
     IMovieDetailDTO getMovieByMovieId(Integer movieId);
-
-    @Modifying
-    @Query(value =
-            "SELECT m.id, m.description, m.image,m.is_delete,m.language,m.name,m.rating,m.start_day,m.status,m.time_amount,m.trailer " +
-                    "FROM Movie m " +
-                    "join show_time st on st.movie_id = m.id " +
-                    "where st.date >= CURRENT_TIME  group by m.id ", nativeQuery = true)
-    List<Movie> findMoviesByStartDate(LocalDate threeDaysLater);
 
     List<Movie> findAllByIsDeleteFalseAndStatusEquals(String status);
     List<Movie> findAllByIsDeleteFalseAndNameContainingIgnoreCase(String name);
