@@ -15,6 +15,10 @@ public class JwtReponse {
         this.roles = roles;
     }
 
+    public JwtReponse(String token) {
+        this.token = token;
+    }
+
     public JwtReponse() {
     }
 

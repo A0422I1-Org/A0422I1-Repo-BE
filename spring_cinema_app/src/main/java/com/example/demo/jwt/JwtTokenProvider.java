@@ -1,8 +1,7 @@
 package com.example.demo.jwt;
 
 import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -10,8 +9,6 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider implements Serializable {
-
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     private String JWT_SECRET = "secretkey";
 
@@ -48,22 +45,37 @@ public class JwtTokenProvider implements Serializable {
      * @param authToken
      * @return validator token
      */
-    public Boolean validateToken(String authToken) {
-        try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
-            return true;
-        } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
-        } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
-        } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
-        }
-        return false;
+    public Boolean validateToken(String authToken, UserDetails userDetails) {
+        final String username = getUsernameFromJwtToken(authToken);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(authToken));
     }
 
+    /**
+     * Pham Trung Hieu
+     * @param token
+     * @return status expired token
+     */
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(new Date());
+    }
+
+    /**
+     * Pham Trung Hieu
+     * @param token
+     * @return date expired from token
+     */
+    public Date getExpirationDateFromToken(String token) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claims.getExpiration();
+    }
+
+    /**
+     * Pham Trung Hieu
+     * @param token
+     * @return all claim from token
+     */
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+    }
 }
