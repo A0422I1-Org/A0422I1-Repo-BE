@@ -20,7 +20,7 @@ public class RoomController {
      * @content get room of showtime now
      * @author PhatVN
      */
-    @GetMapping("/public/room/check-room/{idShowTime}")
+    @GetMapping("/user/room/check-room/{idShowTime}")
     public ResponseEntity<Room> getRoomAvailable(@PathVariable("idShowTime") Integer id) {
         Room room = roomService.getRoomAvailable(id);
         if (room == null) {

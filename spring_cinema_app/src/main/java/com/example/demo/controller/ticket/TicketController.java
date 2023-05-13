@@ -38,7 +38,7 @@ public class TicketController {
      * @content get all ticket of showtime and room now
      * @author PhatVN
      */
-    @GetMapping("/public/ticket/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
+    @GetMapping("/user/ticket/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
     public ResponseEntity<List<Ticket>> getAllTicketByShowTimeAndIdRoom(@PathVariable("idRoom")Integer idRoom, @PathVariable("idShowTime")Integer idShowTime){
         List<Ticket> ticketList = ticketService.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
         if (ticketList.isEmpty()) {

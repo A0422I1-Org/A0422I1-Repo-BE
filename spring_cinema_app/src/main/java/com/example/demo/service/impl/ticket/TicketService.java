@@ -40,7 +40,12 @@ public class TicketService  implements ITicketService {
     }
 
 
-
+    /**
+     * @param
+     * @return List<Ticket>
+     * @content find all ticket of showtime and room now
+     * @author PhatVN
+     */
     @Override
     public List<Ticket> findTicketByShowTimeAndIdRoom(Integer idRoom, Integer idShowTime) {
         return ticketRepository.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);

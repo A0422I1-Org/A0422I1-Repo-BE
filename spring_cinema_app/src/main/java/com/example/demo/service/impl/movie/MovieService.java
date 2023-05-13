@@ -63,6 +63,11 @@ public class MovieService implements IMovieService {
         return movieListViewDTOS;
     }
 
+    /**
+     * @return List<MovieBookingDTO>
+     * @content find all the movies with showings
+     * @author PhatVN
+     */
     @Override
     public List<MovieBookingDTO> findMoviesByStartDate() {
         return movieRepository.findMoviesByStartDate();

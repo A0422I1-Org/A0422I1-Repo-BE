@@ -15,6 +15,12 @@ public class RoomService implements IRoomService {
     IRoomRepository roomRepository;
     @Autowired
     IChairRoomService chairRoomService;
+    /**
+     * @param
+     * @return Room
+     * @content get room of showtime now
+     * @author PhatVN
+     */
     @Override
     public Room getRoomAvailable(int showTimeId) {
         List<Room> roms = roomRepository.getRoomByShowTimeOfMovie(showTimeId);

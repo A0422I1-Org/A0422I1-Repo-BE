@@ -14,7 +14,12 @@ import java.util.List;
 public class ShowTimeService implements IShowTimeService {
     @Autowired
     IShowTimeRepository showTimeRepository;
-
+    /**
+     * @param
+     * @return List<ShowTimeBookingDTO>
+     * @content find all showtime by  idMovie
+     * @author PhatVN
+     */
     @Override
     public List<ShowTimeBookingDTO> findShowTimeByMovieId(Integer idMovie) {
         List<ShowTimeBookingDTO> showTimes = showTimeRepository.findShowTimeByMovieId(idMovie);
@@ -23,6 +28,12 @@ public class ShowTimeService implements IShowTimeService {
         }
         return showTimes;
     }
+    /**
+     * @param
+     * @return List<ShowTimeBookingDTO>
+     * @content find all showtime by  id
+     * @author PhatVN
+     */
 
     @Override
     public ShowTime findShowTimeById(Integer id) {

@@ -21,6 +21,12 @@ public class ChairRoomService implements IChairRoomService {
     @Autowired
     ITicketRepository ticketRepository;
 
+    /**
+     * @param
+     * @return boolean
+     * @content checkroom
+     * @author PhatVN
+     */
     @Override
     public boolean checkAvailableChairRoom(int roomId, int showTimeId) {
         ShowTime showTime = showTimeRepository.findShowTimeById(showTimeId);

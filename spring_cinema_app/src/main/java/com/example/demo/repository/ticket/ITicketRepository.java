@@ -23,7 +23,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
     Ticket findTicketById(String id);
 
     List<Ticket> findTicketByCustomer(Customer customer);
-
+    /**
+     * @param
+     * @return List<Ticket>
+     * @content find Ticket Available check room
+     * @author PhatVN
+     */
     @Transactional
     @Modifying
     @Query(value =
@@ -34,7 +39,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
                     "WHERE r.id = :idRoom AND t.showtime_id = :idShowTime AND t.status = 1 AND r.is_delete = 0 AND cr.is_delete = 0 AND t.is_delete = 0",
             nativeQuery = true)
     List<Ticket> findTicketAvailable(@Param("idRoom") Integer idRoom, @Param("idShowTime") Integer idShowTime);
-
+    /**
+     * @param
+     * @return List<Ticket>
+     * @content find all ticket of showtime and room now
+     * @author PhatVN
+     */
     @Modifying
     @Query(value =
             "SELECT t.id,t.book_date_time,t.is_delete,t.price,t.status,t.chair_room_id,t.customer_id,t.showtime_id" +

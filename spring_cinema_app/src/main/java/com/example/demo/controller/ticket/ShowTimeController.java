@@ -38,7 +38,7 @@ public class ShowTimeController {
      * @content get showtime by id
      * @author PhatVN
      */
-    @GetMapping("/public/showtime/showtime-by-id/{id}")
+    @GetMapping("/user/showtime/showtime-by-id/{id}")
     public ResponseEntity<ShowTime> getShowTimeById(@PathVariable("id") Integer id) {
         ShowTime showTime = showTimeService.findShowTimeById(id);
         if (showTime == null) {

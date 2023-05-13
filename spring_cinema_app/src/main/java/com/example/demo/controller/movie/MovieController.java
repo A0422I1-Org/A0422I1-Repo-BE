@@ -51,9 +51,8 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
     /**
-     * @param
      * @return List<MovieBookingDTO>
-     * @content Get all the movies with showings from today to the next three days
+     * @content Get all the movies with showings
      * @author PhatVN
      */
     @GetMapping("/public/movie/list-movie-by-date-show-time")
