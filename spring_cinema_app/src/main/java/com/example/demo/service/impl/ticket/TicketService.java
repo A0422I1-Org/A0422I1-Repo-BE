@@ -37,7 +37,9 @@ public class TicketService  implements ITicketService {
     public List<Ticket> findAllTicketByCustomer(Customer customer) {
         return ticketRepository.findTicketByCustomer(customer);
     }
-
+    /**
+     * @author PhatVN
+     */
     @Override
     public List<Ticket> findTicketByShowTimeAndIdRoom(Integer idRoom, Integer idShowTime) {
         return ticketRepository.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);

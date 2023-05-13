@@ -25,7 +25,6 @@ public class TicketController {
     public ResponseEntity<List<Ticket>> findAllTicket() {
         return new ResponseEntity<>(ticketService.findAll(), HttpStatus.OK);
     }
-
     /**
      * Tìm kiếm ticket theo id
      * @return Ticket
@@ -40,7 +39,7 @@ public class TicketController {
      * @content get all ticket of showtime and room now
      * @author PhatVN
      */
-    @GetMapping("/public/ticket/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
+    @GetMapping("/user/ticket/list-ticket-by-rom-showtime/{idRoom}/{idShowTime}")
     public ResponseEntity<List<Ticket>> getAllTicketByShowTimeAndIdRoom(@PathVariable("idRoom")Integer idRoom, @PathVariable("idShowTime")Integer idShowTime){
         List<Ticket> ticketList = ticketService.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
         if (ticketList.isEmpty()) {

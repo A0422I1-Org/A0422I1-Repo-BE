@@ -13,7 +13,12 @@ import java.util.List;
 public class MovieService implements IMovieService {
     @Autowired
     IMovieRepository movieRepository;
-
+    /**
+     * @param
+     * @return List<MovieBookingDTO>
+     * @content find Movies By Start Date
+     * @author PhatVN
+     */
     @Override
     public List<MovieBookingDTO> findMoviesByStartDate() {
         return movieRepository.findMoviesByStartDate();

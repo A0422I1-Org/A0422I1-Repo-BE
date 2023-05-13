@@ -65,7 +65,6 @@ public class CustomerController {
                 "\nEmail : " + customer.getEmail() +
                 "\nCMND : " + customer.getCardId() +
                 "\nSố điện thoại: " + customer.getPhoneNumber());
-
         javaMailSender.send(message);
         return new ResponseEntity<>(HttpStatus.OK);
     }

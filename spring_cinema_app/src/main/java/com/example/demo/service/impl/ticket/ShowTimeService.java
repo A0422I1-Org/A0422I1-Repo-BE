@@ -15,6 +15,9 @@ public class ShowTimeService implements IShowTimeService {
     @Autowired
     IShowTimeRepository showTimeRepository;
 
+    /**
+     * @author PhatVN
+     */
     @Override
     public List<ShowTimeBookingDTO> findShowTimeByMovieId(Integer idMovie) {
         List<ShowTimeBookingDTO> showTimes = showTimeRepository.findShowTimeByMovieId(idMovie);
@@ -24,6 +27,9 @@ public class ShowTimeService implements IShowTimeService {
         return showTimes;
     }
 
+    /**
+     * @author PhatVN
+     */
     @Override
     public ShowTime findShowTimeById(Integer id) {
         return showTimeRepository.findShowTimeById(id);
