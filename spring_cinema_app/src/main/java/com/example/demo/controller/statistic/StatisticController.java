@@ -1,7 +1,7 @@
 package com.example.demo.controller.statistic;
 
 
-import com.example.demo.model.dto.StatisticDTO.CustomerDTO;
+import com.example.demo.dto.CustomerDTO;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.impl.movie.MovieTypeService;
@@ -78,8 +78,8 @@ public class StatisticController {
      */
     @GetMapping("/customer-statistic-list")
     public ResponseEntity<Page<CustomerDTO>> getListCustomerStatistic(@PageableDefault(size = 5 )Pageable pageable,
-                                                                @RequestParam(defaultValue = "") String nameCustomer,
-                                                                @RequestParam(defaultValue = "desc") String statusSort) {
+                                                                      @RequestParam(defaultValue = "") String nameCustomer,
+                                                                      @RequestParam(defaultValue = "desc") String statusSort) {
         Page<CustomerDTO> customerDTOPage;
 
         if (!(nameCustomer.equals("")) && "desc".equals(statusSort) ) {

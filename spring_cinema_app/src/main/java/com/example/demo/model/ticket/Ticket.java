@@ -34,7 +34,6 @@ public class Ticket {
     @JoinColumn(name = "chair_room_id")
     private ChairRoom chairRoom;
 
-
     public Ticket() {
     }
 

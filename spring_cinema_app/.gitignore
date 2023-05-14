@@ -38,6 +38,7 @@ out/
 .vscode/
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 application.properties
 =======
 .application.properties/
@@ -46,3 +47,11 @@ application.properties
 
 application.properties/
 >>>>>>> fb6778b38358c275a260f7b88e2fbb59a3b20ae1
+=======
+
+
+application.properties/
+
+
+
+>>>>>>> 165d743da1a99f9820cd7297bdc772e4aef2169a

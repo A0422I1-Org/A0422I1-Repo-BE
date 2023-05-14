@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/admin/")
+@RequestMapping("/api/admin")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
     private ICustomerService customerService;
@@ -28,7 +28,7 @@ public class CustomerController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("customer-management")
+    @GetMapping("/customer-management")
     public ResponseEntity<Page<Customer>> getCustomerList(@RequestParam(name = "search", required = false, defaultValue = "") String search,
                                                           @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                           @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -50,7 +50,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.searchCustomerByName(search, pageable), HttpStatus.OK);
     }
 
-    @GetMapping("update/{id}")
+    @GetMapping("/update/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
         /**
          * Method: get customer by id
@@ -61,7 +61,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     public void updateCustomer(@RequestBody Customer customer) {
         /**
          * Method: edit customer
