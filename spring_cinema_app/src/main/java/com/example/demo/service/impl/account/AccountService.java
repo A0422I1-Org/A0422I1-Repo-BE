@@ -9,29 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService implements IAccountService {
     @Autowired
-    IAccountRepository accountRepository;
-
+    IAccountRepository iAccountRepository;
     @Override
     public Account findByUsername(String username) {
-        return accountRepository.findByUsername(username);
-    }
-    @Override
-    public void save(Account account) {
-        accountRepository.save(account);
-    }
-
-    @Override
-    public String existsByUserName(String username) {
-        return accountRepository.existsByUserName(username);
-    }
-
-    @Override
-    public String existsByPassword(String username, String password) {
-        return accountRepository.existsByPassword(username, password);
-    }
-
-    @Override
-    public void saveNewPassword(String password, String username) {
-        accountRepository.saveNewPassword(password, username);
+        return iAccountRepository.findByUsername(username);
     }
 }

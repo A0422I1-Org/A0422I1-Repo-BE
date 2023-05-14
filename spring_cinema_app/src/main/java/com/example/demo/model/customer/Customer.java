@@ -5,7 +5,6 @@ import com.example.demo.model.ticket.Ticket;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -18,14 +17,12 @@ import java.util.Set;
 public class Customer {
     @Id
     @Column(columnDefinition = ("varchar(45)"))
-    @GeneratedValue(generator = "my_generator")
-    @GenericGenerator(name = "my_generator", strategy = "com.example.demo.model.customer.MyGenerator")
     private String id;
     @NotNull
     private String fullName;
     @NotNull
     private Boolean gender;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat()
     @NotNull
     private Date birthday;
     @NotNull
@@ -62,29 +59,5 @@ public class Customer {
         this.cardId = cardId;
         this.account = account;
         this.isDelete = isDelete;
-    }
-
-    public Customer(String fullName, Boolean gender, Date birthday, String email, String phoneNumber,
-                    String address, String cardId, Account account, Boolean isDelete) {
-        this.fullName = fullName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.cardId = cardId;
-        this.account = account;
-        this.isDelete = isDelete;
-    }
-
-    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId) {
-        this.id = id;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.cardId = cardId;
     }
 }
