@@ -1,19 +1,16 @@
 package com.example.demo.model.movie;
-
-import com.example.demo.model.ticket.ShowTime;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
-
+import java.util.List;
 @Getter
 @Setter
 @Entity
+
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +20,10 @@ public class Movie {
     @NotNull
     private String image;
     @DateTimeFormat
+    @Column(name = "start_day")
     private Date startDay;
     @NotNull
+    @Column(name = "time_amount")
     private Integer timeAmount;
     @NotNull
     @Column(columnDefinition = ("text"))
@@ -40,10 +39,24 @@ public class Movie {
     @NotNull
     private Boolean isDelete;
 
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieAndStudio> getListStudio;
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieActor> getListActor;
+
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieAndType> getListType;
+
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<MovieDirector> getListDirector;
     public Movie() {
     }
 
-    public Movie(Integer id, String name, String image, Date startDay, Integer timeAmount, String description, String status, String trailer, Double rating, String language, Boolean isDelete) {
+    public Movie(Integer id, @NotNull String name, @NotNull String image, Date startDay, @NotNull Integer timeAmount, @NotNull String description, @NotNull String status, @NotNull String trailer, @NotNull Double rating, @NotNull String language, @NotNull Boolean isDelete, List<MovieAndStudio> getListStudio, List<MovieActor> getListActor, List<MovieAndType> getListType, List<MovieDirector> getListDirector) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -55,7 +68,12 @@ public class Movie {
         this.rating = rating;
         this.language = language;
         this.isDelete = isDelete;
+        this.getListStudio = getListStudio;
+        this.getListActor = getListActor;
+        this.getListType = getListType;
+        this.getListDirector = getListDirector;
     }
+
 
     public Integer getId() {
         return id;
@@ -143,5 +161,37 @@ public class Movie {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+    public List<MovieAndStudio> getGetListStudio() {
+        return getListStudio;
+    }
+
+    public void setGetListStudio(List<MovieAndStudio> getListStudio) {
+        this.getListStudio = getListStudio;
+    }
+
+    public List<MovieActor> getGetListActor() {
+        return getListActor;
+    }
+
+    public void setGetListActor(List<MovieActor> getListActor) {
+        this.getListActor = getListActor;
+    }
+
+    public List<MovieAndType> getGetListType() {
+        return getListType;
+    }
+
+    public void setGetListType(List<MovieAndType> getListType) {
+        this.getListType = getListType;
+    }
+
+    public List<MovieDirector> getGetListDirector() {
+        return getListDirector;
+    }
+
+    public void setGetListDirector(List<MovieDirector> getListDirector) {
+        this.getListDirector = getListDirector;
     }
 }

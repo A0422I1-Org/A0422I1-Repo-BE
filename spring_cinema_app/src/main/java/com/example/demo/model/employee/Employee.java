@@ -1,20 +1,11 @@
 package com.example.demo.model.employee;
-
 import com.example.demo.model.account.Account;
-import com.example.demo.model.ticket.Ticket;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-import sun.awt.image.ImageWatched;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 public class Employee {
     @Id
@@ -56,10 +47,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String id, @NotNull String fullName, String image, @NotNull Boolean gender, @NotNull Date birthday,
-                    @NotNull String email, @NotNull Boolean isActivated, @NotNull String phoneNumber,
-                    @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
-                    Boolean isDelete) {
+    public Employee(String id, @NotNull String fullName, String image, @NotNull Boolean gender, @NotNull Date birthday, @NotNull String email, Boolean isActivated, @NotNull String phoneNumber, @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account, Boolean isDelete) {
         this.id = id;
         this.fullName = fullName;
         this.image = image;
@@ -74,8 +62,6 @@ public class Employee {
         this.account = account;
         this.isDelete = isDelete;
     }
-
-
     public Employee(@NotNull String fullName, String image, @NotNull Boolean gender, @NotNull Date birthday,
                     @NotNull String email, @NotNull Boolean isActivated, @NotNull String phoneNumber,
                     @NotNull String address, String cardId, @NotNull Position position, @NotNull Account account,
@@ -93,6 +79,7 @@ public class Employee {
         this.account = account;
         this.isDelete = isDelete;
     }
+
 
     public String getId() {
         return id;
@@ -196,9 +183,5 @@ public class Employee {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
-    }
-
-    public Employee(String id){
-        this.id = id;
     }
 }

@@ -19,7 +19,23 @@ public class EmployeeCreateDTO {
     private String password;
 //    private Role role;
 
+    public EmployeeCreateDTO() {
+    }
 
+    public EmployeeCreateDTO(String id, String fullName, String image, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Position position, String username, String password) {
+        this.id = id;
+        this.fullName = fullName;
+        this.image = image;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
+        this.position = position;
+        this.username = username;
+        this.password = password;
+    }
     public String getFullName() {
         return fullName;
     }
@@ -123,20 +139,4 @@ public class EmployeeCreateDTO {
 //        this.role = role;
 //    }
 
-    public EmployeeCreateDTO() {
-    }
-
-    public EmployeeCreateDTO(String fullName, String image, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Position position, String username, String password) {
-        this.fullName = fullName;
-        this.image = image;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.cardId = cardId;
-        this.position = position;
-        this.username = username;
-        this.password = password;
-    }
 }

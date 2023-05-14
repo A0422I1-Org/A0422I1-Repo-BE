@@ -24,16 +24,11 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     @SneakyThrows
-    public Employee findById(String id) {
+    public Employee findById(String id) throws NotFoundById {
         Optional<Employee> employee=employeeRepository.findById(id);
         if(employee.isPresent())
             return employee.get();
-        try {
-            throw new NotFoundById("Không tìm thấy nhân viên nào có id: "+id);
-        } catch (NotFoundById notFoundById) {
-            notFoundById.printStackTrace();
-        }
-        return null;
+       throw new NotFoundById("khong tim thay"+ id);
     }
 
 

@@ -3,6 +3,7 @@ package com.example.demo.controller.employee;
 import com.example.demo.dto.employee.EmployeeCreateDTO;
 import com.example.demo.dto.employee.EmployeeDeleteDTO;
 import com.example.demo.dto.employee.EmployeeViewDTO;
+import com.example.demo.error.NotFoundById;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.account.AccountRole;
 import com.example.demo.model.account.Role;
@@ -54,7 +55,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    public ResponseEntity<EmployeeDeleteDTO> getEmployeeById(@PathVariable("id") String id) {
+    public ResponseEntity<EmployeeDeleteDTO> getEmployeeById(@PathVariable("id") String id) throws NotFoundById {
         return new ResponseEntity<>(new EmployeeDeleteDTO(employeeService.findById(id)), HttpStatus.OK);
     }
 
@@ -102,7 +103,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/update/{id}")
-    public ResponseEntity<Employee> findEmployeeById(@PathVariable String id) {
+    public ResponseEntity<Employee> findEmployeeById(@PathVariable String id)throws NotFoundById {
         return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
     }
     @PutMapping("/employee/update")

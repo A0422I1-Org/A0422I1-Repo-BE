@@ -1,12 +1,9 @@
 package com.example.demo.model.movie;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+
 @Entity
 public class MovieDirector {
     @Id
@@ -15,7 +12,7 @@ public class MovieDirector {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movieD;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "director_id")
@@ -26,7 +23,31 @@ public class MovieDirector {
 
     public MovieDirector(Integer id, Movie movieD, Director director) {
         this.id = id;
-        this.movieD = movieD;
+        this.movie = movieD;
+        this.director = director;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
         this.director = director;
     }
 }
