@@ -53,9 +53,9 @@ public class JwtTokenProvider implements Serializable {
             Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
+            logger.error("Invalid JWT signature: {}"+e.getMessage());
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
+            logger.error("Invalid JWT token: {}"+e.getMessage());
         } catch (ExpiredJwtException e) {
             logger.error("JWT token is expired: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
@@ -65,5 +65,4 @@ public class JwtTokenProvider implements Serializable {
         }
         return false;
     }
-
 }
