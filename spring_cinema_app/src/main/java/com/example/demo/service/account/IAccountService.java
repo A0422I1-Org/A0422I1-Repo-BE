@@ -61,4 +61,8 @@ public interface IAccountService {
 
     Account save(Account account);
 
+    void addNewAccount(Account account);
+    String existsByEmployeeName(String username);
+    Account findAccountByUsername(String username);
+
 }

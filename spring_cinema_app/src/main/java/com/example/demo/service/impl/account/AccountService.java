@@ -109,4 +109,21 @@ public class AccountService implements IAccountService {
         return accountRepository.save(account);
     }
 
+
+//    tay
+@Override
+    public void addNewAccount(Account account) {
+    accountRepository.save(account);
+}
+
+    @Override
+    public String existsByEmployeeName(String username) {
+        return accountRepository.existsByEmployeeName(username);
+    }
+
+    @Override
+    public Account findAccountByUsername(String username) {
+        return accountRepository.findByUsernameAccount(username);
+    }
+
 }
