@@ -15,7 +15,7 @@ public class MovieDirector {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movieD;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "director_id")
@@ -24,9 +24,9 @@ public class MovieDirector {
     public MovieDirector() {
     }
 
-    public MovieDirector(Integer id, Movie movieD, Director director) {
+    public MovieDirector(Integer id, Movie movie, Director director) {
         this.id = id;
-        this.movieD = movieD;
+        this.movie = movie;
         this.director = director;
     }
 }

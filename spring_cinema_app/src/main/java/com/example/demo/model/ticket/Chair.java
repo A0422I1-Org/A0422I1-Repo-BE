@@ -18,7 +18,6 @@ public class Chair {
     @NotNull
     private String name;
     private Boolean isDelete;
-
     public Chair() {
     }
 
@@ -26,6 +25,5 @@ public class Chair {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
-
     }
 }

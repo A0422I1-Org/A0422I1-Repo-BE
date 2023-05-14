@@ -15,7 +15,7 @@ public class MovieAndType {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movieT;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "movie_type_id")

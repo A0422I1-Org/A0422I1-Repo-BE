@@ -30,7 +30,7 @@ public class Ticket {
 //    private Employee employee;
     @ManyToOne
     @JoinColumn(name = "showtime_id")
-    private ShowTime showtime;
+    private ShowTime showTime;
 
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
@@ -39,14 +39,14 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showtime, ChairRoom chairRoom) {
+    public Ticket(String id, Double price, Date bookDateTime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
         this.bookDateTime = bookDateTime;
         this.status = status;
         this.isDelete = isDelete;
         this.customer = customer;
-        this.showtime = showtime;
+        this.showTime = showTime;
         this.chairRoom = chairRoom;
     }
 }

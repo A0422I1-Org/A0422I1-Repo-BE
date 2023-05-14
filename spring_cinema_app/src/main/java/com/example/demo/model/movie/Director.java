@@ -1,11 +1,9 @@
 package com.example.demo.model.movie;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -16,7 +14,6 @@ public class Director {
     private Integer id;
     private String name;
     private Boolean isDelete;
-
 
     public Director() {
     }
