@@ -1,5 +1,6 @@
 package com.example.demo.controller.customer;
 
+import com.example.demo.dto.CustomerForUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
@@ -22,6 +23,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
@@ -70,7 +72,7 @@ public class CustomerController {
     @PostMapping("/user/confirm-booking-ticket")
     public ResponseEntity<Void> confirmBookingTicket(@RequestBody Ticket ticket, Principal principal) {
         Customer customer = customerService.findByUsername(principal.getName());
-        ticket.setStatus(true);
+        ticket.setStatus(1);
         ticket.setCustomer(customer);
         Date date = new Date();
         ticket.setBookDateTime(date);
@@ -162,6 +164,29 @@ public class CustomerController {
         String passEncode = passwordEncoder.encode(passInput);
         customer.getAccount().setPassword(passEncode);
         accountService.updatePassword(customer);
+    }
+
+    /**
+     * Author: NghiaTDD
+     */
+    @PutMapping("/user/edit/{id}")
+    public ResponseEntity<?> updateTaiKhoan(@PathVariable String id, @RequestBody CustomerForUpdateDTO customerForUpdateDTO) {
+        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(id);
+        if (!customerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Customer customer = new Customer(
+                customerForUpdateDTO.getId(),
+                customerForUpdateDTO.getFullName(),
+                customerForUpdateDTO.getGender(),
+                customerForUpdateDTO.getBirthday(),
+                customerForUpdateDTO.getEmail(),
+                customerForUpdateDTO.getPhoneNumber(),
+                customerForUpdateDTO.getAddress(),
+                customerForUpdateDTO.getCardId()
+        );
+        customerService.updateCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 

@@ -1,11 +1,11 @@
 package com.example.demo.service.promotion;
 
-import com.example.demo.model.promotion.PromotionV02;
+import com.example.demo.model.promotion.Promotion;
 
 import java.util.List;
 
 public interface IPromotionService {
-    List<PromotionV02> findAll();
+    List<Promotion> findAll();
 
-    PromotionV02 findById(Integer id);
+    Promotion findById(Integer id);
 }

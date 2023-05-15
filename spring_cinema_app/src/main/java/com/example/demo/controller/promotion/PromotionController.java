@@ -1,6 +1,6 @@
 package com.example.demo.controller.promotion;
 
-import com.example.demo.model.promotion.PromotionV02;
+import com.example.demo.model.promotion.Promotion;
 import com.example.demo.service.promotion.IPromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ public class PromotionController {
     private IPromotionService iPromotionService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<PromotionV02>> getListPromotion() {
+    public ResponseEntity<List<Promotion>> getListPromotion() {
         return new ResponseEntity<>(iPromotionService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PromotionV02> getPromotionById(@PathVariable("id") Integer id) {
-        PromotionV02 promotion = iPromotionService.findById(id);
+    public ResponseEntity<Promotion> getPromotionById(@PathVariable("id") Integer id) {
+        Promotion promotion = iPromotionService.findById(id);
         if (promotion == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

@@ -20,7 +20,7 @@ public class Ticket {
     private Double price;
     private Date bookDateTime;
     @NotNull
-    private Boolean status;
+    private Integer status;
     private Boolean isDelete;
 
     @ManyToOne
@@ -39,7 +39,7 @@ public class Ticket {
     }
 
 
-    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
+    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Integer status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
         this.bookDateTime = bookDateTime;

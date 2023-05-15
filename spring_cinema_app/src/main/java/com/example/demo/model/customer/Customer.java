@@ -1,22 +1,24 @@
 package com.example.demo.model.customer;
 
 import com.example.demo.model.account.Account;
+import com.example.demo.model.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.demo.model.ticket.Ticket;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
     @Id
     @Column(columnDefinition = ("varchar(45)"))
@@ -53,21 +55,24 @@ public class Customer {
     @JsonIgnore
     private List<Ticket> getTicketList;
 
-    public Customer() {
+    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId) {
     }
 
-    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Account account, Boolean isDelete) {
-        this.id = id;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.cardId = cardId;
-        this.account = account;
-        this.isDelete = isDelete;
-    }
+//    public Customer() {
+//    }
+
+//    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Account account, Boolean isDelete) {
+//        this.id = id;
+//        this.fullName = fullName;
+//        this.gender = gender;
+//        this.birthday = birthday;
+//        this.email = email;
+//        this.phoneNumber = phoneNumber;
+//        this.address = address;
+//        this.cardId = cardId;
+//        this.account = account;
+//        this.isDelete = isDelete;
+//    }
 
 
 

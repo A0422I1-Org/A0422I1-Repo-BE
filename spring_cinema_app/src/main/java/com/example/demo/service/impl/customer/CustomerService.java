@@ -1,7 +1,7 @@
 package com.example.demo.service.impl.customer;
 
-import com.example.demo.model.account.Account;
 import com.example.demo.dto.CustomerDTO;
+import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.repository.customer.ICustomerRepository;
 import com.example.demo.service.customer.ICustomerService;
@@ -10,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -102,5 +104,23 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer findCustomerByAccount(Account account) {
         return customerRepository.findCustomerByAccount(account.getUsername());
+    }
+
+    /**
+     * Nghia TDD
+     */
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerRepository.updateCustomer(customer.getId(), customer.getFullName(),
+                customer.getBirthday(), customer.getGender(), customer.getCardId(),
+                customer.getEmail(), customer.getAddress(), customer.getPhoneNumber());
+    }
+
+    /**
+     * Nghia TDD
+     */
+    @Override
+    public Optional<Customer> findByIdForByUpdate(String id) {
+        return customerRepository.findByIdForByUpdate(id);
     }
 }

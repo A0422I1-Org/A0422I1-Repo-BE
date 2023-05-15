@@ -36,7 +36,7 @@ public class ChairRoomService implements IChairRoomService {
         List<Ticket> ticketList = ticketRepository.findTicketAvailable(roomId, showTimeId);
         int countTicketInRoom = 0;
         for (Ticket ticket : ticketList) {
-            if (ticket.getStatus()) {
+            if (ticket.getStatus() == 1) {
                 countTicketInRoom++;
             }
         }

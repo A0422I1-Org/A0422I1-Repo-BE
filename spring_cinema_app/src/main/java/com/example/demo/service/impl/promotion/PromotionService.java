@@ -1,7 +1,6 @@
 package com.example.demo.service.impl.promotion;
 
 import com.example.demo.model.promotion.Promotion;
-import com.example.demo.model.promotion.PromotionV02;
 import com.example.demo.repository.promotion.IPromotionRepository;
 import com.example.demo.service.promotion.IPromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,12 @@ public class PromotionService implements IPromotionService {
     private IPromotionRepository iPromotionRepository;
 
     @Override
-    public List<PromotionV02> findAll() {
+    public List<Promotion> findAll() {
         return iPromotionRepository.findAll();
     }
 
     @Override
-    public PromotionV02 findById(Integer id) {
+    public Promotion findById(Integer id) {
         return iPromotionRepository.findById(id).orElse(null);
     }
 }

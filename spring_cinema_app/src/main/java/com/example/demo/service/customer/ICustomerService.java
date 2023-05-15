@@ -1,12 +1,13 @@
 package com.example.demo.service.customer;
 
-import com.example.demo.model.account.Account;
 import com.example.demo.dto.CustomerDTO;
+import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICustomerService {
     Page<CustomerDTO> getListCustomerDTODesc(Pageable pageable);
@@ -37,5 +38,15 @@ public interface ICustomerService {
     Customer findByUsername(String username);
     Customer getCustomerByAccount(String username);
     Customer findCustomerByAccount(Account account );
+
+    /**
+     * Nghia TDD
+     */
+    void updateCustomer(Customer customer);
+    /**
+     * Nghia TDD
+     */
+    Optional<Customer> findByIdForByUpdate(String id);
+
 
 }
