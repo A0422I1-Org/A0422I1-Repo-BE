@@ -10,23 +10,22 @@ import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api")
 @CrossOrigin("*")
 public class CustomerController {
     @Autowired
@@ -127,6 +126,7 @@ public class CustomerController {
          * Params: search input, page, size, sort
          * Return: customer list
          */
+        System.out.println("test - list customer");
         Sort sortable = Sort.by("id").ascending();
         if (sort.equals("asc")) {
             sortable = Sort.by("id").ascending();
@@ -146,6 +146,7 @@ public class CustomerController {
          * Params: customer id
          * Return: customer with corresponding id
          */
+        System.out.println("test - id customer");
         return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
     }
 
