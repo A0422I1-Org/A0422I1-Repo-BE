@@ -29,4 +29,28 @@ public class MovieAndStudio {
         this.movie = movie;
         this.movieStudio = movieStudio;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public MovieStudio getMovieStudio() {
+        return movieStudio;
+    }
+
+    public void setMovieStudio(MovieStudio movieStudio) {
+        this.movieStudio = movieStudio;
+    }
 }

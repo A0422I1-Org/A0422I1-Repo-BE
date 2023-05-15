@@ -20,9 +20,13 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @CrossOrigin("*")
 public class CustomerController {
     @Autowired
@@ -33,13 +37,15 @@ public class CustomerController {
     private IAccountService accountService;
     @Autowired
     JavaMailSender javaMailSender;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public Customer findCustomerById(@PathVariable String id) {
         return customerService.findById(id);
     }
 
-    @GetMapping("/findByUsername/{username}")
+    @GetMapping("/user/findByUsername/{username}")
     public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
         return new ResponseEntity<>(customerService.findByUsername(username), HttpStatus.OK);
     }
@@ -50,7 +56,7 @@ public class CustomerController {
      * TanHP
      * @return List<Ticket>
      */
-    @GetMapping("/ticket-choosed")
+    @GetMapping("/user/ticket-choosed")
     public ResponseEntity<List<Ticket>> findTicketsChoosed() {
         List<Ticket> ticketList = new ArrayList<>();
         ticketList.add(ticketService.findById("1"));
@@ -63,7 +69,7 @@ public class CustomerController {
      * Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
      * TanHP
      */
-    @PostMapping("/confirm-booking-ticket")
+    @PostMapping("/user/confirm-booking-ticket")
     public ResponseEntity<Void> confirmBookingTicket(@RequestBody Ticket ticket, Principal principal) {
         Customer customer = customerService.findByUsername(principal.getName());
         ticket.setStatus(true);
@@ -99,7 +105,7 @@ public class CustomerController {
      * @Method : Get all ticket by customer
      * @Author : TriLHH
      */
-    @GetMapping("/ticket/{page}")
+    @GetMapping("/user/ticket/{page}")
     public ResponseEntity<Page<Ticket>> getAllTicketByCustomer(@PathVariable int page, Principal principal) {
         Account account = accountService.findByUsername(principal.getName()).orElse(null);
         Customer customer = customerService.findCustomerByAccount(account);
@@ -109,4 +115,53 @@ public class CustomerController {
         }
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
+
+    @GetMapping("/admin/customer-management")
+    public ResponseEntity<Page<Customer>> getCustomerList(@RequestParam(name = "search", required = false, defaultValue = "") String search,
+                                                          @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                                          @RequestParam(name = "sort", required = false, defaultValue = "asc") String sort) {
+        /**
+         * Method: show customer list, show search result, choose page
+         * Author: DanhHC
+         * Params: search input, page, size, sort
+         * Return: customer list
+         */
+        Sort sortable = Sort.by("id").ascending();
+        if (sort.equals("asc")) {
+            sortable = Sort.by("id").ascending();
+        }
+        if (sort.equals("desc")) {
+            sortable = Sort.by("id").descending();
+        }
+        Pageable pageable = PageRequest.of(page, size, sortable);
+        return new ResponseEntity<>(customerService.searchCustomerByName(search, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/update/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
+        /**
+         * Method: get customer by id
+         * Author: DanhHC
+         * Params: customer id
+         * Return: customer with corresponding id
+         */
+        return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/admin/update")
+    public void updateCustomer(@RequestBody Customer customer) {
+        /**
+         * Method: edit customer
+         * Author: DanhHC
+         * Params: customer
+         * Return: void
+         */
+        customerService.saveCustomer(customer);
+        String passInput = customer.getAccount().getPassword();
+        String passEncode = passwordEncoder.encode(passInput);
+        customer.getAccount().setPassword(passEncode);
+        accountService.updatePassword(customer);
+    }
 }
+

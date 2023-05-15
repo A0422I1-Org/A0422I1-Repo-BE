@@ -1,12 +1,16 @@
 package com.example.demo.service.account;
-
+import com.example.demo.model.customer.Customer;
+import org.springframework.stereotype.Service;
 import com.example.demo.model.account.Account;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
+@Service
 public interface IAccountService {
+    void updatePassword(Customer customer);
+
+
 
     /**
      * Pham Trung Hieu
@@ -56,4 +60,9 @@ public interface IAccountService {
     Boolean existsByUsername(String username);
 
     Account save(Account account);
+
+    void addNewAccount(Account account);
+    String existsByEmployeeName(String username);
+    Account findAccountByUsername(String username);
+
 }

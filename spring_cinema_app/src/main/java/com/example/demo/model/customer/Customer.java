@@ -5,8 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.demo.model.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+
 import java.util.Date;
 
 @Getter
@@ -40,6 +45,14 @@ public class Customer {
 
     private Boolean isDelete;
 
+    @OneToMany(mappedBy = "customers")
+    @JsonIgnore
+    private List<Point> getListPoint;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    private List<Ticket> getTicketList;
+
     public Customer() {
     }
 
@@ -55,4 +68,78 @@ public class Customer {
         this.account = account;
         this.isDelete = isDelete;
     }
+
+
+
+
+//    public void setGetListPoint(List<Point> getListPoint) {
+//        this.getListPoint = getListPoint;
+//    }
+//
+//
+//
+//    public void setGetTicketList(List<Ticket> getTicketList) {
+//        this.getTicketList = getTicketList;
+//    }
+//
+//
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+//
+//
+//    public void setFullName(String fullName) {
+//        this.fullName = fullName;
+//    }
+//
+//
+//
+//    public void setGender(Boolean gender) {
+//        this.gender = gender;
+//    }
+//
+//
+//
+//    public void setBirthday(Date birthday) {
+//        this.birthday = birthday;
+//    }
+//
+//
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//
+//
+//    public void setPhoneNumber(String phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
+//
+//
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+//
+//
+//
+//    public void setCardId(String cardId) {
+//        this.cardId = cardId;
+//    }
+//
+//
+//
+//    public void setAccount(Account account) {
+//        this.account = account;
+//    }
+//
+//
+//
+//    public void setDelete(Boolean delete) {
+//        isDelete = delete;
+//    }
+
 }
+

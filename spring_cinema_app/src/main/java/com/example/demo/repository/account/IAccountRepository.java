@@ -1,18 +1,27 @@
 package com.example.demo.repository.account;
 
+
 import com.example.demo.model.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
+//import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
 @Transactional
 public interface IAccountRepository extends JpaRepository<Account,String> {
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "UPDATE account SET password  = ?1 WHERE username = ?2")
+    void updatePassword(String password, String username);
+
     /**
      * Pham Trung Hieu
      * @param username
@@ -56,4 +65,9 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
     void saveNewPassword(String password, String code);
     Optional<Account> findByUsername(String username);
     boolean existsByUsername(String username);
+
+    @Query(value = "select username from account where username = ?1", nativeQuery = true)
+    String existsByEmployeeName(String username);
+    @Query(value = "select a from Account as a where a.username like %:userName%",nativeQuery = false)
+    Account findByUsernameAccount(@Param("userName") String userName);
 }

@@ -1,8 +1,9 @@
 package com.example.demo.service.impl.account;
 
-import com.example.demo.model.account.Account;
+import com.example.demo.model.customer.Customer;
 import com.example.demo.repository.account.IAccountRepository;
 import com.example.demo.service.account.IAccountService;
+import com.example.demo.model.account.Account;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,21 @@ import java.util.Optional;
 
 @Service
 public class AccountService implements IAccountService {
+    private IAccountRepository accountRepository;
 
     @Autowired
-    private IAccountRepository accountRepository;
+    public AccountService(IAccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
+    @Override
+    public void updatePassword(Customer customer) {
+        this.accountRepository.updatePassword(customer.getAccount().getPassword(), customer.getAccount().getUsername());
+    }
 
     /**
      * Pham Trung Hieu
+     *
      * @param username
      * @return account information
      */
@@ -29,6 +39,7 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
+     *
      * @param username
      * @return username
      */
@@ -39,6 +50,7 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
+     *
      * @param username
      * @throws MessagingException
      * @throws UnsupportedEncodingException
@@ -52,6 +64,7 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
+     *
      * @param code
      * @return account status by verify code
      */
@@ -63,17 +76,18 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
+     *
      * @param code
      * @return account status by verify code
      */
     @Override
     public Boolean findAccountByVerificationCode(String code) {
         Account account = accountRepository.findAccountByVerificationCode(code);
-        if (account == null || account.getIsEnable()) {
+        if (account == null || account.getEnable()) {
             return false;
         } else {
-            account.setIsEnable(true);
-            account.setVerification_code(null);
+            account.setEnable(true);
+            account.setVerificationCode(null);
             accountRepository.save(account);
             return true;
         }
@@ -81,6 +95,7 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
+     *
      * @param password
      * @param code
      */
@@ -101,6 +116,22 @@ public class AccountService implements IAccountService {
 
     public Account save(Account account) {
         return accountRepository.save(account);
+    }
+
+    //    tay
+    @Override
+    public void addNewAccount(Account account) {
+        accountRepository.save(account);
+    }
+
+    @Override
+    public String existsByEmployeeName(String username) {
+        return accountRepository.existsByEmployeeName(username);
+    }
+
+    @Override
+    public Account findAccountByUsername(String username) {
+        return accountRepository.findByUsernameAccount(username);
     }
 
 }

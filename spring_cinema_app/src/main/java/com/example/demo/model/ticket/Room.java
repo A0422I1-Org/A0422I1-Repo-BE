@@ -21,6 +21,16 @@ public class Room {
 
     private Boolean isDelete;
 
+    public Room() {
+    }
+
+    public Room(Integer id, @NotNull String name, @NotNull String screen, Boolean isDelete) {
+        this.id = id;
+        this.name = name;
+        this.screen = screen;
+        this.isDelete = isDelete;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -45,22 +55,11 @@ public class Room {
         this.screen = screen;
     }
 
-
     public Boolean getDelete() {
         return isDelete;
     }
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
-    }
-
-    public Room() {
-    }
-
-    public Room(Integer id, @NotNull String name, @NotNull String screen, Boolean isDelete) {
-        this.id = id;
-        this.name = name;
-        this.screen = screen;
-        this.isDelete = isDelete;
     }
 }

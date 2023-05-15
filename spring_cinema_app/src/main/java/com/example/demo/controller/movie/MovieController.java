@@ -5,6 +5,17 @@ import com.example.demo.dto.movie.MovieBookingDTO;
 import com.example.demo.dto.movie.MovieListViewDTO;
 import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.dto.movie.MovieViewDTO;
+import com.example.demo.error.NotFoundById;
+import com.example.demo.model.movie.Movie;
+import com.example.demo.service.impl.movie.MovieService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,4 +74,23 @@ public class MovieController {
         }
         return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
+    @GetMapping("/admin/movie")
+    public ResponseEntity<Page<MovieViewDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name,
+                                                      @RequestParam(name = "startDay", defaultValue = "") String startDay,
+                                                      @RequestParam(name = "timeAmount", defaultValue = "") String timeAmount,
+                                                      @RequestParam(name = "studios", defaultValue = "") String studios,
+                                                      @PageableDefault(size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+        return ResponseEntity.ok().body(movieService.findAllByNameAndByStartDayAndByTimeAmount(name,startDay,timeAmount,studios,pageable));
+    }
+    @GetMapping("/admin/movie/{id}")
+    private ResponseEntity<MovieViewDTO> findById(@PathVariable Integer id)throws NotFoundById {
+        Movie movie = movieService.findById(id);
+        return new ResponseEntity<>(new MovieViewDTO(movie),HttpStatus.OK);
+    }
+    @DeleteMapping("/admin/movie/{id}")
+    private ResponseEntity<Integer> isDeleteById(@PathVariable("id")Integer id) {
+        return new ResponseEntity<>(movieService.updateIsDeleteById(id), HttpStatus.OK);
+    }
+
 }
