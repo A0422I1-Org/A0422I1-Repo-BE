@@ -1,12 +1,16 @@
 package com.example.demo.model.ticket;
 
 import com.example.demo.model.customer.Customer;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 public class Ticket {
     @Id
@@ -25,7 +29,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "showtime_id")
-    private ShowTime showTime;
+    private ShowTime showTime; // admin bị sai tên showtime
 
     @ManyToOne
     @JoinColumn(name = "chair_room_id")
@@ -34,7 +38,8 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String id, Double price, Date bookDateTime, Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
+
+    public Ticket(String id, @NotNull Double price, Date bookDateTime, @NotNull Boolean status, Boolean isDelete, Customer customer, ShowTime showTime, ChairRoom chairRoom) {
         this.id = id;
         this.price = price;
         this.bookDateTime = bookDateTime;
@@ -45,69 +50,68 @@ public class Ticket {
         this.chairRoom = chairRoom;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Date getBookDateTime() {
-        return bookDateTime;
-    }
-
-    public void setBookDateTime(Date bookDateTime) {
-        this.bookDateTime = bookDateTime;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public ShowTime getShowtime() {
-        return showTime;
-    }
-
-    public void setShowtime(ShowTime showtime) {
-        this.showTime = showtime;
-    }
-
-    public ChairRoom getChairRoom() {
-        return chairRoom;
-    }
-
-    public void setChairRoom(ChairRoom chairRoom) {
-        this.chairRoom = chairRoom;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+//
+//    public Double getPrice() {
+//        return price;
+//    }
+//
+//    public void setPrice(Double price) {
+//        this.price = price;
+//    }
+//
+//    public Date getBookDateTime() {
+//        return bookDateTime;
+//    }
+//
+//    public void setBookDateTime(Date bookDateTime) {
+//        this.bookDateTime = bookDateTime;
+//    }
+//
+//    public Boolean getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(Boolean status) {
+//        this.status = status;
+//    }
+//
+//    public Boolean getDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(Boolean delete) {
+//        isDelete = delete;
+//    }
+//
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
+//
+//    public ShowTime getShowtime() {
+//        return showtime;
+//    }
+//
+//    public void setShowtime(ShowTime showtime) {
+//        this.showtime = showtime;
+//    }
+//
+//    public ChairRoom getChairRoom() {
+//        return chairRoom;
+//    }
+//
+//    public void setChairRoom(ChairRoom chairRoom) {
+//        this.chairRoom = chairRoom;
+//    }
 }
-
 
