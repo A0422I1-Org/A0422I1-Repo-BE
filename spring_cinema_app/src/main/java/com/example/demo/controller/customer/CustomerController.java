@@ -1,6 +1,5 @@
 package com.example.demo.controller.customer;
 
-import com.example.demo.config.MyConstants;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
@@ -79,7 +78,7 @@ public class CustomerController {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setTo(MyConstants.FRIEND_EMAIL);
+        message.setTo(customer.getEmail());
         message.setSubject("ĐẶT VÉ THÀNH CÔNG");
         message.setText("Xác nhận đặt vé thành công !!!" +
                 "\n-------- Thông tin vé ----------" +
