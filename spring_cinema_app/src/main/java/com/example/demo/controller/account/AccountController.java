@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
@@ -26,13 +27,14 @@ public class AccountController {
     private CustomerService customerService;
     @Autowired
     private AccountRoleService accountRoleService;
-    //    @Autowired
-//    private PasswordEncoder passwordEncoder;
+        @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private HttpSession session;
 
+
     @PostMapping("/public/signup")
-    public ResponseEntity<?> registerCustomer(@RequestBody SignupRequest signupRequest){
+    public ResponseEntity<?> registerCustomer( @RequestBody SignupRequest signupRequest){
         if(accountService.existsByUserName(signupRequest.getUsername()) != null){
             return ResponseEntity.badRequest().body("Tên đăng nhập đã được đăng ký!");
         }
