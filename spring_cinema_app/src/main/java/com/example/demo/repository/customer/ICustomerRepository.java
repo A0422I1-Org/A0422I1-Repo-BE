@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -49,6 +50,12 @@ public interface ICustomerRepository  extends JpaRepository<Customer,String> {
     @Query(value = "select * from customer where username = ?1",nativeQuery = true)
     Optional<Customer> findByIdForByUpdate(String username);
 
-
-
+    /**
+     *
+     * @param name
+     * @return list customer
+     *
+     * Author : DuHC
+     */
+    List<Customer> findCustomerByFullNameContaining(String name);
 }

@@ -44,7 +44,7 @@ public class StatisticController {
      * @Author: DuHC
      */
     @GetMapping("/movie-statistic-list")
-    public ResponseEntity<Page<MovieDTO>> getListMovieStatistic(@PageableDefault(size = 5) Pageable pageable,
+    public ResponseEntity<Page<MovieDTO>> getListMovieStatistic(@PageableDefault(size = 10) Pageable pageable,
                                                                 @RequestParam(defaultValue = "") String nameMovie,
                                                                 @RequestParam(defaultValue = "desc") String statusSort) {
         Page<MovieDTO> movieDTOPage;
@@ -77,7 +77,7 @@ public class StatisticController {
      * @Author: DuHC
      */
     @GetMapping("/customer-statistic-list")
-    public ResponseEntity<Page<CustomerDTO>> getListCustomerStatistic(@PageableDefault(size = 5 )Pageable pageable,
+    public ResponseEntity<Page<CustomerDTO>> getListCustomerStatistic(@PageableDefault(size = 10 )Pageable pageable,
                                                                       @RequestParam(defaultValue = "") String nameCustomer,
                                                                       @RequestParam(defaultValue = "desc") String statusSort) {
         Page<CustomerDTO> customerDTOPage;
