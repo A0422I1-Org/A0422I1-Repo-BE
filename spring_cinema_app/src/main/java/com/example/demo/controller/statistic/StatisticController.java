@@ -48,7 +48,6 @@ public class StatisticController {
                                                                 @RequestParam(defaultValue = "") String nameMovie,
                                                                 @RequestParam(defaultValue = "desc") String statusSort) {
         Page<MovieDTO> movieDTOPage;
-
         if (!(nameMovie.equals("")) && "desc".equals(statusSort) ) {
             movieDTOPage = movieService.searchStatisticMovieByNameDesc(nameMovie, pageable);
             return new ResponseEntity<>(movieDTOPage, HttpStatus.OK);
