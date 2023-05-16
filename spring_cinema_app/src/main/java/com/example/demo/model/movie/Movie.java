@@ -37,8 +37,6 @@ public class Movie {
     @NotNull
     private String trailer;
     @NotNull
-    private Double rating;
-    @NotNull
     private String language;
     @NotNull
     private Boolean isDelete;

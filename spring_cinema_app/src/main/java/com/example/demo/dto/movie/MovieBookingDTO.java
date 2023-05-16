@@ -19,8 +19,6 @@ public interface MovieBookingDTO {
 
     String getTrailer();
 
-    Double getRating();
-
     String getLanguage();
 
     Boolean getIsDelete();
