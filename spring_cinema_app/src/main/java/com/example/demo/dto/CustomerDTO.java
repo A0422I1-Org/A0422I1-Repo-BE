@@ -187,4 +187,6 @@ public class CustomerDTO {
     public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
+
+
 }
