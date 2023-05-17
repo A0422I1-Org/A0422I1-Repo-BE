@@ -48,6 +48,12 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
             , nativeQuery = true)
     ShowTime findShowTimeById(@Param("id") Integer id);
 
+    /**
+     * @param
+     * @return List<Map<String, Object>>
+     * @content statistic showtime
+     * @author NghiaDC
+     */
     @Query(nativeQuery = true, value = "SELECT show_time.start_time as startTime, DATE_FORMAT(ticket.book_date_time, '%d/%m/%Y') AS saleDate, COUNT(*) AS soldTickets, COUNT(*) * price AS totalRevenue " +
             "FROM ticket " +
             "INNER JOIN show_time ON ticket.showtime_id = show_time.id " +
