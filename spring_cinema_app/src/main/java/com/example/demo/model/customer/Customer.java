@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -22,6 +23,8 @@ import java.util.List;
 public class Customer {
     @Id
     @Column(columnDefinition = ("varchar(45)"))
+    @GeneratedValue(generator = "my_generator")
+    @GenericGenerator(name = "my_generator", strategy = "com.example.demo.model.customer.MyGenerator")
     private String id;
     @NotNull
     private String fullName;
@@ -58,7 +61,19 @@ public class Customer {
     public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId) {
     }
 
-//    public Customer() {
+    public Customer(String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Account account, Boolean isDelete) {
+        this.fullName = fullName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
+        this.account = account;
+        this.isDelete = isDelete;
+    }
+
+    //    public Customer() {
 //    }
 
 //    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Account account, Boolean isDelete) {

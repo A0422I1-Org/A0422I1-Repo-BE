@@ -70,4 +70,8 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
     String existsByEmployeeName(String username);
     @Query(value = "select a from Account as a where a.username like %:userName%",nativeQuery = false)
     Account findByUsernameAccount(@Param("userName") String userName);
+
+    // NghiaTDD
+    @Query(value = "select username, password from account where username = ?1 and password = ?2", nativeQuery = true)
+    String existsByPassword(String username, String password);
 }

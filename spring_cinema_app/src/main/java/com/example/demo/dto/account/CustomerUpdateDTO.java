@@ -1,8 +1,8 @@
-package com.example.demo.dto;
+package com.example.demo.dto.account;
 
 import java.util.Date;
 
-public class CustomerForUpdateDTO {
+public class CustomerUpdateDTO {
     private String id;
     private String fullName;
     private Date birthday;
@@ -12,10 +12,10 @@ public class CustomerForUpdateDTO {
     private String address;
     private String cardId;
 
-    public CustomerForUpdateDTO() {
+    public CustomerUpdateDTO() {
     }
 
-    public CustomerForUpdateDTO(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId) {
+    public CustomerUpdateDTO(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId) {
         this.id = id;
         this.fullName = fullName;
         this.gender = gender;

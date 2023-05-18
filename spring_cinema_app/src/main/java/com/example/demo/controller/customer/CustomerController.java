@@ -1,6 +1,6 @@
 package com.example.demo.controller.customer;
 
-import com.example.demo.dto.CustomerForUpdateDTO;
+import com.example.demo.dto.account.CustomerUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
@@ -23,10 +23,9 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 @CrossOrigin("*")
 public class CustomerController {
     @Autowired
@@ -166,24 +165,22 @@ public class CustomerController {
         accountService.updatePassword(customer);
     }
 
-    /**
-     * Author: NghiaTDD
-     */
-    @PutMapping("/user/edit/{id}")
-    public ResponseEntity<?> updateTaiKhoan(@PathVariable String id, @RequestBody CustomerForUpdateDTO customerForUpdateDTO) {
-        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(id);
-        if (!customerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    // NghiaTDD
+    @PutMapping("/user/edit")
+    public ResponseEntity<?> updateTaiKhoan(@RequestBody CustomerUpdateDTO customerUpdateDTO) {
+//        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(customerUpdateDTO.getId());
+//        if (!customerOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
         Customer customer = new Customer(
-                customerForUpdateDTO.getId(),
-                customerForUpdateDTO.getFullName(),
-                customerForUpdateDTO.getGender(),
-                customerForUpdateDTO.getBirthday(),
-                customerForUpdateDTO.getEmail(),
-                customerForUpdateDTO.getPhoneNumber(),
-                customerForUpdateDTO.getAddress(),
-                customerForUpdateDTO.getCardId()
+                customerUpdateDTO.getId(),
+                customerUpdateDTO.getFullName(),
+                customerUpdateDTO.getGender(),
+                customerUpdateDTO.getBirthday(),
+                customerUpdateDTO.getEmail(),
+                customerUpdateDTO.getPhoneNumber(),
+                customerUpdateDTO.getAddress(),
+                customerUpdateDTO.getCardId()
         );
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
