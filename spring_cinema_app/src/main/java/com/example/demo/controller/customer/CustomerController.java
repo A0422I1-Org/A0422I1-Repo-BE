@@ -122,10 +122,10 @@ public class CustomerController {
                                                           @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
                                                           @RequestParam(name = "sort", required = false, defaultValue = "asc") String sort) {
         /**
-         * Method: show customer list, show search result, choose page
-         * Author: DanhHC
-         * Params: search input, page, size, sort
-         * Return: customer list
+         * @method: show customer list, show search result, choose page
+         * @author: DanhHC
+         * @params: search input, page, size, sort
+         * @return: customer list
          */
         System.out.println("test - list customer");
         Sort sortable = Sort.by("id").ascending();
@@ -142,10 +142,10 @@ public class CustomerController {
     @GetMapping("/admin/update/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
         /**
-         * Method: get customer by id
-         * Author: DanhHC
-         * Params: customer id
-         * Return: customer with corresponding id
+         * @method: get customer by id
+         * @author: DanhHC
+         * @params: customer id
+         * @return: customer with corresponding id
          */
         System.out.println("test - id customer");
         return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
@@ -154,16 +154,18 @@ public class CustomerController {
     @PutMapping("/admin/update")
     public void updateCustomer(@RequestBody Customer customer) {
         /**
-         * Method: edit customer
-         * Author: DanhHC
-         * Params: customer
-         * Return: void
+         * @method: edit customer
+         * @author: DanhHC
+         * @params: customer
+         * @return: void
          */
         customerService.saveCustomer(customer);
-        String passInput = customer.getAccount().getPassword();
-        String passEncode = passwordEncoder.encode(passInput);
-        customer.getAccount().setPassword(passEncode);
-        accountService.updatePassword(customer);
+        if (!customer.getAccount().getPassword().equals("")) {
+            String passInput = customer.getAccount().getPassword();
+            String passEncode = passwordEncoder.encode(passInput);
+            customer.getAccount().setPassword(passEncode);
+            accountService.updatePassword(customer);
+        }
     }
 
     /**

@@ -16,7 +16,12 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface IAccountRepository extends JpaRepository<Account,String> {
-
+    /**
+     * @method: edit customer
+     * @author: DanhHC
+     * @params: customer
+     * @return: void
+     */
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "UPDATE account SET password  = ?1 WHERE username = ?2")

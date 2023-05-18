@@ -23,9 +23,35 @@ public interface ICustomerService {
     Page<CustomerDTO> convertListToPage(List<CustomerDTO> customerDTOs , Pageable pageable);
 
     int getRankCustomer(String id);
+
+    /**
+     * @method: get customer by id
+     * @author: DanhHC
+     * @params: customer id
+     * @return: customer with corresponding id
+     */
     Customer findCustomerById(String id);
+
+    /**
+     * @method: show customer list, show search result, choose page
+     * @author: DanhHC
+     * @params: search input, pageable
+     * @return: customer list
+     */
     Page<Customer> searchCustomerByName(String name, Pageable pageable);
+
+    /**
+     * @method: edit customer
+     * @author: DanhHC
+     * @params: customer
+     * @return: void
+     */
     void saveCustomer(Customer customer);
+
+
+
+
+
     void save(Customer customer);
 
     /**

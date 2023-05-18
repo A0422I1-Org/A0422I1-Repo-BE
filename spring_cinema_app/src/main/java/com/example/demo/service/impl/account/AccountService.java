@@ -23,6 +23,12 @@ public class AccountService implements IAccountService {
 
     @Override
     public void updatePassword(Customer customer) {
+        /**
+         * @method: edit customer
+         * @author: DanhHC
+         * @params: customer
+         * @return: void
+         */
         this.accountRepository.updatePassword(customer.getAccount().getPassword(), customer.getAccount().getUsername());
     }
 

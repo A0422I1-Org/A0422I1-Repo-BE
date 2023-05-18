@@ -8,6 +8,12 @@ import java.util.Optional;
 
 @Service
 public interface IAccountService {
+    /**
+     * @method: edit customer
+     * @author: DanhHC
+     * @params: customer
+     * @return: void
+     */
     void updatePassword(Customer customer);
 
 
