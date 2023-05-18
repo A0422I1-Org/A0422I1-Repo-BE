@@ -7,6 +7,8 @@ import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.ticket.ITicketService;
+import com.google.api.client.json.Json;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -80,30 +82,30 @@ public class CustomerController {
         Ticket ticketCheckDB = ticketService.findTicketByIdAndStatus(ticket.getId(), 1);
         if (ticketCheckDB == null) {
             ticketService.createOrUpdate(ticket);
+
+            SimpleMailMessage message = new SimpleMailMessage();
+
+            message.setTo(customer.getEmail());
+            message.setSubject("ĐẶT VÉ THÀNH CÔNG");
+
+            message.setText("Xác nhận đặt vé thành công !!!" +
+                    "\n=============== Thông tin vé ===============" +
+                    "\nMã vé: " + ticket.getId() +
+                    "\nRạp: " + ticket.getChairRoom().getRoom().getName() +
+                    "\nMàn hình : " + ticket.getChairRoom().getRoom().getScreen() +
+                    "\nGhế : " + ticket.getChairRoom().getChair().getName() +
+                    "\nGiá vé : " + ticket.getPrice() +
+                    "\n=============== Thông tin khách hàng ===============" +
+                    "\nHọ tên : " + customer.getFullName() +
+                    "\nEmail : " + customer.getEmail() +
+                    "\nCMND : " + customer.getCardId() +
+                    "\nSố điện thoại: " + customer.getPhoneNumber());
+
+            javaMailSender.send(message);
         }
         else {
-            return new ResponseEntity<>(HttpStatus.valueOf("Vé đã có người đặt"));
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setTo(customer.getEmail());
-        message.setSubject("ĐẶT VÉ THÀNH CÔNG");
-
-        message.setText("Xác nhận đặt vé thành công !!!" +
-                "\n=============== Thông tin vé ===============" +
-                "\nMã vé: " + ticket.getId() +
-                "\nRạp: " + ticket.getChairRoom().getRoom().getName() +
-                "\nMàn hình : " + ticket.getChairRoom().getRoom().getScreen() +
-                "\nGhế : " + ticket.getChairRoom().getChair().getName() +
-                "\nGiá vé : " + ticket.getPrice() +
-                "\n=============== Thông tin khách hàng ===============" +
-                "\nHọ tên : " + customer.getFullName() +
-                "\nEmail : " + customer.getEmail() +
-                "\nCMND : " + customer.getCardId() +
-                "\nSố điện thoại: " + customer.getPhoneNumber());
-
-        javaMailSender.send(message);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
