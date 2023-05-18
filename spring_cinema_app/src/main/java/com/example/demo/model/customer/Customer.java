@@ -145,6 +145,5 @@ public class Customer {
 //    public void setDelete(Boolean delete) {
 //        isDelete = delete;
 //    }
-
 }
 

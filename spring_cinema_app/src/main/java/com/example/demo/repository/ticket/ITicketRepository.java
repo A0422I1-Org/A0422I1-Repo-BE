@@ -56,7 +56,11 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
                     "ORDER BY t.chair_room_id ASC ",
             nativeQuery = true)
     List<Ticket> findTicketByShowTimeAndIdRoom(@Param("idRoom") Integer idRoom, @Param("idShowTime") Integer idShowTime);
-    @Query(nativeQuery = true, value = "select * FROM ticket WHERE customer_id = ?  and is_delete = false order by book_date_time DESC ")
+
+    /*
+    * TriLHH
+    * */
+    @Query(nativeQuery = true, value = "select * FROM ticket WHERE customer_id = ? order by book_date_time DESC ")
     Page<Ticket> findTicketByCustomer(String customer, Pageable pageable);
 
     @Query(nativeQuery = true , value = "select id, book_datetime, is_delete, price, status, chair_room_id, customer_id, showtime_id from ticket where customer_id = ?1 and is_delete = false ;")
@@ -80,9 +84,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
     @Query(value = "delete from ticket t where t.id = :id and customer_id is not null", nativeQuery = true)
     int deleteTicket(@Param("id") String id);
 
-
-
-
     Optional<Ticket> findById(String id);
+    Ticket findTicketByIdAndStatus(String id, Integer status);
 }
 

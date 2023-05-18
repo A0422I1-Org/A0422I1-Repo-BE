@@ -1,5 +1,7 @@
 package com.example.demo.service.movie;
 
+import com.example.demo.dto.movie.IRatingMovieDTO;
+
 public interface IRatingMovieService {
     /**
      * @param rating, username and movieId of movie
@@ -16,4 +18,12 @@ public interface IRatingMovieService {
      * @author ChuongLN
      */
     Double getAvgRatingByMovieId(Integer movieId);
+
+    /**
+     * @param rating, username and movieId of movie
+     * @return IRatingMovieDTO
+     * @content Get Rating Movie By Username And MovieId
+     * @author ChuongLN
+     */
+    public IRatingMovieDTO getRatingMovieByUsernameAndMovieId(String username, Integer movieId);
 }
