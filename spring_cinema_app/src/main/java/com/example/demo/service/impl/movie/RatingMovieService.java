@@ -38,4 +38,15 @@ public class RatingMovieService implements IRatingMovieService {
     public Double getAvgRatingByMovieId(Integer movieId){
         return ratingMovieRepository.getAvgRatingByMovieId(movieId);
     }
+
+    /**
+     * @param rating, username and movieId of movie
+     * @return IRatingMovieDTO
+     * @content Get Rating Movie By Username And MovieId
+     * @author ChuongLN
+     */
+    @Override
+    public IRatingMovieDTO getRatingMovieByUsernameAndMovieId(String username, Integer movieId){
+        return ratingMovieRepository.getRatingMovieByUsernameAndMovieId(username, movieId);
+    }
 }
