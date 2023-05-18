@@ -15,7 +15,7 @@ public class MovieAndStudio {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movieS;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "movie_studio_id")
@@ -24,9 +24,33 @@ public class MovieAndStudio {
     public MovieAndStudio() {
     }
 
-    public MovieAndStudio(Integer id, Movie movieS, MovieStudio movieStudio) {
+    public MovieAndStudio(Integer id, Movie movie, MovieStudio movieStudio) {
         this.id = id;
-        this.movieS = movieS;
+        this.movie = movie;
+        this.movieStudio = movieStudio;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public MovieStudio getMovieStudio() {
+        return movieStudio;
+    }
+
+    public void setMovieStudio(MovieStudio movieStudio) {
         this.movieStudio = movieStudio;
     }
 }

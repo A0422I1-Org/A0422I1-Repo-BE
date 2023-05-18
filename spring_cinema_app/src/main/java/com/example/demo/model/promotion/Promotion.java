@@ -2,11 +2,8 @@ package com.example.demo.model.promotion;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 @Getter
 @Setter
 @Entity
@@ -14,31 +11,52 @@ public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull
+    @Column(columnDefinition = ("varchar(255)"))
+    private String title;
+
+    @NotNull
+    @Column(columnDefinition = ("varchar(255)"))
+    private String image;
+
+    @NotNull
+    @Column(columnDefinition = ("text"))
+    private String description;
+
     @NotNull
     @Column(columnDefinition = ("varchar(255)"))
     private String name;
-    @DateTimeFormat
-    @NotNull
-    private Date time;
-    @NotNull
-    private Double saleOff;
+
     @Column(columnDefinition = ("varchar(255)"))
+    private String time;
+
     @NotNull
-    private String description;
+    @Column(columnDefinition = ("text"))
+    private String content;
+
+    @NotNull
+    @Column(columnDefinition = ("varchar(255)"))
+    private String location;
+
+    @NotNull
+    @Column(columnDefinition = ("text"), name = "condition_promotion")
+    private String conditionPromotion;
 
     private Boolean isDelete;
 
     public Promotion() {
     }
 
-    public Promotion(Integer id, @NotNull String name,
-                     @NotNull Date time, @NotNull Double saleOff,
-                     @NotNull String description, Boolean isDelete) {
-        this.id = id;
+    public Promotion(String title, String image, String description, String name, String time, String content, String location, String conditionPromotion, Boolean isDelete) {
+        this.title = title;
+        this.image = image;
+        this.description = description;
         this.name = name;
         this.time = time;
-        this.saleOff = saleOff;
-        this.description = description;
+        this.content = content;
+        this.location = location;
+        this.conditionPromotion = conditionPromotion;
         this.isDelete = isDelete;
     }
 }
