@@ -76,20 +76,28 @@ public class CustomerController {
         ticket.setCustomer(customer);
         Date date = new Date();
         ticket.setBookDateTime(date);
-        ticketService.createOrUpdate(ticket);
+
+        Ticket ticketCheckDB = ticketService.findTicketByIdAndStatus(ticket.getId(), 1);
+        if (ticketCheckDB == null) {
+            ticketService.createOrUpdate(ticket);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.valueOf("Vé đã có người đặt"));
+        }
 
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(customer.getEmail());
         message.setSubject("ĐẶT VÉ THÀNH CÔNG");
+
         message.setText("Xác nhận đặt vé thành công !!!" +
-                "\n-------- Thông tin vé ----------" +
+                "\n=============== Thông tin vé ===============" +
                 "\nMã vé: " + ticket.getId() +
                 "\nRạp: " + ticket.getChairRoom().getRoom().getName() +
                 "\nMàn hình : " + ticket.getChairRoom().getRoom().getScreen() +
                 "\nGhế : " + ticket.getChairRoom().getChair().getName() +
                 "\nGiá vé : " + ticket.getPrice() +
-                "\n-------- Thông tin khách hàng ----------" +
+                "\n=============== Thông tin khách hàng ===============" +
                 "\nHọ tên : " + customer.getFullName() +
                 "\nEmail : " + customer.getEmail() +
                 "\nCMND : " + customer.getCardId() +

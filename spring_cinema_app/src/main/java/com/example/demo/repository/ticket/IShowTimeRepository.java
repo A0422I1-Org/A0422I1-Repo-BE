@@ -29,7 +29,7 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
             "SELECT st.id, st.date, st.end_time as endTime, st.sold_out as soldOut, st.start_time as startTime, st.is_delete as `delete`, st.movie_id as movieId " +
                     "FROM show_time st " +
                     "WHERE st.movie_id = :id AND st.date >= CURDATE() AND st.is_delete = 0 " +
-                    "AND (st.date > CURDATE() OR (st.start_time > TIME(NOW() + INTERVAL 30 MINUTE))) " +
+                    "AND (st.date > CURDATE() OR (st.start_time > TIME(NOW() + INTERVAL 10 MINUTE))) " +
                     "ORDER BY st.date ASC, st.start_time ASC"
             , nativeQuery = true)
     List<ShowTimeBookingDTO> findShowTimeByMovieId(@Param("id") int id);
@@ -48,6 +48,12 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
             , nativeQuery = true)
     ShowTime findShowTimeById(@Param("id") Integer id);
 
+    /**
+     * @param
+     * @return List<Map<String, Object>>
+     * @content statistic showtime
+     * @author NghiaDC
+     */
     @Query(nativeQuery = true, value = "SELECT show_time.start_time as startTime, DATE_FORMAT(ticket.book_date_time, '%d/%m/%Y') AS saleDate, COUNT(*) AS soldTickets, COUNT(*) * price AS totalRevenue " +
             "FROM ticket " +
             "INNER JOIN show_time ON ticket.showtime_id = show_time.id " +
