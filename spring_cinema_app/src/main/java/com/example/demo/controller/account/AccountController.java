@@ -53,7 +53,7 @@ public class AccountController {
         );
         customerService.save(customer);
 
-        Role role = new Role(3, "Customer", true );
+        Role role = new Role(3, "CUSTOMER", false );
 //        tạo contructor tại AccountRole
         AccountRole accountRole = new AccountRole(account, role, true);
         accountRoleService.addAccountRole(accountRole);
