@@ -23,6 +23,12 @@ public class AccountService implements IAccountService {
 
     @Override
     public void updatePassword(Customer customer) {
+        /**
+         * @method: edit customer
+         * @author: DanhHC
+         * @params: customer
+         * @return: void
+         */
         this.accountRepository.updatePassword(customer.getAccount().getPassword(), customer.getAccount().getUsername());
     }
 
@@ -132,6 +138,16 @@ public class AccountService implements IAccountService {
     @Override
     public Account findAccountByUsername(String username) {
         return accountRepository.findByUsernameAccount(username);
+    }
+
+    @Override
+    public String existsByPassword(String username, String password) {
+        return accountRepository.existsByPassword(username, password);
+    }
+
+    @Override
+    public void savePassword(String password, String username) {
+        accountRepository.updatePassword(password, username);
     }
 
 }

@@ -74,6 +74,12 @@ public class MovieController {
         }
         return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
+
+
+    /**
+     * @content Get all the movies in admin page
+     * @author KhaiN
+     */
     @GetMapping("/admin/movie")
     public ResponseEntity<Page<MovieViewDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name,
                                                       @RequestParam(name = "startDay", defaultValue = "") String startDay,

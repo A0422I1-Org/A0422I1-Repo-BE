@@ -183,16 +183,34 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer findCustomerById(String id) {
+        /**
+         * @method: get customer by id
+         * @author: DanhHC
+         * @params: customer id
+         * @return: customer with corresponding id
+         */
         return customerRepository.findCustomerById(id);
     }
 
     @Override
     public Page<Customer> searchCustomerByName(String name, Pageable pageable) {
+        /**
+         * @method: show customer list, show search result, choose page
+         * @author: DanhHC
+         * @params: search input, pageable
+         * @return: customer list
+         */
         return customerRepository.searchCustomerByName(name, pageable);
     }
 
     @Override
     public void saveCustomer(Customer customer) {
+        /**
+         * @method: edit customer
+         * @author: DanhHC
+         * @params: customer
+         * @return: void
+         */
         customerRepository.updateCustomer(customer.getId(), customer.getFullName(), customer.getBirthday(), customer.getGender(),
                 customer.getEmail(), customer.getCardId(), customer.getPhoneNumber(), customer.getAddress());
     }

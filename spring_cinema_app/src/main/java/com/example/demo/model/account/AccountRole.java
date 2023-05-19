@@ -35,6 +35,12 @@ public class AccountRole {
         this.isDelete = isDelete;
     }
 
+    public AccountRole(Account account, Role role, Boolean isDelete) {
+        this.account = account;
+        this.role = role;
+        this.isDelete = isDelete;
+    }
+
     public Integer getId() {
         return id;
     }
