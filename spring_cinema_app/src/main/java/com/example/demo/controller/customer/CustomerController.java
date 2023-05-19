@@ -1,6 +1,7 @@
 package com.example.demo.controller.customer;
 
 import com.example.demo.dto.CustomerForUpdateDTO;
+import com.example.demo.dto.account.CustomerUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
@@ -196,6 +197,27 @@ public class CustomerController {
                 customerForUpdateDTO.getPhoneNumber(),
                 customerForUpdateDTO.getAddress(),
                 customerForUpdateDTO.getCardId()
+        );
+        customerService.updateCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // NghiaTDD
+    @PutMapping("/user/edit")
+    public ResponseEntity<?> updateTaiKhoan(@RequestBody CustomerUpdateDTO customerUpdateDTO) {
+//        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(customerUpdateDTO.getId());
+//        if (!customerOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        Customer customer = new Customer(
+                customerUpdateDTO.getId(),
+                customerUpdateDTO.getFullName(),
+                customerUpdateDTO.getGender(),
+                customerUpdateDTO.getBirthday(),
+                customerUpdateDTO.getEmail(),
+                customerUpdateDTO.getPhoneNumber(),
+                customerUpdateDTO.getAddress(),
+                customerUpdateDTO.getCardId()
         );
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);

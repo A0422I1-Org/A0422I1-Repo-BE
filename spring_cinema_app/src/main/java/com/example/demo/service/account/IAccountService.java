@@ -71,4 +71,8 @@ public interface IAccountService {
     String existsByEmployeeName(String username);
     Account findAccountByUsername(String username);
 
+    // NghiaTDD
+    String existsByPassword(String username, String password);
+    void savePassword(String password, String username);
+
 }
