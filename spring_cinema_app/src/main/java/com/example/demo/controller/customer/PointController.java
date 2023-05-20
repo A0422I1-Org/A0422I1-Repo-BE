@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,8 @@ public class PointController {
     @Autowired
     private ICustomerService iCustomerService;
     @Autowired
-    private IAccountService iAccountService;
+    private IAccountService accountService;
+
     /**
      * @param price
      * @param descriptions
@@ -38,7 +38,7 @@ public class PointController {
      */
     @GetMapping("/save-point")
     public ResponseEntity<Void> savePoint(@RequestParam(name = "price", required = false, defaultValue = "0") int price, @RequestParam String descriptions, Principal principal) {
-        Account account = iAccountService.findByUsername(principal.getName()).orElse(null);
+        Account account = accountService.findByUsername(principal.getName()).orElse(null);
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Date dateBookingTicket = new Date();
         int pointPlus = (int) (price * 0.02);
@@ -51,6 +51,7 @@ public class PointController {
         iPointService.save(point);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     /**
      * @param page
      * @return Point List
@@ -59,7 +60,7 @@ public class PointController {
      */
     @GetMapping("/point/{page}")
     public ResponseEntity<Page<Point>> getAllPointByCustomer(@PathVariable int page, Principal principal) {
-        Account account = iAccountService.findByUsername(principal.getName()).orElse(null);
+        Account account = accountService.findByUsername(principal.getName()).orElse(null);
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Page<Point> pointList = iPointService.findAllPointByCustomer(customer, PageRequest.of(page, 5));
         if (pointList.isEmpty()) {
@@ -67,6 +68,7 @@ public class PointController {
         }
         return new ResponseEntity<>(pointList, HttpStatus.OK);
     }
+
     /**
      * @return Integer
      * @Method : Sum Total Point
@@ -74,7 +76,7 @@ public class PointController {
      */
     @GetMapping("/sum-point")
     public ResponseEntity<Integer> sumPoint(Principal principal) {
-        Account account = iAccountService.findByUsername(principal.getName()).orElse(null);
+        Account account = accountService.findByUsername(principal.getName()).orElse(null);
         Customer customer = iCustomerService.findCustomerByAccount(account);
         List<Point> pointList = iPointService.findAllPointByCustomer(customer);
         Integer totalPoint = 0;
@@ -84,6 +86,7 @@ public class PointController {
         }
         return new ResponseEntity<>(totalPoint, HttpStatus.OK);
     }
+
     /**
      * @param startDate
      * @param endDate
@@ -97,7 +100,7 @@ public class PointController {
     public ResponseEntity<Page<Point>> getAllPointByDateBetween(@RequestParam("startDate") String startDate,
                                                                 @RequestParam("endDate") String endDate,
                                                                 @RequestParam int page, @RequestParam int size, Principal principal) {
-        Account account = iAccountService.findByUsername(principal.getName()).orElse(null);
+        Account account = accountService.findByUsername(principal.getName()).orElse(null);
         Customer customer = iCustomerService.findCustomerByAccount(account);
         Pageable pageable = PageRequest.of(page, size);
         return new ResponseEntity<>(iPointService.findAllPointDateBetweenByCustomer(startDate, endDate, customer.getId(), pageable), HttpStatus.OK);
