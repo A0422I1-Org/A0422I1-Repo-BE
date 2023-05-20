@@ -140,4 +140,14 @@ public class AccountService implements IAccountService {
         return accountRepository.findByUsernameAccount(username);
     }
 
+    @Override
+    public String existsByPassword(String username, String password) {
+        return accountRepository.existsByPassword(username, password);
+    }
+
+    @Override
+    public void savePassword(String password, String username) {
+        accountRepository.updatePassword(password, username);
+    }
+
 }

@@ -215,6 +215,20 @@ public class CustomerService implements ICustomerService {
                 customer.getEmail(), customer.getCardId(), customer.getPhoneNumber(), customer.getAddress());
     }
 
+    /**
+     * @author: DanhHC
+     */
+    public Integer checkDuplicateEmail(String email) {
+        return customerRepository.checkDuplicateEmail(email);
+    }
+
+    /**
+     * @author: DanhHC
+     */
+    public Integer checkDuplicatePhoneNumber(String phoneNumber) {
+        return customerRepository.checkDuplicatePhoneNumber(phoneNumber);
+    }
+
     public void save(Customer customer) {
         customerRepository.save(customer);
     }

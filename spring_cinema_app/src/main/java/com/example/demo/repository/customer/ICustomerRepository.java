@@ -50,6 +50,17 @@ public interface ICustomerRepository  extends JpaRepository<Customer,String> {
     void updateCustomer(String id, String fullName, Date birthday, boolean gender, String email,
                         String cardId, String phoneNumber, String address);
 
+    /**
+     * @author: DanhHC
+     */
+    @Query(value = "select count(email) from customer where email =?1", nativeQuery = true)
+    Integer checkDuplicateEmail(String email);
+
+    /**
+     * @author: DanhHC
+     */
+    @Query(value = "select count(phone_number) from customer where phone_number =?1", nativeQuery = true)
+    Integer checkDuplicatePhoneNumber(String phoneNumber);
 
     /**
      * Pham Trung Hieu

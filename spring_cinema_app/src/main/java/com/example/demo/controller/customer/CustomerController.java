@@ -1,14 +1,13 @@
 package com.example.demo.controller.customer;
 
 import com.example.demo.dto.CustomerForUpdateDTO;
+import com.example.demo.dto.account.CustomerUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.ticket.ITicketService;
-import com.google.api.client.json.Json;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -162,13 +161,22 @@ public class CustomerController {
     }
 
     @PutMapping("/admin/update")
-    public void updateCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer) {
         /**
          * @method: edit customer
          * @author: DanhHC
          * @params: customer
          * @return: void
          */
+        Customer oldCustomer = customerService.findCustomerById(customer.getId());
+
+        if (customerService.checkDuplicateEmail(customer.getEmail()) > 0 && !customer.getEmail().equals(oldCustomer.getEmail())) {
+            return new ResponseEntity<>("Email đã được sử dụng, vui lòng điền email khác.", HttpStatus.BAD_REQUEST);
+        }
+        if (customerService.checkDuplicatePhoneNumber(customer.getPhoneNumber()) > 0
+        && !customer.getPhoneNumber().equals(oldCustomer.getPhoneNumber())) {
+            return new ResponseEntity<>("Số điện thoại đã được sử dụng, vui lòng điền số điện thoại khác.", HttpStatus.BAD_REQUEST);
+        }
         customerService.saveCustomer(customer);
         if (!customer.getAccount().getPassword().equals("")) {
             String passInput = customer.getAccount().getPassword();
@@ -176,6 +184,7 @@ public class CustomerController {
             customer.getAccount().setPassword(passEncode);
             accountService.updatePassword(customer);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -196,6 +205,27 @@ public class CustomerController {
                 customerForUpdateDTO.getPhoneNumber(),
                 customerForUpdateDTO.getAddress(),
                 customerForUpdateDTO.getCardId()
+        );
+        customerService.updateCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // NghiaTDD
+    @PutMapping("/user/edit")
+    public ResponseEntity<?> updateTaiKhoan(@RequestBody CustomerUpdateDTO customerUpdateDTO) {
+//        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(customerUpdateDTO.getId());
+//        if (!customerOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        Customer customer = new Customer(
+                customerUpdateDTO.getId(),
+                customerUpdateDTO.getFullName(),
+                customerUpdateDTO.getGender(),
+                customerUpdateDTO.getBirthday(),
+                customerUpdateDTO.getEmail(),
+                customerUpdateDTO.getPhoneNumber(),
+                customerUpdateDTO.getAddress(),
+                customerUpdateDTO.getCardId()
         );
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
