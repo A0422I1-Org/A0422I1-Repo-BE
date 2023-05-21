@@ -4,6 +4,7 @@ import com.example.demo.dto.TicketViewDTO;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200/")
 public class TicketManagerController {
     @Autowired
+    @Qualifier("ticketService")
     private ITicketService iTicketService;
 
     /**
@@ -29,7 +31,7 @@ public class TicketManagerController {
      */
         @GetMapping("")
     public ResponseEntity<Page<Ticket>>searchAndFindAll(@RequestParam(value = "nameSearch" ,defaultValue = "")String name,
-                                                               @PageableDefault(value = 5,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
+                                                               @PageableDefault(value = 1,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
         Page<Ticket> tickets=iTicketService.searchTicket(name,pageable);
         if(tickets.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
