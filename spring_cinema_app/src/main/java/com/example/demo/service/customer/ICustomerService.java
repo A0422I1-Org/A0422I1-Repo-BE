@@ -16,11 +16,11 @@ public interface ICustomerService {
 
     Page<CustomerDTO> searchCustomerStatisticListByNameDesc(String nameCustomer, Pageable pageable);
 
-    Page<CustomerDTO> searchCustomerStatisticListByNameAcs(String nameCustomer , Pageable pageable);
+    Page<CustomerDTO> searchCustomerStatisticListByNameAcs(String nameCustomer, Pageable pageable);
 
     List<CustomerDTO> convertCustomerToDTO(List<Customer> customers);
 
-    Page<CustomerDTO> convertListToPage(List<CustomerDTO> customerDTOs , Pageable pageable);
+    Page<CustomerDTO> convertListToPage(List<CustomerDTO> customerDTOs, Pageable pageable);
 
     int getRankCustomer(String id);
 
@@ -48,27 +48,39 @@ public interface ICustomerService {
      */
     void saveCustomer(Customer customer);
 
+    /**
+     * @author: DanhHC
+     */
+    Integer checkDuplicateEmail(String email);
 
-
-
+    /**
+     * @author: DanhHC
+     */
+    Integer checkDuplicatePhoneNumber(String phoneNumber);
 
     void save(Customer customer);
 
     /**
      * Pham Trung Hieu
+     *
      * @param email
      * @return email
      */
     String existsByEmail(String email);
+
     Customer findById(String customerId);
+
     Customer findByUsername(String username);
+
     Customer getCustomerByAccount(String username);
-    Customer findCustomerByAccount(Account account );
+
+    Customer findCustomerByAccount(Account account);
 
     /**
      * Nghia TDD
      */
     void updateCustomer(Customer customer);
+
     /**
      * Nghia TDD
      */

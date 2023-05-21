@@ -215,6 +215,20 @@ public class CustomerService implements ICustomerService {
                 customer.getEmail(), customer.getCardId(), customer.getPhoneNumber(), customer.getAddress());
     }
 
+    /**
+     * @author: DanhHC
+     */
+    public Integer checkDuplicateEmail(String email) {
+        return customerRepository.checkDuplicateEmail(email);
+    }
+
+    /**
+     * @author: DanhHC
+     */
+    public Integer checkDuplicatePhoneNumber(String phoneNumber) {
+        return customerRepository.checkDuplicatePhoneNumber(phoneNumber);
+    }
+
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
@@ -249,9 +263,17 @@ public class CustomerService implements ICustomerService {
      */
     @Override
     public void updateCustomer(Customer customer) {
+        System.out.println(customer.getId()+""+
+                customer.getFullName()+""+
+                customer.getGender()+""+
+                customer.getBirthday()+""+
+                customer.getEmail()+""+
+                customer.getPhoneNumber()+""+
+                customer.getAddress()+""+
+                customer.getCardId());
         customerRepository.updateCustomer(customer.getId(), customer.getFullName(),
                 customer.getBirthday(), customer.getGender(), customer.getCardId(),
-                customer.getEmail(), customer.getAddress(), customer.getPhoneNumber());
+                customer.getEmail(), customer.getPhoneNumber(),customer.getAddress());
     }
 
     /**
