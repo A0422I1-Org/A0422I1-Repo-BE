@@ -26,7 +26,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
           @Param("name")  String name,
           @Param("dateBegin") String dateBegin,
           @Param("dateEnd") String dateEnd,
-          @Param("timeBegin")String timeBegin,
+          *@Param("timeBegin")String timeBegin,
           @Param("timeEnd") String timeEnd);
 
     @Modifying
