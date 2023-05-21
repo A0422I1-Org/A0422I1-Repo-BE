@@ -38,7 +38,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
                     " FROM ticket t " +
                     "JOIN chair_room cr ON t.chair_room_id = cr.id " +
                     "JOIN room r ON cr.room_id = r.id " +
-                    "WHERE r.id = :idRoom AND t.showtime_id = :idShowTime AND t.status = 1 AND r.is_delete = 0 AND cr.is_delete = 0 ",
+                    "WHERE r.id = :idRoom AND t.showtime_id = :idShowTime AND (t.status = 1 OR  t.status = 2) AND r.is_delete = 0 AND cr.is_delete = 0 ",
             nativeQuery = true)
     List<Ticket> findTicketAvailable(@Param("idRoom") Integer idRoom, @Param("idShowTime") Integer idShowTime);
     /**
@@ -105,5 +105,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
      * @author DuyetPT
      */
     Optional<Ticket> findById(String id);
+
+    Ticket findTicketByIdAndStatus(String id, Integer status);
 }
 

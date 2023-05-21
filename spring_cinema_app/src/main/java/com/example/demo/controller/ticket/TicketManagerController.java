@@ -31,7 +31,7 @@ public class TicketManagerController {
      */
         @GetMapping("")
     public ResponseEntity<Page<Ticket>>searchAndFindAll(@RequestParam(value = "nameSearch" ,defaultValue = "")String name,
-                                                               @PageableDefault(value = 1,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
+                                                               @PageableDefault(value = 5,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
         Page<Ticket> tickets=iTicketService.searchTicket(name,pageable);
         if(tickets.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -59,7 +59,7 @@ public class TicketManagerController {
      * @content update ticket by id
      * @author DuyetPT
      */
-    @PutMapping("/bookingConfirmation/{id}")
+    @DeleteMapping("/bookingConfirmation/{id}")
     public ResponseEntity<Boolean> bookingConfirmation(@PathVariable String id){
         return new ResponseEntity<>(iTicketService.bookingConfirmation(id),HttpStatus.OK);
     }

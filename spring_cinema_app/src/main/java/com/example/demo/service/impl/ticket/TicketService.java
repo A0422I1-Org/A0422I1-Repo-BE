@@ -117,4 +117,9 @@ public class TicketService  implements ITicketService {
 
     }
 
+    @Override
+    public Ticket findTicketByIdAndStatus(String id, Integer status) {
+        return ticketRepository.findTicketByIdAndStatus(id, status);
+    }
+
 }
