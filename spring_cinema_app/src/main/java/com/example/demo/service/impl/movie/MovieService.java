@@ -24,13 +24,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class MovieService implements IMovieService {
+    /*
+    * KhaiN admin movie-list-delete
+    *
+    * */
+
     @Autowired
     IMovieRepository repository;
 
-//    @Override
-//    public Page<MovieViewDTO> findAll(Pageable pageable) {
-//        return repository.findAll(pageable).map(MovieViewDTO::new);
-//    }
 
     @Override
     public Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, String studios, Pageable pageable) {

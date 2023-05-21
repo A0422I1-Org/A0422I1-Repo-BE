@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin")
 @CrossOrigin("http://localhost:4200")
 public class MovieController {
+    /*
+    * KhaiN admin movie-list-delete
+    *
+    * */
+
     @Autowired
     IMovieService iMovieService;
 

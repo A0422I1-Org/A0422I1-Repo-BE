@@ -14,17 +14,12 @@ import java.util.List;
 
 @Repository
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
-    @Query(value = "select * from Movie where " +
-            "name like concat('%',:name,'%') " +
-           " and is_delete = 0",
-            nativeQuery = true)
-    Page<Movie> findAllByName(@Param("name") String name,Pageable page);
+    /*
+    * KhaiN admin movie-list-delete
+    *
+    * */
 
-    @Query(value = "select * from Movie where " +
-            "name like concat('%',:name,'%') " +
-            " and is_delete = 0",
-            nativeQuery = true)
-    List<Movie> findAllByName(@Param("name") String name);
+
     @Query(value = "select * from movie where name like concat ('%',:name,'%') and start_day between :dateBegin and :dateEnd " +
         "and time_amount between :timeBegin and :timeEnd ", nativeQuery = true)
     List<Movie> findAllByNameContainingAndAndStartDayBetweenAndTimeAmountBetween(
