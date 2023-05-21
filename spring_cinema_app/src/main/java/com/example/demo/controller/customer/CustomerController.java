@@ -1,12 +1,15 @@
 package com.example.demo.controller.customer;
 
 import com.example.demo.dto.CustomerForUpdateDTO;
+import com.example.demo.dto.account.CustomerUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
 import com.example.demo.service.ticket.ITicketService;
+import com.google.api.client.json.Json;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -76,26 +79,34 @@ public class CustomerController {
         ticket.setCustomer(customer);
         Date date = new Date();
         ticket.setBookDateTime(date);
-        ticketService.createOrUpdate(ticket);
 
-        SimpleMailMessage message = new SimpleMailMessage();
+        Ticket ticketCheckDB = ticketService.findTicketByIdAndStatus(ticket.getId(), 1);
+        if (ticketCheckDB == null) {
+            ticketService.createOrUpdate(ticket);
 
-        message.setTo(customer.getEmail());
-        message.setSubject("ĐẶT VÉ THÀNH CÔNG");
-        message.setText("Xác nhận đặt vé thành công !!!" +
-                "\n-------- Thông tin vé ----------" +
-                "\nMã vé: " + ticket.getId() +
-                "\nRạp: " + ticket.getChairRoom().getRoom().getName() +
-                "\nMàn hình : " + ticket.getChairRoom().getRoom().getScreen() +
-                "\nGhế : " + ticket.getChairRoom().getChair().getName() +
-                "\nGiá vé : " + ticket.getPrice() +
-                "\n-------- Thông tin khách hàng ----------" +
-                "\nHọ tên : " + customer.getFullName() +
-                "\nEmail : " + customer.getEmail() +
-                "\nCMND : " + customer.getCardId() +
-                "\nSố điện thoại: " + customer.getPhoneNumber());
+            SimpleMailMessage message = new SimpleMailMessage();
 
-        javaMailSender.send(message);
+            message.setTo(customer.getEmail());
+            message.setSubject("ĐẶT VÉ THÀNH CÔNG");
+
+            message.setText("Xác nhận đặt vé thành công !!!" +
+                    "\n=============== Thông tin vé ===============" +
+                    "\nMã vé: " + ticket.getId() +
+                    "\nRạp: " + ticket.getChairRoom().getRoom().getName() +
+                    "\nMàn hình : " + ticket.getChairRoom().getRoom().getScreen() +
+                    "\nGhế : " + ticket.getChairRoom().getChair().getName() +
+                    "\nGiá vé : " + ticket.getPrice() +
+                    "\n=============== Thông tin khách hàng ===============" +
+                    "\nHọ tên : " + customer.getFullName() +
+                    "\nEmail : " + customer.getEmail() +
+                    "\nCMND : " + customer.getCardId() +
+                    "\nSố điện thoại: " + customer.getPhoneNumber());
+
+            javaMailSender.send(message);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -122,10 +133,10 @@ public class CustomerController {
                                                           @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
                                                           @RequestParam(name = "sort", required = false, defaultValue = "asc") String sort) {
         /**
-         * Method: show customer list, show search result, choose page
-         * Author: DanhHC
-         * Params: search input, page, size, sort
-         * Return: customer list
+         * @method: show customer list, show search result, choose page
+         * @author: DanhHC
+         * @params: search input, page, size, sort
+         * @return: customer list
          */
         System.out.println("test - list customer");
         Sort sortable = Sort.by("id").ascending();
@@ -142,10 +153,10 @@ public class CustomerController {
     @GetMapping("/admin/update/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
         /**
-         * Method: get customer by id
-         * Author: DanhHC
-         * Params: customer id
-         * Return: customer with corresponding id
+         * @method: get customer by id
+         * @author: DanhHC
+         * @params: customer id
+         * @return: customer with corresponding id
          */
         System.out.println("test - id customer");
         return new ResponseEntity<>(customerService.findCustomerById(id), HttpStatus.OK);
@@ -154,16 +165,18 @@ public class CustomerController {
     @PutMapping("/admin/update")
     public void updateCustomer(@RequestBody Customer customer) {
         /**
-         * Method: edit customer
-         * Author: DanhHC
-         * Params: customer
-         * Return: void
+         * @method: edit customer
+         * @author: DanhHC
+         * @params: customer
+         * @return: void
          */
         customerService.saveCustomer(customer);
-        String passInput = customer.getAccount().getPassword();
-        String passEncode = passwordEncoder.encode(passInput);
-        customer.getAccount().setPassword(passEncode);
-        accountService.updatePassword(customer);
+        if (!customer.getAccount().getPassword().equals("")) {
+            String passInput = customer.getAccount().getPassword();
+            String passEncode = passwordEncoder.encode(passInput);
+            customer.getAccount().setPassword(passEncode);
+            accountService.updatePassword(customer);
+        }
     }
 
     /**
@@ -184,6 +197,27 @@ public class CustomerController {
                 customerForUpdateDTO.getPhoneNumber(),
                 customerForUpdateDTO.getAddress(),
                 customerForUpdateDTO.getCardId()
+        );
+        customerService.updateCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // NghiaTDD
+    @PutMapping("/user/edit")
+    public ResponseEntity<?> updateTaiKhoan(@RequestBody CustomerUpdateDTO customerUpdateDTO) {
+//        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(customerUpdateDTO.getId());
+//        if (!customerOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        Customer customer = new Customer(
+                customerUpdateDTO.getId(),
+                customerUpdateDTO.getFullName(),
+                customerUpdateDTO.getGender(),
+                customerUpdateDTO.getBirthday(),
+                customerUpdateDTO.getEmail(),
+                customerUpdateDTO.getPhoneNumber(),
+                customerUpdateDTO.getAddress(),
+                customerUpdateDTO.getCardId()
         );
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);

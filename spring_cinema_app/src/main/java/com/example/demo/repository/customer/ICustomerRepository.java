@@ -16,16 +16,33 @@ import java.util.Optional;
 
 @Repository
 public interface ICustomerRepository  extends JpaRepository<Customer,String> {
-
+    /**
+     * @method: get customer by id
+     * @author: DanhHC
+     * @params: customer id
+     * @return: customer with corresponding id
+     */
     @Query(nativeQuery = true, value = "SELECT id, address, birthday, card_id, email, full_name, gender," +
             "is_delete, phone_number, username FROM customer c WHERE id = ?1")
     Customer findCustomerById(String id);
 
+    /**
+     * @method: show customer list, show search result, choose page
+     * @author: DanhHC
+     * @params: search input, page, size, sort
+     * @return: customer list
+     */
     @Query(nativeQuery = true, value = "SELECT * FROM customer " +
             "WHERE full_name LIKE CONCAT('%',?1,'%') OR phone_number LIKE CONCAT('%',?1,'%') " +
             "OR card_id LIKE CONCAT('%',?1,'%') OR email LIKE CONCAT('%',?1,'%')")
     Page<Customer> searchCustomerByName(String name, Pageable pageable);
 
+    /**
+     * @method: edit customer
+     * @author: DanhHC
+     * @params: customer
+     * @return: void
+     */
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "UPDATE customer SET full_name = ?2, birthday = ?3, gender = ?4," +

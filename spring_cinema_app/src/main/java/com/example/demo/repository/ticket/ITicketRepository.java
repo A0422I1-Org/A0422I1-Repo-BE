@@ -84,9 +84,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, String> {
     @Query(value = "delete from ticket t where t.id = :id and customer_id is not null", nativeQuery = true)
     int deleteTicket(@Param("id") String id);
 
-
-
-
     Optional<Ticket> findById(String id);
+    Ticket findTicketByIdAndStatus(String id, Integer status);
 }
 
