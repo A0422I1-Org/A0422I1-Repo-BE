@@ -1,9 +1,6 @@
 package com.example.demo.service.movie;
 
-import com.example.demo.dto.movie.IMovieDetailDTO;
-import com.example.demo.dto.movie.MovieBookingDTO;
-import com.example.demo.dto.movie.MovieListViewDTO;
-import com.example.demo.dto.movie.MovieViewDTO;
+import com.example.demo.dto.movie.*;
 import com.example.demo.error.NotFoundById;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
 import com.example.demo.model.movie.Movie;
@@ -24,8 +21,23 @@ public interface IMovieService {
     IMovieDetailDTO getMovieDetailByMovieId(Integer movieId);
 
 
+    /**
+     * @return List<MovieListViewDTO>
+     * @content find all on showing movie
+     * @author PhuongLT
+     */
     List<MovieListViewDTO> findOnShowingMovie();
+    /**
+     * @return List<MovieListViewDTO>
+     * @content find all upcoming movie
+     * @author PhuongLT
+     */
     List<MovieListViewDTO> findUpcomingMovie();
+    /**
+     * @return List<MovieListViewDTO>
+     * @content find movie by name
+     * @author PhuongLT
+     */
     List<MovieListViewDTO> findMovieByName(String name);
 
     List<MovieBookingDTO> findMoviesByStartDate();
