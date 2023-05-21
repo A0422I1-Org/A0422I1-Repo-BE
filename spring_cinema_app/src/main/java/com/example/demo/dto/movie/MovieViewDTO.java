@@ -1,11 +1,6 @@
 package com.example.demo.dto.movie;
 
 import com.example.demo.model.movie.Movie;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -14,10 +9,6 @@ import java.util.stream.Collectors;
 
 
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 public class MovieViewDTO implements Serializable {
     private Integer id;
     private String name;
@@ -29,6 +20,10 @@ public class MovieViewDTO implements Serializable {
     private String movieType;
     private String movieDirector;
     private Boolean isDelete;
+
+    public MovieViewDTO() {
+    }
+
     public MovieViewDTO(Movie movie) {
         this.id = movie.getId();
         this.name = movie.getName();
@@ -52,5 +47,85 @@ public class MovieViewDTO implements Serializable {
                 .map(item -> item.getDirector().getName())
                 .collect(Collectors.joining(", "));
         this.isDelete = movie.getIsDelete();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getTimeAmount() {
+        return timeAmount;
+    }
+
+    public void setTimeAmount(Integer timeAmount) {
+        this.timeAmount = timeAmount;
+    }
+
+    public Date getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(Date startDay) {
+        this.startDay = startDay;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getMovieStudio() {
+        return movieStudio;
+    }
+
+    public void setMovieStudio(String movieStudio) {
+        this.movieStudio = movieStudio;
+    }
+
+    public String getMovieActor() {
+        return movieActor;
+    }
+
+    public void setMovieActor(String movieActor) {
+        this.movieActor = movieActor;
+    }
+
+    public String getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(String movieType) {
+        this.movieType = movieType;
+    }
+
+    public String getMovieDirector() {
+        return movieDirector;
+    }
+
+    public void setMovieDirector(String movieDirector) {
+        this.movieDirector = movieDirector;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }

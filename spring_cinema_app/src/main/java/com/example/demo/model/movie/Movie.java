@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -36,8 +37,6 @@ public class Movie {
     @NotNull
     private String trailer;
     @NotNull
-    private Double rating;
-    @NotNull
     private String language;
     @NotNull
     private Boolean isDelete;
@@ -57,4 +56,5 @@ public class Movie {
     @OneToMany(mappedBy = "movie")
     @JsonIgnore
     private List<MovieDirector> getListDirector;
+
 }

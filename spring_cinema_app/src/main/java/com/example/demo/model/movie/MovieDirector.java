@@ -1,12 +1,9 @@
 package com.example.demo.model.movie;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+
 @Entity
 public class MovieDirector {
     @Id
@@ -24,9 +21,34 @@ public class MovieDirector {
     public MovieDirector() {
     }
 
-    public MovieDirector(Integer id, Movie movieD, Director director) {
+    public MovieDirector(Integer id, Movie movie, Director director) {
         this.id = id;
-        this.movie = movieD;
+        this.movie = movie;
+
+        this.director = director;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
         this.director = director;
     }
 }

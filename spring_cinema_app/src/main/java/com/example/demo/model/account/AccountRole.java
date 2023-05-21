@@ -28,10 +28,48 @@ public class AccountRole {
     public AccountRole() {
     }
 
-    public AccountRole(Integer id, @NotNull Account account, @NotNull Role role, Boolean isDelete) {
+    public AccountRole(Integer id, Account account, Role role, Boolean isDelete) {
         this.id = id;
         this.account = account;
         this.role = role;
         this.isDelete = isDelete;
+    }
+
+    public AccountRole(Account account, Role role, Boolean isDelete) {
+        this.account = account;
+        this.role = role;
+        this.isDelete = isDelete;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }
