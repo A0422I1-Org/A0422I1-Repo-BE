@@ -16,22 +16,23 @@ import java.util.List;
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
     @Query(value = "select * from Movie where " +
             "name like concat('%',:name,'%') " +
-            "and start_day like concat('%',:startDay,'%') " +
-            "and time_amount like concat('%',:timeAmount,'%') and is_delete = 0",
+           " and is_delete = 0",
             nativeQuery = true)
-    Page<Movie> findAllByNameAndByStartDayAndByTimeAmount(@Param("name") String name,
-                                                          @Param("startDay") String startDay,
-                                                          @Param("timeAmount") String timeAmount,
-                                                          Pageable page);
+    Page<Movie> findAllByName(@Param("name") String name,Pageable page);
 
     @Query(value = "select * from Movie where " +
             "name like concat('%',:name,'%') " +
-            "and start_day like concat('%',:startDay,'%') " +
-            "and time_amount like concat('%',:timeAmount,'%') and is_delete = 0",
+            " and is_delete = 0",
             nativeQuery = true)
-    List<Movie> findAllByThreeCondition(@Param("name") String name,
-                                        @Param("startDay") String startDay,
-                                        @Param("timeAmount") String timeAmount);
+    List<Movie> findAllByName(@Param("name") String name);
+    @Query(value = "select * from movie where name like concat ('%',:name,'%') and start_day between :dateBegin and :dateEnd " +
+        "and time_amount between :timeBegin and :timeEnd ", nativeQuery = true)
+    List<Movie> findAllByNameContainingAndAndStartDayBetweenAndTimeAmountBetween(
+          @Param("name")  String name,
+          @Param("dateBegin") String dateBegin,
+          @Param("dateEnd") String dateEnd,
+          @Param("timeBegin")String timeBegin,
+          @Param("timeEnd") String timeEnd);
 
     @Modifying
     @Transactional
