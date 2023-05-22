@@ -56,16 +56,6 @@ public class Customer {
     @JsonIgnore
     private List<Ticket> getTicketList;
 
-    public Customer(String id, @NotNull String fullName, @NotNull Boolean gender, @NotNull Date birthday, @NotNull String email, @NotNull String phoneNumber, @NotNull String address, @NotNull String cardId) {
-        this.id = id;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.cardId = cardId;
-    }
 
     public Customer() {
     }
@@ -79,6 +69,17 @@ public class Customer {
         this.cardId = cardId;
         this.account = account;
         this.isDelete = isDelete;
+    }
+
+    public Customer(String id, @NotNull String fullName, @NotNull Boolean gender, @NotNull Date birthday, @NotNull String email, @NotNull String phoneNumber, @NotNull String address, @NotNull String cardId) {
+        this.id = id;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
     }
 
     public String getId() {
@@ -152,29 +153,8 @@ public class Customer {
     public void setAccount(Account account) {
         this.account = account;
     }
+//    public Customer() {
+//    }
 
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
-    public List<Point> getGetListPoint() {
-        return getListPoint;
-    }
-
-    public void setGetListPoint(List<Point> getListPoint) {
-        this.getListPoint = getListPoint;
-    }
-
-    public List<Ticket> getGetTicketList() {
-        return getTicketList;
-    }
-
-    public void setGetTicketList(List<Ticket> getTicketList) {
-        this.getTicketList = getTicketList;
-    }
 }
 
