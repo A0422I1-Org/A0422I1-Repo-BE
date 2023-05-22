@@ -39,4 +39,23 @@ public interface IEmployeeRepository extends JpaRepository<Employee,String> {
     @Query(value = "select * from employee where username = ?", nativeQuery = true)
     Employee findEmployeeByUsername(String username);
 
+
+    /**
+     * Phan Si Tay
+     */
+    @Query(value = "select email from employee where email = ?1", nativeQuery = true)
+    String existsByEmployeeEmail(String email);
+
+    /**
+     * Phan Si Tay
+     */
+    @Query(value = "select phone_number from employee where phone_number = ?1", nativeQuery = true)
+    String existsByEmployeePhoneNumber(String phoneNumber);
+
+    /**
+     * Phan Si Tay
+     */
+    @Query(value = "select card_id from employee where card_id = ?1", nativeQuery = true)
+    String existsByEmployeeCardId(String cardId);
+
 }

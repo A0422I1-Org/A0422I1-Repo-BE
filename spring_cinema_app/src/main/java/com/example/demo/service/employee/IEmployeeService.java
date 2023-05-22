@@ -15,4 +15,19 @@ public interface IEmployeeService {
     Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId, Pageable pageable);
 
     Employee findEmployeeByUsername(String username);
+
+    /**
+     * Tay
+     */
+    String existsByEmployeeEmail(String email);
+
+    /**
+     * Tay
+     */
+    String existsByEmployeePhoneNumber(String phoneNumber);
+
+    /**
+     * Tay
+     */
+    String existsByEmployeeCardId(String cardId);
 }
