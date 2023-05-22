@@ -46,5 +46,30 @@ public class EmployeeService implements IEmployeeService {
         return employeeRepository.findAllByFullNameContainingAndPosition(name.trim(),positionId,pageable);
     }
 
+    @Override
+    public Employee findEmployeeByUsername(String username) {
+        return employeeRepository.findEmployeeByUsername(username);
+    }
+
+    /**
+     * Tay
+     */
+    @Override
+    public String existsByEmployeeEmail(String email) {
+        return employeeRepository.existsByEmployeeEmail(email);
+    }
+    /**
+     * Tay
+     */
+    @Override
+    public String existsByEmployeePhoneNumber(String phoneNumber) {
+        return employeeRepository.existsByEmployeePhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public String existsByEmployeeCardId(String cardId) {
+        return employeeRepository.existsByEmployeeCardId(cardId);
+    }
+
 
 }

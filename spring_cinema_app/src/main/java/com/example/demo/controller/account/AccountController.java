@@ -37,7 +37,7 @@ public class AccountController {
         account.setUsername(signupRequest.getUsername());
         account.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         account.setIsDelete(false);
-        account.setIsEnable(false);
+        account.setIsEnable(true);
         accountService.save(account);
 
         Customer customer = new Customer(
@@ -62,11 +62,11 @@ public class AccountController {
 
     @PutMapping("/user/do-reset-password")
     public ResponseEntity<?> doResetPassword(@RequestBody ResetPassRequest resetPassRequest) {
+
         if(accountService.existsByUsername(resetPassRequest.getUsername()) !=null){
             accountService.savePassword(passwordEncoder.encode(resetPassRequest.getPassword()), resetPassRequest.getUsername());
             return new ResponseEntity<>(HttpStatus.OK);
         }else {
-            System.out.println("mat khau khong dung");
             return ResponseEntity.badRequest().body("Mật khẩu cũ không đúng!");
         }
     }

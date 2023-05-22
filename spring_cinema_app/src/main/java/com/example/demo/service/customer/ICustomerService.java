@@ -10,6 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerService {
+
+    /**
+     * Pham Trung Hieu
+     * @param id
+     * @param fullName
+     * @param email
+     * @param username
+     */
+    void saveCustomerLoginWithGoogle(String id, String fullName, String email, String username);
+
     Page<CustomerDTO> getListCustomerDTODesc(Pageable pageable);
 
     Page<CustomerDTO> getListCustomerDTOAcs(Pageable pageable);

@@ -6,15 +6,18 @@ import com.example.demo.dto.CustomerForUpdateDTO;
 import com.example.demo.dto.account.CustomerUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
+import com.example.demo.model.employee.Employee;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
+import com.example.demo.service.impl.employee.EmployeeService;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,11 +30,10 @@ import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.security.Principal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @RestController
 @RequestMapping("api")
@@ -48,15 +50,12 @@ public class CustomerController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping("/user/{id}")
     public Customer findCustomerById(@PathVariable String id) {
         return customerService.findById(id);
-    }
-
-    @GetMapping("/user/findByUsername/{username}")
-    public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
-        System.out.println(customerService.findByUsername(username).getEmail());
-        return new ResponseEntity<>(customerService.findByUsername(username), HttpStatus.OK);
     }
 
     /**
@@ -72,6 +71,11 @@ public class CustomerController {
         ticketList.add(ticketService.findById("1"));
         ticketList.add(ticketService.findById("2"));
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
+    }
+
+    @GetMapping("user/findByUsername/{username}")
+    public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
+        return new ResponseEntity<>(customerService.findByUsername(username), HttpStatus.OK);
     }
 
     /**
@@ -90,6 +94,13 @@ public class CustomerController {
         if (ticketCheckDB == null) {
             ticketService.createOrUpdate(ticket);
             SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+            NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vn"));
+
+            String pattern = "dd-MM-yyyy hh:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String bookDateTimeStr = simpleDateFormat.format(ticket.getBookDateTime());
+
+            String priceStr = numberFormat.format(ticket.getPrice());
 
             String subject = "A04CINEMA - THÔNG BÁO ĐẶT VÉ THÀNH CÔNG";
             String message = "CHÚC MỪNG QUÝ KHÁCH ĐÃ ĐẶT VÉ THÀNH CÔNG !!!" +
@@ -137,7 +148,11 @@ public class CustomerController {
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Giá vé : </th>\n" +
-                    "                        <td>" + ticket.getPrice() + "</td>\n" +
+                    "                        <td>"+priceStr+ " VND" + "</td>\n" +
+                    "                    </tr>\n" +
+                    "                    <tr>\n" +
+                    "                        <th scope=\"row\">Ngày giờ đặt vé : </th>\n" +
+                    "                        <td>"+ bookDateTimeStr + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
@@ -168,7 +183,7 @@ public class CustomerController {
                     "                <tbody>\n" +
                     "                    <tr>\n" +
                     "                    <th scope=\"row\">TỔNG TIỀN : </th>\n" +
-                    "                    <td>" + ticket.getPrice() + "</td>\n" +
+                    "                    <td>"+priceStr+ " VND" + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
