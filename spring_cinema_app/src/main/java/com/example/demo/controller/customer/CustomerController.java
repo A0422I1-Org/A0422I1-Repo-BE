@@ -74,6 +74,11 @@ public class CustomerController {
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
     }
 
+    @GetMapping("user/findByUsername/{username}")
+    public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
+        return new ResponseEntity<>(customerService.findByUsername(username), HttpStatus.OK);
+    }
+
     /**
      * @param ticket Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
      *               TanHP
