@@ -3,9 +3,11 @@ package com.example.demo.controller.customer;
 import com.example.demo.dto.CustomerForUpdateDTO;
 import com.example.demo.model.account.Account;
 import com.example.demo.model.customer.Customer;
+import com.example.demo.model.employee.Employee;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.account.IAccountService;
 import com.example.demo.service.customer.ICustomerService;
+import com.example.demo.service.impl.employee.EmployeeService;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,14 +42,12 @@ public class CustomerController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping("/user/{id}")
     public Customer findCustomerById(@PathVariable String id) {
         return customerService.findById(id);
-    }
-
-    @GetMapping("/user/findByUsername/{username}")
-    public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
-        return new ResponseEntity<>(customerService.findByUsername(username), HttpStatus.OK);
     }
 
     /**

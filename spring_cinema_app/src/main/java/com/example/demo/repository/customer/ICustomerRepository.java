@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public interface ICustomerRepository  extends JpaRepository<Customer,String> {
 
     @Query(nativeQuery = true, value = "SELECT id, address, birthday, card_id, email, full_name, gender," +
@@ -32,6 +33,16 @@ public interface ICustomerRepository  extends JpaRepository<Customer,String> {
     void updateCustomer(String id, String fullName, Date birthday, boolean gender, String email,
                         String cardId, String phoneNumber, String address);
 
+    /**
+     * Pham Trung Hieu
+     * @param id
+     * @param fullName
+     * @param email
+     * @param username
+     */
+    @Modifying
+    @Query(value = "insert into customer(id, full_name, email, username) values (?1, ?2, ?3, ?4)", nativeQuery = true)
+    void saveCustomerLoginWithGoogle(String id, String fullName, String email, String username);
 
     /**
      * Pham Trung Hieu
@@ -40,9 +51,18 @@ public interface ICustomerRepository  extends JpaRepository<Customer,String> {
      */
     @Query(value = "select email from customer where email =?1", nativeQuery = true)
     String existsByEmail(String email);
+
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return customer
+     */
+    Customer getCustomerByAccount(@Param("username")String username);
+
+
+
     @Query(value = "select * from customer where username = ?", nativeQuery = true)
     Customer findCustomerByUsername(String username);
-    Customer getCustomerByAccount(@Param("username")String username);
     @Query(nativeQuery = true, value = "select id, address, birthday, card_id, email, full_name, gender, is_delete, phone_number, username from customer where username = ?")
     Customer findCustomerByAccount(String account );
 

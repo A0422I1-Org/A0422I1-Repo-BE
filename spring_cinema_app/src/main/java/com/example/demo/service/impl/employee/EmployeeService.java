@@ -46,5 +46,10 @@ public class EmployeeService implements IEmployeeService {
         return employeeRepository.findAllByFullNameContainingAndPosition(name.trim(),positionId,pageable);
     }
 
+    @Override
+    public Employee findEmployeeByUsername(String username) {
+        return employeeRepository.findEmployeeByUsername(username);
+    }
+
 
 }

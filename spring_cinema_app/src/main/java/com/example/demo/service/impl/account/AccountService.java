@@ -28,7 +28,6 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
-     *
      * @param username
      * @return account information
      */
@@ -39,7 +38,6 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
-     *
      * @param username
      * @return username
      */
@@ -50,7 +48,6 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
-     *
      * @param username
      * @throws MessagingException
      * @throws UnsupportedEncodingException
@@ -64,7 +61,6 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
-     *
      * @param code
      * @return account status by verify code
      */
@@ -76,7 +72,6 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
-     *
      * @param code
      * @return account status by verify code
      */
@@ -95,7 +90,6 @@ public class AccountService implements IAccountService {
 
     /**
      * Pham Trung Hieu
-     *
      * @param password
      * @param code
      */
@@ -104,16 +98,31 @@ public class AccountService implements IAccountService {
         accountRepository.saveNewPassword(password, code);
     }
 
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return Optional the Account by username
+     */
     @Override
     public Optional<Account> findByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
 
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return status account by username for Optional Account
+     */
     @Override
     public Boolean existsByUsername(String username) {
         return accountRepository.existsByUsername(username);
     }
 
+    /**
+     * Pham Trung Hieu
+     * @param account
+     * @return save account when login with google
+     */
     public Account save(Account account) {
         return accountRepository.save(account);
     }

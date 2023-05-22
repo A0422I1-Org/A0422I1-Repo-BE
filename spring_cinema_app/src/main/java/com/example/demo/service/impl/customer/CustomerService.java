@@ -26,6 +26,18 @@ public class CustomerService implements ICustomerService {
 //        this.customerRepository = customerRepository;
 //    }
 
+    /**
+     * Pham Trung Hieu
+     * @param id
+     * @param fullName
+     * @param email
+     * @param username
+     */
+    @Override
+    public void saveCustomerLoginWithGoogle(String id, String fullName, String email, String username) {
+        customerRepository.saveCustomerLoginWithGoogle(id, fullName, email, username);
+    }
+
     @Override
     public Page<CustomerDTO> getListCustomerDTODesc(Pageable pageable) {
         return null;
@@ -81,9 +93,24 @@ public class CustomerService implements ICustomerService {
         customerRepository.save(customer);
     }
 
+    /**
+     * Pham Trung Hieu
+     * @param email
+     * @return exist by email
+     */
     @Override
     public String existsByEmail(String email) {
         return customerRepository.existsByEmail(email);
+    }
+
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return Customer by username
+     */
+    @Override
+    public Customer getCustomerByAccount(String username) {
+        return customerRepository.getCustomerByAccount(username);
     }
 
     @Override
@@ -94,11 +121,6 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer findByUsername(String username) {
         return customerRepository.findCustomerByUsername(username);
-    }
-
-    @Override
-    public Customer getCustomerByAccount(String username) {
-        return customerRepository.getCustomerByAccount(username);
     }
 
     @Override

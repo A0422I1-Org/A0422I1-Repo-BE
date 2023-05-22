@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-//import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
@@ -27,7 +26,7 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
      * @param username
      * @return account information
      */
-    @Query(value = "select username, is_delete, is_enable, password, verification_code from account where username =?1", nativeQuery = true)
+    @Query(value = "select username, is_delete, is_enable, password, verification_code from account where username =?1 and is_delete=false and is_enable=true", nativeQuery = true)
     Account findAccountByUsername(String username);
 
     /**
@@ -35,7 +34,7 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
      * @param username
      * @return username
      */
-    @Query(value = "select username from account where username =?1", nativeQuery = true)
+    @Query(value = "select username from account where username =?1  and is_delete=false and is_enable=true", nativeQuery = true)
     String existsAccountByUsername(String username);
 
     /**
@@ -44,7 +43,7 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
      * @param username
      */
     @Modifying
-    @Query(value ="update account set verification_code=?1 where username =?2",nativeQuery = true)
+    @Query(value ="update account set verification_code=?1 where username =?2  and is_delete=false and is_enable=true",nativeQuery = true)
     void addVerificationCode(String code,String username);
 
     /**
@@ -52,7 +51,7 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
      * @param verifyCode
      * @return account information by verify code
      */
-    @Query(value = "select username, is_delete, is_enable, password, verification_code from account where verification_code =?1",nativeQuery = true)
+    @Query(value = "select username, is_delete, is_enable, password, verification_code from account where verification_code =?1  and is_delete=false and is_enable=true",nativeQuery = true)
     Account findAccountByVerificationCode(String verifyCode);
 
     /**
@@ -61,9 +60,21 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
      * @param code
      */
     @Modifying
-    @Query(value = "update account set password =?1,verification_code=null where verification_code=?2",nativeQuery = true)
+    @Query(value = "update account set password =?1,verification_code=null where verification_code=?2  and is_delete=false and is_enable=true",nativeQuery = true)
     void saveNewPassword(String password, String code);
+
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return Optional the Account by username
+     */
     Optional<Account> findByUsername(String username);
+
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return status account by username for Optional Account
+     */
     boolean existsByUsername(String username);
 
     @Query(value = "select username from account where username = ?1", nativeQuery = true)
