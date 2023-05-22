@@ -13,4 +13,6 @@ public interface IEmployeeService {
     Integer updateIsDeleteById(String id);
 
     Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId, Pageable pageable);
+
+    Employee findEmployeeByUsername(String username);
 }
