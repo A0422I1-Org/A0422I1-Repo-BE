@@ -28,7 +28,7 @@ import java.util.Date;
 @RequestMapping("/api/admin")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class EmployeeController {
-    private static int counter = 1;
+    private static int counter = 5;
     private static final String PATTERN = "Employee-%04d";
     private static final int MAXDISPLAY = 5;
 

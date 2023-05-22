@@ -1,5 +1,6 @@
 package com.example.demo.controller.movie;
 
+import com.example.demo.dto.movie.IRatingMovieDTO;
 import com.example.demo.dto.movie.RatingMovieDTO;
 import com.example.demo.service.movie.IRatingMovieService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,5 +45,21 @@ public class RatingMovieController {
             return new ResponseEntity<>("Sorry, we could not process your request. Please try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(jsonResult, HttpStatus.OK);
+    }
+
+    /**
+     * @param username, movieId
+     * @return string
+     * @content get rating of movie by username
+     * @author ChuongLN
+     */
+    @GetMapping("get-rating-movie")
+    public ResponseEntity<IRatingMovieDTO> getRatingMovieByUsernameAndMovieId(@RequestParam(value = "username") String username,
+                                                                              @RequestParam(value = "movieId") Integer movieId) {
+        IRatingMovieDTO ratingMovie = ratingMovieService.getRatingMovieByUsernameAndMovieId(username, movieId);
+        if (ratingMovie == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(ratingMovie, HttpStatus.OK);
     }
 }

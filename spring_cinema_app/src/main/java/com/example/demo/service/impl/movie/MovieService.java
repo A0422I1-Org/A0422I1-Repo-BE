@@ -1,8 +1,6 @@
 package com.example.demo.service.impl.movie;
 
-import com.example.demo.dto.movie.IMovieDetailDTO;
-import com.example.demo.dto.movie.MovieBookingDTO;
-import com.example.demo.dto.movie.MovieListViewDTO;
+import com.example.demo.dto.movie.*;
 import com.example.demo.error.NotFoundById;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
 import com.example.demo.model.movie.Movie;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.dto.movie.MovieViewDTO;
+
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -41,9 +39,15 @@ public class MovieService implements IMovieService {
         return movieRepository.getMovieByMovieId(movieId);
     }
 
+    /**
+     * @return List<MovieListViewDTO>
+     * @content find all on showing movie
+     * @author PhuongLT
+     */
+
     @Override
     public List<MovieListViewDTO> findOnShowingMovie() {
-        List<Movie> movieList = movieRepository.findAllByIsDeleteFalseAndStatusEquals("1");
+        List<Movie> movieList = movieRepository.getOnShowingMovie();
         List<MovieListViewDTO> movieListViewDTOS = new ArrayList<>();
         for (int i = 0 ; i<movieList.size();i++){
            movieListViewDTOS.add(new MovieListViewDTO(movieList.get(i)));
@@ -53,9 +57,15 @@ public class MovieService implements IMovieService {
 
     }
 
+    /**
+     * @return List<MovieListViewDTO>
+     * @content find all upcoming movie
+     * @author PhuongLT
+     */
+
     @Override
     public List<MovieListViewDTO> findUpcomingMovie() {
-        List<Movie> movieList = movieRepository.findAllByIsDeleteFalseAndStatusEquals("0");
+        List<Movie> movieList = movieRepository.getUpComingMovie();
         List<MovieListViewDTO> movieListViewDTOS = new ArrayList<>();
         for (int i = 0 ; i<movieList.size();i++){
             movieListViewDTOS.add(new MovieListViewDTO(movieList.get(i)));
@@ -63,6 +73,12 @@ public class MovieService implements IMovieService {
         movieListViewDTOS.sort((o1, o2) -> o2.getStartDay().compareTo(o1.getStartDay()));
         return movieListViewDTOS;
     }
+
+    /**
+     * @return List<MovieListViewDTO>
+     * @content find movie by name
+     * @author PhuongLT
+     */
 
     @Override
     public List<MovieListViewDTO> findMovieByName(String name) {
@@ -143,7 +159,7 @@ public class MovieService implements IMovieService {
      * @param pageable
      * @return Page<MovieDTO>
      *
-     * @Author: DuHC
+     * @Author: KhaiN
      */
     @Override
     public Page<MovieDTO> searchStatisticMovieByNameAcs(String nameMovie, Pageable pageable) {

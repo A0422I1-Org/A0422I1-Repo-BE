@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,11 +18,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 public class Customer {
     @Id
     @Column(columnDefinition = ("varchar(45)"))
+    @GeneratedValue(generator = "my_generator")
+    @GenericGenerator(name = "my_generator", strategy = "com.example.demo.model.customer.MyGenerator")
     private String id;
     @NotNull
     private String fullName;
@@ -48,95 +49,104 @@ public class Customer {
     @JsonIgnore
     private List<Ticket> getTicketList;
 
-    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId) {
+
+    public Customer() {
+    }
+    public Customer(String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Account account, Boolean isDelete) {
+        this.fullName = fullName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
+        this.account = account;
+        this.isDelete = isDelete;
     }
 
+    public Customer(String id, @NotNull String fullName, @NotNull Boolean gender, @NotNull Date birthday, @NotNull String email, @NotNull String phoneNumber, @NotNull String address, @NotNull String cardId) {
+        this.id = id;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cardId = cardId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 //    public Customer() {
-//    }
-
-//    public Customer(String id, String fullName, Boolean gender, Date birthday, String email, String phoneNumber, String address, String cardId, Account account, Boolean isDelete) {
-//        this.id = id;
-//        this.fullName = fullName;
-//        this.gender = gender;
-//        this.birthday = birthday;
-//        this.email = email;
-//        this.phoneNumber = phoneNumber;
-//        this.address = address;
-//        this.cardId = cardId;
-//        this.account = account;
-//        this.isDelete = isDelete;
-//    }
-
-
-
-
-//    public void setGetListPoint(List<Point> getListPoint) {
-//        this.getListPoint = getListPoint;
-//    }
-//
-//
-//
-//    public void setGetTicketList(List<Ticket> getTicketList) {
-//        this.getTicketList = getTicketList;
-//    }
-//
-//
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//
-//    public void setFullName(String fullName) {
-//        this.fullName = fullName;
-//    }
-//
-//
-//
-//    public void setGender(Boolean gender) {
-//        this.gender = gender;
-//    }
-//
-//
-//
-//    public void setBirthday(Date birthday) {
-//        this.birthday = birthday;
-//    }
-//
-//
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//
-//
-//    public void setPhoneNumber(String phoneNumber) {
-//        this.phoneNumber = phoneNumber;
-//    }
-//
-//
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//    }
-//
-//
-//
-//    public void setCardId(String cardId) {
-//        this.cardId = cardId;
-//    }
-//
-//
-//
-//    public void setAccount(Account account) {
-//        this.account = account;
-//    }
-//
-//
-//
-//    public void setDelete(Boolean delete) {
-//        isDelete = delete;
 //    }
 
 }

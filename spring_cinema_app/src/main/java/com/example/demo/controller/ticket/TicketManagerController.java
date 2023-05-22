@@ -4,6 +4,7 @@ import com.example.demo.dto.TicketViewDTO;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.service.ticket.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200/")
 public class TicketManagerController {
     @Autowired
+    @Qualifier("ticketService")
     private ITicketService iTicketService;
 
     /**
@@ -57,7 +59,7 @@ public class TicketManagerController {
      * @content update ticket by id
      * @author DuyetPT
      */
-    @PutMapping("/bookingConfirmation/{id}")
+    @DeleteMapping("/bookingConfirmation/{id}")
     public ResponseEntity<Boolean> bookingConfirmation(@PathVariable String id){
         return new ResponseEntity<>(iTicketService.bookingConfirmation(id),HttpStatus.OK);
     }

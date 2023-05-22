@@ -8,6 +8,12 @@ import java.util.Optional;
 
 @Service
 public interface IAccountService {
+    /**
+     * @method: edit customer
+     * @author: DanhHC
+     * @params: customer
+     * @return: void
+     */
     void updatePassword(Customer customer);
 
 
@@ -73,5 +79,9 @@ public interface IAccountService {
     void addNewAccount(Account account);
     String existsByEmployeeName(String username);
     Account findAccountByUsername(String username);
+
+    // NghiaTDD
+    String existsByPassword(String username, String password);
+    void savePassword(String password, String username);
 
 }

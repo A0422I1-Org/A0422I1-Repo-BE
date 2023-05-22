@@ -60,17 +60,35 @@ public class TicketService  implements ITicketService {
     public List<Ticket> findTicketByShowTimeAndIdRoom(Integer idRoom, Integer idShowTime) {
         return ticketRepository.findTicketByShowTimeAndIdRoom(idRoom,idShowTime);
     }
+
+    /**
+     * @param name,pageable of ticket
+     * @return Page<Ticket>
+     * @content list ticket
+     * @author DuyetPT
+     */
     @Override
     public Page<Ticket> searchTicket(String name, Pageable pageable) {
         return ticketRepository.searchTicket(name,pageable);
     }
 
 
-
+    /**
+     * @param id of ticket
+     * @return true
+     * @content find Ticket by Id
+     * @author DuyetPT
+     */
     public Optional<Ticket> detail(String id) {
         return ticketRepository.findById(id);
     }
 
+    /**
+     * @param id of ticket
+     * @return true
+     * @content update Ticket by Id
+     * @author DuyetPT
+     */
     @Override
     public Boolean bookingConfirmation(String id) {
         try {
@@ -81,17 +99,27 @@ public class TicketService  implements ITicketService {
             return false;
         }
     }
-
+    /**
+     * @param id of ticket
+     * @return true
+     * @content delete ticket by ID
+     * @author DuyetPT
+     */
     @Override
     public Boolean deleteTicket(String id) {
         try {
-            ticketRepository.bookingConfirmation(id);
+            ticketRepository.deleteTicket(id);
             return true;
         }catch (Exception e){
             e.getMessage();
             return false;
         }
 
+    }
+
+    @Override
+    public Ticket findTicketByIdAndStatus(String id, Integer status) {
+        return ticketRepository.findTicketByIdAndStatus(id, status);
     }
 
 }

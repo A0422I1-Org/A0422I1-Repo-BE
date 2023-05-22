@@ -11,7 +11,12 @@ import java.util.Map;
 
 @Repository
 public interface IMovieTypeRepository extends JpaRepository<MovieType, Integer> {
-
+    /**
+     * @param
+     * @return List<Map<String, Object>>
+     * @content statistic movie type
+     * @author NghiaDC
+     */
     @Query(nativeQuery = true, value = "SELECT mt.name AS movieType, COUNT(t.id) AS totalTicketsSold, DATE_FORMAT(t.book_date_time, '%d/%m/%Y') AS soldDate, COUNT(t.id) * price AS totalRevenue " +
             "FROM movie_type mt " +
             "INNER JOIN movie_and_type mat ON mt.id = mat.movie_type_id " +
