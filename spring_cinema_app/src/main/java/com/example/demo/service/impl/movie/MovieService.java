@@ -159,7 +159,7 @@ public class MovieService implements IMovieService {
      * @param pageable
      * @return Page<MovieDTO>
      *
-     * @Author: DuHC
+     * @Author: KhaiN
      */
     @Override
     public Page<MovieDTO> searchStatisticMovieByNameAcs(String nameMovie, Pageable pageable) {
