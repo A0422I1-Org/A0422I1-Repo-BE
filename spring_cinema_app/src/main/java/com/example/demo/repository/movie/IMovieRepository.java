@@ -2,6 +2,7 @@ package com.example.demo.repository.movie;
 
 import com.example.demo.dto.movie.IMovieDetailDTO;
 import com.example.demo.dto.movie.MovieBookingDTO;
+import com.example.demo.dto.movie.MovieListViewDTO;
 import com.example.demo.model.dto.StatisticDTO.MovieDTO;
 import com.example.demo.model.movie.Movie;
 import org.springframework.data.domain.Page;
@@ -46,8 +47,43 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
             "GROUP BY mv.id", nativeQuery = true)
     IMovieDetailDTO getMovieByMovieId(Integer movieId);
 
-    List<Movie> findAllByIsDeleteFalseAndStatusEquals(String status);
+
+  /**
+   * @return List<Movie>
+   * @content find all upcoming movie
+   * @author PhuongLT
+   */
+   @Query(value = "select m.id, m.name, m.image, m.start_day, m.time_amount, m.description, m.language, m.is_delete, m.status, m.trailer," +
+           "GROUP_CONCAT(DISTINCT mtype.name SEPARATOR ', ') as movieType " +
+           "from movie as m " +
+           "LEFT JOIN movie_and_type as matype ON m.id = matype.movie_id " +
+           "LEFT JOIN movie_type as mtype ON matype.movie_type_id = mtype.id " +
+           "WHERE m.is_delete = 0 and m.start_day > CURRENT_DATE group by m.id", nativeQuery = true)
+  List<Movie> getUpComingMovie();
+
+
+  /**
+   * @return List<Movie>
+   * @content find all on showing movie
+   * @author PhuongLT
+   */
+  @Modifying
+  @Query(value =
+          "SELECT m.id, m.description, m.image, m.is_delete  , m.language, m.name, m.start_day , m.status, m.time_amount , m.trailer " +
+                  "FROM Movie as m " +
+                  "JOIN show_time as st ON st.movie_id = m.id " +
+                  "WHERE st.date = CURDATE() " +
+                  "AND (st.date >= CURDATE() OR (st.start_time >= TIME(NOW())))" +
+                  "GROUP BY m.id", nativeQuery = true)
+    List<Movie> getOnShowingMovie();
+
+  /**
+   * @return List<MovieListViewDTO>
+   * @content find all upcoming movie
+   * @author PhuongLT
+   */
     List<Movie> findAllByIsDeleteFalseAndNameContainingIgnoreCase(String name);
+
     /**
      * @return List<MovieBookingDTO>
      * @content find all the movies with showings
@@ -58,7 +94,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
             "SELECT m.id, m.description, m.image, m.is_delete as isDelete , m.language, m.name, m.start_day as startDay, m.status, m.time_amount as timeAmount, m.trailer " +
                     "FROM Movie as m " +
                     "JOIN show_time as st ON st.movie_id = m.id " +
-                    "WHERE st.date BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY) " +
+                    "WHERE st.date BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 3 DAY) " +
                     "AND (st.date > CURDATE() OR (st.start_time > TIME(NOW())))" +
                     "GROUP BY m.id", nativeQuery = true)
     List<MovieBookingDTO> findMoviesByStartDate();

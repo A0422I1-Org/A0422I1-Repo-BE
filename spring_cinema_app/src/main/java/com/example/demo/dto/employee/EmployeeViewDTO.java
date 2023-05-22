@@ -12,10 +12,8 @@ public class EmployeeViewDTO {
 
     private String id;
     private String fullName;
-    private String cardId;
     private String email;
     private String phoneNumber;
-    private String address;
 
     public EmployeeViewDTO() {
     }
@@ -23,10 +21,8 @@ public class EmployeeViewDTO {
     public EmployeeViewDTO(Employee employee) {
         this.id=employee.getId();
         this.fullName=employee.getFullName();
-        this.cardId=employee.getCardId();
         this.email=employee.getEmail();
         this.phoneNumber=employee.getPhoneNumber();
-        this.address=employee.getAddress();
     };
 
 }

@@ -263,9 +263,17 @@ public class CustomerService implements ICustomerService {
      */
     @Override
     public void updateCustomer(Customer customer) {
+        System.out.println(customer.getId()+""+
+                customer.getFullName()+""+
+                customer.getGender()+""+
+                customer.getBirthday()+""+
+                customer.getEmail()+""+
+                customer.getPhoneNumber()+""+
+                customer.getAddress()+""+
+                customer.getCardId());
         customerRepository.updateCustomer(customer.getId(), customer.getFullName(),
                 customer.getBirthday(), customer.getGender(), customer.getCardId(),
-                customer.getEmail(), customer.getAddress(), customer.getPhoneNumber());
+                customer.getEmail(), customer.getPhoneNumber(),customer.getAddress());
     }
 
     /**

@@ -49,4 +49,11 @@ public class ShowTime {
         this.isDelete = isDelete;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 }

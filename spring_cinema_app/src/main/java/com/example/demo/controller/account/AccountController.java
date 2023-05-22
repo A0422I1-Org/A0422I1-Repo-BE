@@ -60,12 +60,13 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/user/do-reset-password")
+    @PutMapping("/user/do-reset-password")
     public ResponseEntity<?> doResetPassword(@RequestBody ResetPassRequest resetPassRequest) {
-        if(accountService.existsByPassword(resetPassRequest.getUsername(), passwordEncoder.encode(resetPassRequest.getOldPassword())) != null){
-            accountService.savePassword(resetPassRequest.getPassword(), resetPassRequest.getUsername());
+        if(accountService.existsByUsername(resetPassRequest.getUsername()) !=null){
+            accountService.savePassword(passwordEncoder.encode(resetPassRequest.getPassword()), resetPassRequest.getUsername());
             return new ResponseEntity<>(HttpStatus.OK);
         }else {
+            System.out.println("mat khau khong dung");
             return ResponseEntity.badRequest().body("Mật khẩu cũ không đúng!");
         }
     }

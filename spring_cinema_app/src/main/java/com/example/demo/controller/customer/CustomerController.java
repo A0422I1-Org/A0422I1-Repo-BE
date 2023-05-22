@@ -44,7 +44,7 @@ public class CustomerController {
     private ITicketService ticketService;
     @Autowired
     private IAccountService accountService;
-//    @Autowired
+    //    @Autowired
 //    JavaMailSender javaMailSender;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -56,6 +56,7 @@ public class CustomerController {
 
     @GetMapping("/user/findByUsername/{username}")
     public ResponseEntity<Customer> findCustomerByUsername(@PathVariable String username) {
+        System.out.println(customerService.findByUsername(username).getEmail());
         return new ResponseEntity<>(customerService.findByUsername(username), HttpStatus.OK);
     }
 
@@ -63,6 +64,7 @@ public class CustomerController {
      * Mô phỏng dữ liệu cứng
      * Lấy ra những vé người dùng đã chọn
      * TanHP
+     *
      * @return List<Ticket>
      */
     @GetMapping("/user/ticket-choosed")
@@ -74,9 +76,8 @@ public class CustomerController {
     }
 
     /**
-     * @param ticket
-     * Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
-     * TanHP
+     * @param ticket Cập nhật thông tin vé khi xác nhận đặt vé. Thay đổi trạng thái vé và thêm customer_id vào vé
+     *               TanHP
      */
     @PostMapping("/user/confirm-booking-ticket")
     public ResponseEntity<Void> confirmBookingTicket(@RequestBody Ticket ticket, Principal principal) {
@@ -94,7 +95,7 @@ public class CustomerController {
             String priceStr = numberFormat.format(ticket.getPrice());
 
             String subject = "A04CINEMA - THÔNG BÁO ĐẶT VÉ THÀNH CÔNG";
-            String message =  "CHÚC MỪNG QUÝ KHÁCH ĐÃ ĐẶT VÉ THÀNH CÔNG !!!" +
+            String message = "CHÚC MỪNG QUÝ KHÁCH ĐÃ ĐẶT VÉ THÀNH CÔNG !!!" +
                     "\n" +
                     "\n" +
                     "<!DOCTYPE html>\n" +
@@ -119,27 +120,28 @@ public class CustomerController {
                     "                <tbody>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Mã vé : </th>\n" +
-                    "                        <td>"+ticket.getId()+"</td>\n" +
+                    "                        <td>" + ticket.getId() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Rạp : </th>\n" +
-                    "                        <td>"+ticket.getChairRoom().getRoom().getName()+"</td>\n" +
+                    "                        <td>" + ticket.getChairRoom().getRoom().getName() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Màn hình : </th>\n" +
-                    "                        <td>"+ticket.getChairRoom().getRoom().getScreen()+"</td>\n" +
+                    "                        <td>" + ticket.getChairRoom().getRoom().getScreen() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Suất chiếu : </th>\n" +
-                    "                        <td>"+ticket.getShowTime().getStartTime()+ " | " +dt.format(ticket.getShowTime().getDate())+"</td>\n" +
+                    "                        <td>" + ticket.getShowTime().getStartTime() + " | " + dt.format(ticket.getShowTime().getDate()) + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Ghế : </th>\n" +
-                    "                        <td>"+ticket.getChairRoom().getChair().getName()+"</td>\n" +
+                    "                        <td>" + ticket.getChairRoom().getChair().getName() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Giá vé : </th>\n" +
                     "                        <td>"+priceStr+"</td>\n" +
+                    "                        <td>" + ticket.getPrice() + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
@@ -149,19 +151,19 @@ public class CustomerController {
                     "                <tbody>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Họ tên : </th>\n" +
-                    "                        <td>"+customer.getFullName()+"</td>\n" +
+                    "                        <td>" + customer.getFullName() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Email : </th>\n" +
-                    "                        <td>"+customer.getEmail()+"</td>\n" +
+                    "                        <td>" + customer.getEmail() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">CMND : </th>\n" +
-                    "                        <td>"+customer.getCardId()+"</td>\n" +
+                    "                        <td>" + customer.getCardId() + "</td>\n" +
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Số điện thoại : </th>\n" +
-                    "                        <td>"+customer.getPhoneNumber()+"</td>\n" +
+                    "                        <td>" + customer.getPhoneNumber() + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
@@ -171,6 +173,7 @@ public class CustomerController {
                     "                    <tr>\n" +
                     "                    <th scope=\"row\">TỔNG TIỀN : </th>\n" +
                     "                    <td>"+priceStr+"</td>\n" +
+                    "                    <td>" + ticket.getPrice() + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
@@ -207,8 +210,7 @@ public class CustomerController {
 //                    "\n    TỔNG TIỀN : " + ticket.getPrice());
 ////
 //            javaMailSender.send(message);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
         return new ResponseEntity<>(HttpStatus.OK);
@@ -280,7 +282,7 @@ public class CustomerController {
             return new ResponseEntity<>("Email đã được sử dụng, vui lòng điền email khác.", HttpStatus.BAD_REQUEST);
         }
         if (customerService.checkDuplicatePhoneNumber(customer.getPhoneNumber()) > 0
-        && !customer.getPhoneNumber().equals(oldCustomer.getPhoneNumber())) {
+                && !customer.getPhoneNumber().equals(oldCustomer.getPhoneNumber())) {
             return new ResponseEntity<>("Số điện thoại đã được sử dụng, vui lòng điền số điện thoại khác.", HttpStatus.BAD_REQUEST);
         }
         customerService.saveCustomer(customer);
@@ -293,28 +295,28 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * Author: NghiaTDD
-     */
-    @PutMapping("/user/edit/{id}")
-    public ResponseEntity<?> updateTaiKhoan(@PathVariable String id, @RequestBody CustomerForUpdateDTO customerForUpdateDTO) {
-        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(id);
-        if (!customerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        Customer customer = new Customer(
-                customerForUpdateDTO.getId(),
-                customerForUpdateDTO.getFullName(),
-                customerForUpdateDTO.getGender(),
-                customerForUpdateDTO.getBirthday(),
-                customerForUpdateDTO.getEmail(),
-                customerForUpdateDTO.getPhoneNumber(),
-                customerForUpdateDTO.getAddress(),
-                customerForUpdateDTO.getCardId()
-        );
-        customerService.updateCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    /**
+//     * Author: NghiaTDD
+//     */
+//    @PutMapping("/user/edit/{id}")
+//    public ResponseEntity<?> updateTaiKhoan(@PathVariable String id, @RequestBody CustomerForUpdateDTO customerForUpdateDTO) {
+//        Optional<Customer> customerOptional = customerService.findByIdForByUpdate(id);
+//        if (!customerOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        Customer customer = new Customer(
+//                customerForUpdateDTO.getId(),
+//                customerForUpdateDTO.getFullName(),
+//                customerForUpdateDTO.getGender(),
+//                customerForUpdateDTO.getBirthday(),
+//                customerForUpdateDTO.getEmail(),
+//                customerForUpdateDTO.getPhoneNumber(),
+//                customerForUpdateDTO.getAddress(),
+//                customerForUpdateDTO.getCardId()
+//        );
+//        customerService.updateCustomer(customer);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     // NghiaTDD
     @PutMapping("/user/edit")
@@ -323,16 +325,15 @@ public class CustomerController {
 //        if (!customerOptional.isPresent()) {
 //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 //        }
-        Customer customer = new Customer(
-                customerUpdateDTO.getId(),
+        Customer customer = new Customer(customerUpdateDTO.getId(),
                 customerUpdateDTO.getFullName(),
                 customerUpdateDTO.getGender(),
                 customerUpdateDTO.getBirthday(),
                 customerUpdateDTO.getEmail(),
                 customerUpdateDTO.getPhoneNumber(),
                 customerUpdateDTO.getAddress(),
-                customerUpdateDTO.getCardId()
-        );
+                customerUpdateDTO.getCardId());
+//
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
