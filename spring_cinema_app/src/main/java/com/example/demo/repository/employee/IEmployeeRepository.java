@@ -1,6 +1,7 @@
 package com.example.demo.repository.employee;
 
 
+import com.example.demo.model.customer.Customer;
 import com.example.demo.model.employee.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,5 +36,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee,String> {
             " FROM Employee e WHERE e.fullName LIKE concat('%',?1,'%') and e.position.id=?2 and e.isDelete=false")
     Page<Employee> findAllByFullNameContainingAndPosition(String name, Integer positionId, Pageable pageable);
 
+    @Query(value = "select * from employee where username = ?", nativeQuery = true)
+    Employee findEmployeeByUsername(String username);
 
 }

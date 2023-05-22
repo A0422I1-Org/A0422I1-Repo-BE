@@ -26,24 +26,17 @@ public class Customer {
     private String id;
     @NotNull
     private String fullName;
-    @NotNull
     private Boolean gender;
     @DateTimeFormat()
-    @NotNull
     private Date birthday;
-    @NotNull
     private String email;
-    @NotNull
     @Column(columnDefinition = ("varchar(15)"))
     private String phoneNumber;
-    @NotNull
     private String address;
-    @NotNull
     private String cardId;
 
     @OneToOne
     @JoinColumn(name = "username")
-    @NotNull
     private Account account;
 
     private Boolean isDelete;

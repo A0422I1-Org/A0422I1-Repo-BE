@@ -26,13 +26,18 @@ public class CustomerService implements ICustomerService {
 //    }
 
     /**
-     * Find a rank of customer
-     *
-     * @param id id of customer wanna get rank
-     * @return ranking of customer
-     *
-     * @Author: DuHC
+<<<<<<< HEAD
+     * Pham Trung Hieu
+     * @param id
+     * @param fullName
+     * @param email
+     * @param username
      */
+    @Override
+    public void saveCustomerLoginWithGoogle(String id, String fullName, String email, String username) {
+        customerRepository.saveCustomerLoginWithGoogle(id, fullName, email, username);
+    }
+
     @Override
     public int getRankCustomer(String id) {
         List<Customer> customerList = customerRepository.findAll();
@@ -233,9 +238,24 @@ public class CustomerService implements ICustomerService {
         customerRepository.save(customer);
     }
 
+    /**
+     * Pham Trung Hieu
+     * @param email
+     * @return exist by email
+     */
     @Override
     public String existsByEmail(String email) {
         return customerRepository.existsByEmail(email);
+    }
+
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return Customer by username
+     */
+    @Override
+    public Customer getCustomerByAccount(String username) {
+        return customerRepository.getCustomerByAccount(username);
     }
 
     @Override
@@ -246,11 +266,6 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer findByUsername(String username) {
         return customerRepository.findCustomerByUsername(username);
-    }
-
-    @Override
-    public Customer getCustomerByAccount(String username) {
-        return customerRepository.getCustomerByAccount(username);
     }
 
     @Override

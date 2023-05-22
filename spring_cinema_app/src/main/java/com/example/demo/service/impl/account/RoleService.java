@@ -14,8 +14,13 @@ public class RoleService implements IRoleService {
     private IRoleRepository roleRepository;
 
     @Override
-    public void setDefaultRole(String username, int roleId) {
-        roleRepository.setDefaultRole(username, roleId);
+    public void setDefaultRole(String username, boolean isDelete, int roleId) {
+        roleRepository.setDefaultRole(username, isDelete, roleId);
+    }
+
+    @Override
+    public String getRole(int roleId) {
+        return roleRepository.getRole(roleId);
     }
 
 }

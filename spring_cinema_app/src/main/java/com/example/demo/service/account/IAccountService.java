@@ -60,9 +60,18 @@ public interface IAccountService {
      * @param code
      */
     void saveNewPassword(String password, String code);
-
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return Optional the Account by username
+     */
     Optional<Account> findByUsername(String username);
 
+    /**
+     * Pham Trung Hieu
+     * @param username
+     * @return status account by username for Optional Account
+     */
     Boolean existsByUsername(String username);
 
     Account save(Account account);
