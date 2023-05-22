@@ -140,7 +140,6 @@ public class CustomerController {
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Giá vé : </th>\n" +
                     "                        <td>"+priceStr+"</td>\n" +
-                    "                        <td>" + ticket.getPrice() + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
@@ -172,7 +171,6 @@ public class CustomerController {
                     "                    <tr>\n" +
                     "                    <th scope=\"row\">TỔNG TIỀN : </th>\n" +
                     "                    <td>"+priceStr+"</td>\n" +
-                    "                    <td>" + ticket.getPrice() + "</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
