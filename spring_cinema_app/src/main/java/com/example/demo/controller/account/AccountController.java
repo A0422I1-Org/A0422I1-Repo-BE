@@ -37,7 +37,7 @@ public class AccountController {
         account.setUsername(signupRequest.getUsername());
         account.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         account.setIsDelete(false);
-        account.setIsEnable(false);
+        account.setIsEnable(true);
         accountService.save(account);
 
         Customer customer = new Customer(
