@@ -71,8 +71,19 @@ public interface IAccountRepository extends JpaRepository<Account,String> {
     Optional<Account> findByUsername(String username);
     boolean existsByUsername(String username);
 
+    /**
+     *Phan Si Tay
+     * @param username
+     * @return
+     */
     @Query(value = "select username from account where username = ?1", nativeQuery = true)
     String existsByEmployeeName(String username);
+
+    /**
+     * Phan Si Tay
+     * @param userName
+     * @return
+     */
     @Query(value = "select a from Account as a where a.username like %:userName%",nativeQuery = false)
     Account findByUsernameAccount(@Param("userName") String userName);
 

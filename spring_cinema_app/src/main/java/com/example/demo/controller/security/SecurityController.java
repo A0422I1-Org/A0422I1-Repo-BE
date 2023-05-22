@@ -40,8 +40,8 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SecurityController {
 
-    @Value("${google.clientId}")
-    String googleCilentId;
+//    @Value("${google.clientId}")
+//    String googleCilentId;
 
     @Autowired
     private RoleService roleService;
@@ -70,34 +70,34 @@ public class SecurityController {
     }
 
 
-    @PostMapping("/login-social")
-    public ResponseEntity<JwtReponse> socialLogin(@RequestBody TokenDto jwtSocial) throws IOException {
-        final NetHttpTransport netHttpTransport = new NetHttpTransport();
-        final JacksonFactory jacksonFactory = JacksonFactory.getDefaultInstance();
-        GoogleIdTokenVerifier.Builder builder =
-                new GoogleIdTokenVerifier.Builder(netHttpTransport, jacksonFactory)
-                        .setAudience(Collections.singletonList(googleCilentId));
-        try {
-            final GoogleIdToken googleIdToken = GoogleIdToken.parse(builder.getJsonFactory(), jwtSocial.getValue());
-            final GoogleIdToken.Payload payload = googleIdToken.getPayload();
-            Optional<Account> accountOptional = accountService.findByUsername(payload.getEmail());
-
-            if (!accountOptional.isPresent()) {
-                Account account = new Account();
-                account.setUsername(payload.getEmail());
-                accountService.save(account);
-                roleService.setDefaultRole(payload.getEmail(), 3);
-            }
-
-            String jwt = jwtTokenProvider.generateToken(payload.getEmail());
-
-            return ResponseEntity.ok(new JwtReponse(jwt));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.badRequest().build();
-    }
+//    @PostMapping("/login-social")
+//    public ResponseEntity<JwtReponse> socialLogin(@RequestBody TokenDto jwtSocial) throws IOException {
+//        final NetHttpTransport netHttpTransport = new NetHttpTransport();
+//        final JacksonFactory jacksonFactory = JacksonFactory.getDefaultInstance();
+//        GoogleIdTokenVerifier.Builder builder =
+//                new GoogleIdTokenVerifier.Builder(netHttpTransport, jacksonFactory)
+//                        .setAudience(Collections.singletonList(googleCilentId));
+//        try {
+//            final GoogleIdToken googleIdToken = GoogleIdToken.parse(builder.getJsonFactory(), jwtSocial.getValue());
+//            final GoogleIdToken.Payload payload = googleIdToken.getPayload();
+//            Optional<Account> accountOptional = accountService.findByUsername(payload.getEmail());
+//
+//            if (!accountOptional.isPresent()) {
+//                Account account = new Account();
+//                account.setUsername(payload.getEmail());
+//                accountService.save(account);
+//                roleService.setDefaultRole(payload.getEmail(), 3);
+//            }
+//
+//            String jwt = jwtTokenProvider.generateToken(payload.getEmail());
+//
+//            return ResponseEntity.ok(new JwtReponse(jwt));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return ResponseEntity.badRequest().build();
+//    }
 
     @PostMapping("/verify")
     public ResponseEntity<MessageReponse> VerifyEmail(@RequestBody VerifyRequest code) {

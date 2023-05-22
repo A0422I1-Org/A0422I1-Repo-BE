@@ -31,6 +31,26 @@ public class EmployeeService implements IEmployeeService {
        throw new NotFoundById("khong tim thay"+ id);
     }
 
+    /**
+     * Tay
+     */
+    @Override
+    public String existsByEmployeeEmail(String email) {
+        return employeeRepository.existsByEmployeeEmail(email);
+    }
+    /**
+     * Tay
+     */
+    @Override
+    public String existsByEmployeePhoneNumber(String phoneNumber) {
+        return employeeRepository.existsByEmployeePhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public String existsByEmployeeCardId(String cardId) {
+        return employeeRepository.existsByEmployeeCardId(cardId);
+    }
+
 
     @Override
     public Integer updateIsDeleteById(String id) {

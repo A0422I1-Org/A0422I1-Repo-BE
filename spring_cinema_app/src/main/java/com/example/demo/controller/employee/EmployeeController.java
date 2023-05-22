@@ -28,13 +28,13 @@ import java.util.Date;
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class EmployeeController {
     private static int counter = 1;
-    private static final String PATTERN = "Employee-%04d";
+    private static final String PATTERN = "NV";
     private static final int MAXDISPLAY = 5;
 
     public static String generate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ssSSS");
         String dateString = dateFormat.format(new Date());
-        String id = String.format(PATTERN, counter++);
+        String id = String.format(PATTERN);
         return id + "-" + dateString;
     }
     @Autowired
@@ -67,7 +67,16 @@ public class EmployeeController {
     @PostMapping("/employee/add")
     public ResponseEntity<?> saveEmployee(@RequestBody EmployeeCreateDTO employee) {
         if(accountService.existsByEmployeeName(employee.getUsername()) != null){
-            return ResponseEntity.badRequest().body("Account đã tồn tại!");
+            return ResponseEntity.badRequest().body("Tên tài khoản đã được sử dụng!");
+        }
+        if(employeeService.existsByEmployeeEmail(employee.getEmail()) != null){
+            return ResponseEntity.badRequest().body("Email đã được sử dụng!");
+        }
+        if(employeeService.existsByEmployeeCardId(employee.getCardId()) != null){
+            return ResponseEntity.badRequest().body("Chứng minh nhân dân đã được sử dụng!");
+        }
+        if(employeeService.existsByEmployeePhoneNumber(employee.getPhoneNumber()) != null){
+            return ResponseEntity.badRequest().body("Số điện thoại đã được sử dụng!");
         }
 //        String id = UUID.randomUUID().toString();
         String id = generate();
@@ -107,7 +116,14 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
     }
     @PutMapping("/employee/update")
-    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeCreateDTO employee) {
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeCreateDTO employee) throws NotFoundById {
+        Employee employeePresent = employeeService.findById(employee.getId());
+        if(employeeService.existsByEmployeeEmail(employee.getEmail()) != null && !employee.getEmail().equals(employeePresent.getEmail()) ){
+            return ResponseEntity.badRequest().body("Email đã được sử dụng!");
+        }
+        if(employeeService.existsByEmployeePhoneNumber(employee.getPhoneNumber()) != null && !employee.getPhoneNumber().equals(employeePresent.getPhoneNumber())){
+            return ResponseEntity.badRequest().body("Số điện thoại đã được sử dụng!");
+        }
         Account account = new Account();
         account.setUsername(employee.getUsername());
         account.setPassword(employee.getPassword());
