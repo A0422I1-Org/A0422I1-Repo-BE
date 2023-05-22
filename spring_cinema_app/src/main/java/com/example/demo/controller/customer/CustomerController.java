@@ -27,6 +27,7 @@ import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.security.Principal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,6 +90,8 @@ public class CustomerController {
         if (ticketCheckDB == null) {
             ticketService.createOrUpdate(ticket);
             SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+            NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+            String priceStr = numberFormat.format(ticket.getPrice());
 
             String subject = "A04CINEMA - THÔNG BÁO ĐẶT VÉ THÀNH CÔNG";
             String message =  "CHÚC MỪNG QUÝ KHÁCH ĐÃ ĐẶT VÉ THÀNH CÔNG !!!" +
@@ -136,7 +139,7 @@ public class CustomerController {
                     "                    </tr>\n" +
                     "                    <tr>\n" +
                     "                        <th scope=\"row\">Giá vé : </th>\n" +
-                    "                        <td>"+ticket.getPrice()+"</td>\n" +
+                    "                        <td>"+priceStr+"</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
@@ -167,7 +170,7 @@ public class CustomerController {
                     "                <tbody>\n" +
                     "                    <tr>\n" +
                     "                    <th scope=\"row\">TỔNG TIỀN : </th>\n" +
-                    "                    <td>"+ticket.getPrice()+"</td>\n" +
+                    "                    <td>"+priceStr+"</td>\n" +
                     "                    </tr>\n" +
                     "                </tbody>\n" +
                     "            </table>\n" +
