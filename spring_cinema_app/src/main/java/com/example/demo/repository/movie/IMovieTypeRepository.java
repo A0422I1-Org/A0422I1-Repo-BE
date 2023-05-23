@@ -23,8 +23,9 @@ public interface IMovieTypeRepository extends JpaRepository<MovieType, Integer> 
             "INNER JOIN movie m ON mat.movie_id = m.id " +
             "INNER JOIN show_time st ON m.id = st.movie_id " +
             "INNER JOIN ticket t ON st.id = t.showtime_id " +
+
             "WHERE (t.status = 1 OR t.status =2) AND t.is_delete = 0 AND m.is_delete = 0 AND st.is_delete = 0 " +
-            "GROUP BY mt.name, DATE_FORMAT(t.book_date_time, '%d/%m/%Y') " +
+            "GROUP BY mt.name, DATE_FORMAT(t.book_date_time, '%d/%m/%Y') ,price " +
             "ORDER BY totalRevenue DESC;")
     List<Map<String, Object>> statisticCategoryMovie();
 }

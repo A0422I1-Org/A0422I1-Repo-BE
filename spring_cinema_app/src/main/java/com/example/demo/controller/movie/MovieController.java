@@ -93,7 +93,6 @@ public class MovieController {
         return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
 
-
     /**
      * @content Get all the movies in admin page
      * @author KhaiN
@@ -103,7 +102,7 @@ public class MovieController {
                                                       @RequestParam(name = "startDay", defaultValue = "") String startDay,
                                                       @RequestParam(name = "timeAmount", defaultValue = "") String timeAmount,
                                                       @RequestParam(name = "studios", defaultValue = "") String studios,
-                                                      @PageableDefault(size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable
+                                                      @PageableDefault(size = 5  ) Pageable pageable
     ) {
         return ResponseEntity.ok().body(movieService.findAllByNameAndByStartDayAndByTimeAmount(name,startDay,timeAmount,studios,pageable));
     }

@@ -58,7 +58,10 @@ Page<Movie> findAll(Pageable pageable);
 
     /**
      * @author KhaiN
-     */
+     * @return List<findAllByNameAndByStartDayAndByTimeAmount>
+     * @content admin-list-delete
+     * @author KhaiN
+     **/
 
     Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, String studios, Pageable pageable);
 

@@ -58,7 +58,7 @@ public interface IShowTimeRepository extends JpaRepository<ShowTime, Integer> {
             "FROM ticket " +
             "INNER JOIN show_time ON ticket.showtime_id = show_time.id " +
             "WHERE ticket.status = 1 OR ticket.status = 2 " +
-            "GROUP BY show_time.start_time, saleDate " +
+            "GROUP BY show_time.start_time, saleDate , price " +
             "ORDER BY totalRevenue DESC;")
     List<Map<String, Object>> statisticShowtime();
 }

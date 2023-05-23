@@ -162,16 +162,21 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
                     "order by count(movie.id) " +
                     "asc ")
     Page<MovieDTO> searchStatisticMovieByNameAsc(String nameMovie, Pageable pageable);
+  /**
+   * @return List<MovieViewDTO>
+   * @content find all the movies admin
+   * @author KhaiN
+   */
+  @Query(value = "select * from Movie where " +
+          "name like concat('%',:name,'%') " +
+          "and start_day like concat('%',:startDay,'%') " +
+          "and time_amount like concat('%',:timeAmount,'%') and is_delete = 0",
+          nativeQuery = true)
+  Page<Movie> findAllByNameAndByStartDayAndByTimeAmount(@Param("name") String name,
+                                                        @Param("startDay") String startDay,
+                                                        @Param("timeAmount") String timeAmount,
+                                                        Pageable page);
 
-    @Query(value = "select * from Movie where " +
-            "name like concat('%',:name,'%') " +
-            "and start_day like concat('%',:startDay,'%') " +
-            "and time_amount like concat('%',:timeAmount,'%') and is_delete = 0",
-            nativeQuery = true)
-    Page<Movie> findAllByNameAndByStartDayAndByTimeAmount(@Param("name") String name,
-                                                          @Param("startDay") String startDay,
-                                                          @Param("timeAmount") String timeAmount,
-                                                          Pageable page);
   /**
    * @return List<Movie>
    * @content find all the movies with showings
@@ -186,6 +191,15 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
                                         @Param("startDay") String startDay,
                                         @Param("timeAmount") String timeAmount);
 
+
+  @Query(value = "select * from movie where name like concat ('%',:name,'%') and start_day between :dateBegin and :dateEnd " +
+          "and time_amount between :timeBegin and :timeEnd ", nativeQuery = true)
+  List<Movie> findAllByNameContainingAndAndStartDayBetweenAndTimeAmountBetween(
+          @Param("name")  String name,
+          @Param("dateBegin") String dateBegin,
+          @Param("dateEnd") String dateEnd,
+          @Param("timeBegin")String timeBegin,
+          @Param("timeEnd") String timeEnd);
     @Modifying
     @Query("update Movie  m set m.isDelete = true where m.id = :id")
     Integer updateIsDeleteById(@Param("id") Integer id);

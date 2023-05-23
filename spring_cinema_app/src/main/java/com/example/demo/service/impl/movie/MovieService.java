@@ -9,6 +9,7 @@ import com.example.demo.service.movie.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,7 +160,6 @@ public class MovieService implements IMovieService {
      * @param pageable
      * @return Page<MovieDTO>
      *
-     * @Author: KhaiN
      */
     @Override
     public Page<MovieDTO> searchStatisticMovieByNameAcs(String nameMovie, Pageable pageable) {
@@ -167,18 +167,36 @@ public class MovieService implements IMovieService {
     }
 
 
+    /**
+     *
+     * KhaiN
+     */
     @Override
     public Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, String studios, Pageable pageable) {
-        if ("".equalsIgnoreCase(studios)) {
-            return movieRepository.findAllByNameAndByStartDayAndByTimeAmount(name, startDay, timeAmount, pageable).map(MovieViewDTO::new);
-        }
-        return new PageImpl<>(movieRepository
-                .findAllByThreeCondition(name, startDay, timeAmount)
+        String beginDateValue = startDay.equals("") ?  "1000-10-10 00:00:00": LocalDate.now().toString().concat(" 00:00:00");
+        String endDayValue = startDay.equals("") ? "3000-10-10 00:00:00" : LocalDate.now().plusDays(Integer.parseInt(startDay)).toString().concat(" 00:00:00");
+        String timeBegin = (timeAmount.equals("") || timeAmount.equals("60")) ? "0" : timeAmount.equals("90") ? "60" : "120";
+        String timeEnd = timeAmount.equals("") ? "999999" : timeAmount.equals("60") ? "60" : timeAmount.equals("90") ? "120" : "999999";
+        List<MovieViewDTO> movieViewDTOS = movieRepository
+                .findAllByNameContainingAndAndStartDayBetweenAndTimeAmountBetween(name,beginDateValue , endDayValue, timeBegin, timeEnd)
                 .stream()
                 .map(MovieViewDTO::new)
+                .collect(Collectors.toList());
+        int toIndex = Math.min((pageable.getPageNumber() + 1) * pageable.getPageSize(),
+                movieViewDTOS.size());
+        int fromIndex = Math.max(toIndex - pageable.getPageSize(), 0);
+        if ("".equalsIgnoreCase(studios)) {
+            return new PageImpl<>(movieViewDTOS.subList(fromIndex,toIndex), pageable, movieViewDTOS.size());
+        }
+        List<MovieViewDTO> viewDTOS = movieViewDTOS
+                .stream()
                 .filter(x -> x.getMovieStudio().toLowerCase().contains(studios.toLowerCase()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        toIndex = Math.min((pageable.getPageNumber() + 1) * pageable.getPageSize(),
+                viewDTOS.size());
+        return new PageImpl<>(viewDTOS.subList(fromIndex,toIndex), pageable, viewDTOS.size());
     }
+
 
     @Override
     @SneakyThrows
