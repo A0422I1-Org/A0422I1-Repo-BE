@@ -172,7 +172,11 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
                                                           @Param("startDay") String startDay,
                                                           @Param("timeAmount") String timeAmount,
                                                           Pageable page);
-
+  /**
+   * @return List<Movie>
+   * @content find all the movies with showings
+   * @author KhaiN
+   */
     @Query(value = "select * from Movie where " +
             "name like concat('%',:name,'%') " +
             "and start_day like concat('%',:startDay,'%') " +

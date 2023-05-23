@@ -56,6 +56,10 @@ Page<Movie> findAll(Pageable pageable);
     Page<MovieDTO> searchStatisticMovieByNameAcs(String nameMovie, Pageable pageable);
 
 
+    /**
+     * @author KhaiN
+     */
+
     Page<MovieViewDTO> findAllByNameAndByStartDayAndByTimeAmount(String name, String startDay, String timeAmount, String studios, Pageable pageable);
 
     Movie findById(Integer id) throws NotFoundById;
