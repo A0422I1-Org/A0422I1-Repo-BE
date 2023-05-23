@@ -90,139 +90,114 @@ public class CustomerController {
         Date date = new Date();
         ticket.setBookDateTime(date);
 
-        Ticket ticketCheckDB = ticketService.findTicketByIdAndStatus(ticket.getId(), 1);
-        if (ticketCheckDB == null) {
-            ticketService.createOrUpdate(ticket);
-            SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
-            NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vn"));
+        ticketService.createOrUpdate(ticket);
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+        NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vn"));
 
-            String pattern = "dd-MM-yyyy hh:mm:ss";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            String bookDateTimeStr = simpleDateFormat.format(ticket.getBookDateTime());
+        String pattern = "dd-MM-yyyy hh:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String bookDateTimeStr = simpleDateFormat.format(ticket.getBookDateTime());
 
-            String priceStr = numberFormat.format(ticket.getPrice());
+        String priceStr = numberFormat.format(ticket.getPrice());
 
-            String subject = "A04CINEMA - THÔNG BÁO ĐẶT VÉ THÀNH CÔNG";
-            String message = "CHÚC MỪNG QUÝ KHÁCH ĐÃ ĐẶT VÉ THÀNH CÔNG !!!" +
-                    "\n" +
-                    "\n" +
-                    "<!DOCTYPE html>\n" +
-                    "<html lang=\"en\">\n" +
-                    "\n" +
-                    "<head>\n" +
-                    "    <meta charset=\"UTF-8\">\n" +
-                    "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-                    "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                    "</head>\n" +
-                    "<body>\n" +
-                    "    <div style=\"width: 60%; margin: auto; margin-top: 20px; border: 1px solid #333;\">\n" +
-                    "        <div style=\"width: 30%;margin:auto\">\n" +
-                    "            <div style=\"text-align: center;\">\n" +
-                    "                <h1 style=\"color: #dd3f05!important; font-weight: bold; margin: 15px 0;\">A04CINEMA</h1>\n" +
-                    "                <span style=\"color: #F26B38; font-weight: 800;\">ENJOY THE SHOW</span>\n" +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "        <div style=\"width: 70%; text-align: center;margin:auto\">\n" +
-                    "            <h3>THÔNG TIN VÉ</h3>\n" +
-                    "            <table style=\"text-align: left; margin: auto;\">\n" +
-                    "                <tbody>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Mã vé : </th>\n" +
-                    "                        <td>" + ticket.getId() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Rạp : </th>\n" +
-                    "                        <td>" + ticket.getChairRoom().getRoom().getName() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Màn hình : </th>\n" +
-                    "                        <td>" + ticket.getChairRoom().getRoom().getScreen() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Suất chiếu : </th>\n" +
-                    "                        <td>" + ticket.getShowTime().getStartTime() + " | " + dt.format(ticket.getShowTime().getDate()) + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Ghế : </th>\n" +
-                    "                        <td>" + ticket.getChairRoom().getChair().getName() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Giá vé : </th>\n" +
-                    "                        <td>"+priceStr+ " VND" + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Ngày giờ đặt vé : </th>\n" +
-                    "                        <td>"+ bookDateTimeStr + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                </tbody>\n" +
-                    "            </table>\n" +
-                    "            <span>===============================</span>\n" +
-                    "            <h3>THÔNG TIN KHÁCH HÀNG</h3>\n" +
-                    "            <table style=\"text-align: left; margin: auto;\">\n" +
-                    "                <tbody>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Họ tên : </th>\n" +
-                    "                        <td>" + customer.getFullName() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Email : </th>\n" +
-                    "                        <td>" + customer.getEmail() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">CMND : </th>\n" +
-                    "                        <td>" + customer.getCardId() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th scope=\"row\">Số điện thoại : </th>\n" +
-                    "                        <td>" + customer.getPhoneNumber() + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                </tbody>\n" +
-                    "            </table>\n" +
-                    "            <span>===============================</span>\n" +
-                    "            <table style=\"text-align: left; margin: auto;\">\n" +
-                    "                <tbody>\n" +
-                    "                    <tr>\n" +
-                    "                    <th scope=\"row\">TỔNG TIỀN : </th>\n" +
-                    "                    <td>"+priceStr+ " VND" + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                </tbody>\n" +
-                    "            </table>\n" +
-                    "            <span>===============================</span>\n" +
-                    "            <div style=\"padding: 15px 0; color: #333; text-align: center;\">\n" +
-                    "                <span>CẢM ƠN QUÝ KHÁCH VÀ HẸN GẶP LẠI</span><br>\n" +
-                    "                <span>Website: http://localhost:4200/</span>\n" +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "    </div>\n" +
-                    "</body>\n" +
-                    "\n" +
-                    "</html>";
+        String subject = "A04CINEMA - THÔNG BÁO ĐẶT VÉ THÀNH CÔNG";
+        String message = "CHÚC MỪNG QUÝ KHÁCH ĐÃ ĐẶT VÉ THÀNH CÔNG !!!" +
+                "\n" +
+                "\n" +
+                "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <div style=\"width: 60%; margin: auto; margin-top: 20px; border: 1px solid #333;\">\n" +
+                "        <div style=\"width: 30%;margin:auto\">\n" +
+                "            <div style=\"text-align: center;\">\n" +
+                "                <h1 style=\"color: #dd3f05!important; font-weight: bold; margin: 15px 0;\">A04CINEMA</h1>\n" +
+                "                <span style=\"color: #F26B38; font-weight: 800;\">ENJOY THE SHOW</span>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div style=\"width: 70%; text-align: center;margin:auto\">\n" +
+                "            <h3>THÔNG TIN VÉ</h3>\n" +
+                "            <table style=\"text-align: left; margin: auto;\">\n" +
+                "                <tbody>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Mã vé : </th>\n" +
+                "                        <td>" + ticket.getId() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Rạp : </th>\n" +
+                "                        <td>" + ticket.getChairRoom().getRoom().getName() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Màn hình : </th>\n" +
+                "                        <td>" + ticket.getChairRoom().getRoom().getScreen() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Suất chiếu : </th>\n" +
+                "                        <td>" + ticket.getShowTime().getStartTime() + " | " + dt.format(ticket.getShowTime().getDate()) + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Ghế : </th>\n" +
+                "                        <td>" + ticket.getChairRoom().getChair().getName() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Giá vé : </th>\n" +
+                "                        <td>" + priceStr + " VND" + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Ngày giờ đặt vé : </th>\n" +
+                "                        <td>" + bookDateTimeStr + "</td>\n" +
+                "                    </tr>\n" +
+                "                </tbody>\n" +
+                "            </table>\n" +
+                "            <span>===============================</span>\n" +
+                "            <h3>THÔNG TIN KHÁCH HÀNG</h3>\n" +
+                "            <table style=\"text-align: left; margin: auto;\">\n" +
+                "                <tbody>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Họ tên : </th>\n" +
+                "                        <td>" + customer.getFullName() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Email : </th>\n" +
+                "                        <td>" + customer.getEmail() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">CMND : </th>\n" +
+                "                        <td>" + customer.getCardId() + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th scope=\"row\">Số điện thoại : </th>\n" +
+                "                        <td>" + customer.getPhoneNumber() + "</td>\n" +
+                "                    </tr>\n" +
+                "                </tbody>\n" +
+                "            </table>\n" +
+                "            <span>===============================</span>\n" +
+                "            <table style=\"text-align: left; margin: auto;\">\n" +
+                "                <tbody>\n" +
+                "                    <tr>\n" +
+                "                    <th scope=\"row\">TỔNG TIỀN : </th>\n" +
+                "                    <td>" + priceStr + " VND" + "</td>\n" +
+                "                    </tr>\n" +
+                "                </tbody>\n" +
+                "            </table>\n" +
+                "            <span>===============================</span>\n" +
+                "            <div style=\"padding: 15px 0; color: #333; text-align: center;\">\n" +
+                "                <span>CẢM ƠN QUÝ KHÁCH VÀ HẸN GẶP LẠI</span><br>\n" +
+                "                <span>Website: http://localhost:4200/</span>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</body>\n" +
+                "\n" +
+                "</html>";
 
-            SendMail.send(customer.getEmail(), subject, message, MyConstants.MY_EMAIL, MyConstants.MY_PASSWORD);
+        SendMail.send(customer.getEmail(), subject, message, MyConstants.MY_EMAIL, MyConstants.MY_PASSWORD);
 
-//            SimpleMailMessage message = new SimpleMailMessage();
-//            message.setTo(customer.getEmail());
-//            message.setSubject("ĐẶT VÉ THÀNH CÔNG");
-//
-//            message.setText("Xác nhận đặt vé thành công !!!" +
-//                    "\n================= THÔNG TIN ĐẶT VÉ =================" +
-//                    "\n    Mã vé: " + ticket.getId() +
-//                    "\n    Rạp: " + ticket.getChairRoom().getRoom().getName() +
-//                    "\n    Màn hình : " + ticket.getChairRoom().getRoom().getScreen() +
-//                    "\n    Ghế : " + ticket.getChairRoom().getChair().getName() +
-//                    "\n    Giá vé : " + ticket.getPrice() +
-//                    "\n=============== THÔNG TIN KHÁCH HÀNG ===============" +
-//                    "\n    Họ tên : " + customer.getFullName() +
-//                    "\n    Email : " + customer.getEmail() +
-//                    "\n    CMND : " + customer.getCardId() +
-//                    "\n    Số điện thoại : " + customer.getPhoneNumber() +
-//                    "\n====================================================" +
-//                    "\n    TỔNG TIỀN : " + ticket.getPrice());
-////
-//            javaMailSender.send(message);
-        } else {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

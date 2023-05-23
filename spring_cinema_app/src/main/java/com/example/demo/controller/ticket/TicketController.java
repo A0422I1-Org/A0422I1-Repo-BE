@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("api")
@@ -15,6 +17,7 @@ import java.util.List;
 public class TicketController {
     @Autowired
     private ITicketService ticketService;
+    private List<Ticket> ticketCheckList = new ArrayList<>();
 
     /**
      * Lấy ra tất cả ticket trong db...
@@ -45,5 +48,22 @@ public class TicketController {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(ticketList, HttpStatus.OK);
+    }
+
+    @GetMapping("/ticket/addTicketCheckList/{ticketId}")
+    public ResponseEntity<Void> addTicketCheckList(@PathVariable String ticketId) {
+        for (Ticket ticket : ticketCheckList) {
+            if (Objects.equals(ticketId, ticket.getId())) {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+        }
+        Ticket ticket = ticketService.findById(ticketId);
+        ticketCheckList.add(ticket);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/ticket/clearTicketCheckList")
+    public void clearTicketCheckList() {
+        ticketCheckList.clear();
     }
 }
